@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public class Budget {
 
+    private Long id;
+
     private BigDecimal totalValue;
 
     private  BigDecimal totalFunding;

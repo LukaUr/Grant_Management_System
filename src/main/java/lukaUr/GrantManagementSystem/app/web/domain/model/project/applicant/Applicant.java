@@ -5,6 +5,8 @@ import java.util.Set;
 
 public class Applicant {
 
+    private Long id;
+
     private LegalEntity identity;
 
     private Person contactPerson;

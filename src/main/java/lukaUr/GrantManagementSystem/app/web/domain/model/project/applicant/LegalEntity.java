@@ -14,6 +14,18 @@ public class LegalEntity {
 
     private String bankAccountNumber;
 
-    private Contact contact;
+    private String email;
+
+    private String phone;
+
+    private String country;
+
+    private String city;
+
+    private String postCode;
+
+    private String addressLine1;
+
+    private String addressLine2;
 
 }

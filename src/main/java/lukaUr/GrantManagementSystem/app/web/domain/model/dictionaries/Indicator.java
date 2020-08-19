@@ -1,4 +1,6 @@
-package lukaUr.GrantManagementSystem.app.web.domain.model.project.misc;
+package lukaUr.GrantManagementSystem.app.web.domain.model.dictionaries;
+
+import lukaUr.GrantManagementSystem.app.web.domain.model.dictionaries.IndicatorType;
 
 import java.time.Year;
 

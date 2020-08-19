@@ -2,10 +2,9 @@ package lukaUr.GrantManagementSystem.app.web.domain.model.project;
 
 
 import lukaUr.GrantManagementSystem.app.web.domain.model.project.budget.Budget;
-import lukaUr.GrantManagementSystem.app.web.domain.model.project.capacity.OperationalCapacity;
 import lukaUr.GrantManagementSystem.app.web.domain.model.project.applicant.Applicant;
-import lukaUr.GrantManagementSystem.app.web.domain.model.project.misc.CallForPRojects;
-import lukaUr.GrantManagementSystem.app.web.domain.model.project.misc.Consents;
+import lukaUr.GrantManagementSystem.app.web.domain.model.CallForProjects;
+import lukaUr.GrantManagementSystem.app.web.domain.model.project.misc.Consent;
 import lukaUr.GrantManagementSystem.app.web.domain.model.project.misc.ProjectDetails;
 import lukaUr.GrantManagementSystem.app.web.domain.model.project.timetable.Timetable;
 
@@ -13,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Project {
@@ -27,11 +28,9 @@ public class Project {
 
     private String name;
 
-    private CallForPRojects callForPRojects;
+    private CallForProjects callForPRojects;
 
     private Applicant applicant;
-
-    private OperationalCapacity operationalCapacity;
 
     private ProjectDetails projectDetails;
 
@@ -39,7 +38,9 @@ public class Project {
 
     private Budget budget;
 
-    private Consents consents;
+    private Set<Consent> consents = new HashSet<>();
+
+    private String controlSum;
 
 
 
