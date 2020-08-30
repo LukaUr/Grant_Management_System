@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link name="f" rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <title>Edit User</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
+
+<div>
+    <form th:object="${user}" method="post" th:action="@{/user/edit}">
+        <label>
+            <input type="text" th:field="*{id}" hidden>
+        </label>
+        <label>
+            <p>Name: <span class="name" th:text="*{name}"> name </span></p>
+        </label>
+        <label>
+            <p>
+                <input type="checkbox" th:checked="${user.getRoles().contains(role_user)}" name="isUser">
+                Role User
+            </p>
+        </label>
+        <label>
+            <p>
+                <input type="checkbox" th:checked="${user.getRoles().contains(role_admin)}" name="isAdmin">
+                Role Admin
+            </p>
+        </label>
+        <label>
+            <p><input type="submit" th:value="Submit"></p>
+        </label>
+    </form>
+    <a th:href="@{/user/show}"><button>Cancel</button></a>
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>

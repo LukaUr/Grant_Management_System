@@ -1,0 +1,118 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    background-size: cover;
+    background-color: #eeecec;
+}
+
+.loginBox {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate( -50%, -50%);
+    background-color: rgba(0, 0, 0, .8);
+    width: 400px;
+    padding: 40px;
+    box-shadow: 0 10px 20px black;    
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.loginBox h2 {
+    color: white;
+    position: relative;
+    text-align: center;
+    padding: 0;
+    margin: 0 0 30px;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.loginBox .input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: solid grey 1px;
+    background-color: transparent;
+    outline: none;
+    letter-spacing: 2px;
+}
+
+.loginBox .inputbox {
+    position: relative;
+}
+
+.loginBox label {   
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none ;
+    width: 100%;
+    transition: .5s;
+    color: ivory;
+    letter-spacing: 2px;
+}
+
+.loginBox .input:focus ~ label,
+.loginBox .input:valid ~ label{
+    top: -18px;
+    left: 0;
+    font-size: 14px;
+    color: #0099ee;
+    letter-spacing: 2px;
+}
+
+.loginBox .submit{
+    background-color: #0055bb;
+    border: none;
+    border-radius: 5px;
+    padding:  5px 30px;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.loginBox .submit:hover {
+    background-color: #0066cc;
+}
+
+.copyright{
+    padding: 20px;
+    background-color: ivory;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    transform: translate( -50%, -100%);
+}
+
+.alert{
+    color: white;
+    font-weight: bold;
+}
+.pageheader{
+    padding: 20px;
+    background-color: ivory;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.signup {
+    color: azure;
+    text-decoration: none;
+    margin-left: 100px;
+}
+
+.signup:hover{
+    color: #0099ee;
+}

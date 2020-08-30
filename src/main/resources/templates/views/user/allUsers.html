@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link name="f" rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <title>All Users</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>User</th>
+            <th>Admin</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.id}"> Id </span></td>
+            <td><span th:text="${user.name}"> Name </span></td>
+            <td>
+                <label>
+                    <input type="checkbox" disabled th:checked="${user.getRoles().contains(role_user)}"/>
+                </label>
+            </td>
+            <td>
+                <label>
+                    <input type="checkbox" disabled th:checked="${user.getRoles().contains(role_admin)}"/>
+                </label>
+            </td>
+            <td><a th:href="@{/user/delete(id=${user.id})}">Delete</a></td>
+            <td><a th:href="@{/user/edit(id=${user.id})}">Edit</a></td>
+
+        </tr>
+    </table>
+</div>
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>
