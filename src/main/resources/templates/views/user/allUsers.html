@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link name="f" rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
     <title>All Users</title>
 </head>
 <body>
 <div th:include="/fragments/institutional :: header" class="pageheader"/>
-<div>
+<div class="boxDiv">
     <table>
         <tr>
             <th>Id</th>
@@ -16,7 +17,8 @@
             <th>Admin</th>
             <th colspan="2">Actions</th>
         </tr>
-        <tr th:each="user : ${users}">
+        <th:block th:each="user : ${users}">
+            <tr>
             <td><span th:text="${user.id}"> Id </span></td>
             <td><span th:text="${user.name}"> Name </span></td>
             <td>
@@ -31,8 +33,11 @@
             </td>
             <td><a th:href="@{/user/delete(id=${user.id})}">Delete</a></td>
             <td><a th:href="@{/user/edit(id=${user.id})}">Edit</a></td>
-
-        </tr>
+            </tr>
+            <tr>
+                <td colspan="6" class="line"></td>
+            </tr>
+        </th:block>
     </table>
 </div>
 <div th:include="/fragments/institutional :: footer" class="copyright"></div>

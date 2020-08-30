@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link name="f" rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
     <title>Edit User</title>
 </head>
 <body>
 <div th:include="/fragments/institutional :: header" class="pageheader"/>
 
-<div>
+<div class="boxDiv">
     <form th:object="${user}" method="post" th:action="@{/user/edit}">
         <label>
             <input type="text" th:field="*{id}" hidden>
@@ -29,10 +30,11 @@
             </p>
         </label>
         <label>
-            <p><input type="submit" th:value="Submit"></p>
+            <input type="submit" th:value="Submit" class="button">
         </label>
+        <a th:href="@{/user/show}"><button class="button">Cancel</button></a>
     </form>
-    <a th:href="@{/user/show}"><button>Cancel</button></a>
+
 </div>
 
 <div th:include="/fragments/institutional :: footer" class="copyright"></div>

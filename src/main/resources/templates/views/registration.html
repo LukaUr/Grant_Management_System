@@ -1,25 +1,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Registration</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
 </head>
 <body>
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
 
-<form th:action="@{/register}" th:object="${user}" method="post">
-    <div>
-        <label>Nazwa użytkownika
-            <input th:field="*{name}" required="true"/>
-        </label>
-    </div>
-    <div>
-        <label>Hasło:
-            <input type="password" th:field="*{password}" required="true"/>
-        </label>
-    </div>
-    <div>
-        <button type="submit">Zarejestruj</button>
-    </div>
-</form>
-
-
+<div class="boxDiv">
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <div class="inputDiv">
+            <label>User name<br>
+                <input th:field="*{name}" required="true"/>
+            </label>
+        </div>
+        <div class="inputDiv">
+            <label>Password<br>
+                <input type="password" th:field="*{password}" required="true"/>
+            </label>
+        </div>
+        <div class="centringDiv">
+            <button type="submit" class="button">Sign up</button>
+            <a th:href="@{/login}">
+                <button type="button" class="button">Cancel</button>
+            </a>
+        </div>
+    </form>
+</div>
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
 </body>
 </html>

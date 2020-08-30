@@ -1,0 +1,83 @@
+table tr:first-of-type {
+    background-color: lightgray;
+}
+
+table tr td, table tr th {
+    border-left: none;
+    border-right: none;
+    padding: 5px 10px;
+}
+
+table a {
+    text-decoration: none;
+    color: #0055bb;
+}
+
+table a:hover {
+    color: #0099ee;
+}
+
+table td:nth-of-type(3), table td:nth-of-type(4) {
+    text-align: center;
+}
+
+input[type="checkbox"] { /* change "blue" browser chrome to yellow */
+    color: burlywood;
+}
+
+td.line {
+    padding: 0;
+    border-bottom: solid lightgray 1px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.boxDiv {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    border: solid lightgray 1px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fffff8;
+    box-shadow: 0 10px 20px gray;
+}
+
+.button{
+    background-color: #0055bb;
+    border: none;
+    border-radius: 5px;
+    padding:  5px 30px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+.button:hover {
+    background-color: #0066cc;
+}
+.centringDiv {
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.inputDiv{
+    margin: 10px 10px;
+    width: 300px;
+    color: #0055bb;
+}
+
+.inputDiv input {
+    width: 100%;
+    height: 30px;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    background-color: inherit;
+}
