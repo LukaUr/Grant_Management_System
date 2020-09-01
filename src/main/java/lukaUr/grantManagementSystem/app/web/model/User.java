@@ -23,7 +23,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 20)
-    @Length(max = 20)
+    @Length(min = 4, max = 20)
     @NotBlank
     private String name;
 

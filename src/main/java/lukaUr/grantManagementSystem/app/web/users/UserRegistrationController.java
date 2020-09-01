@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lukaUr.grantManagementSystem.app.web.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,7 +24,10 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@Valid User user, Model model) {
+    public String processRegistrationForm(@Valid User user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
         boolean success = userService.registerUser(user);
         if (success){
             return "redirect:/login";

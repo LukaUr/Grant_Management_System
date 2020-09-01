@@ -11,13 +11,14 @@
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div class="inputDiv">
             <label>User name<br>
-                <input th:field="*{name}" th:class="${#fields.hasErrors('name')}? fieldError" required="true"/>
+                <input th:field="*{name}" required="true"/>
+                <p th:each="error : ${#fields.errors('name')}" th:text="${error}" class="error2"></p>
             </label>
         </div>
         <div th:if="${message != null}" th:text="${message}" class="error">Error message</div>
         <div class="inputDiv">
             <label>Password<br>
-                <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')}? fieldError" required="true"/>
+                <input type="password" th:field="*{password}" required="true"/>
             </label>
         </div>
         <div class="centringDiv">

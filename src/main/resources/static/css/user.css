@@ -90,3 +90,8 @@ td.line {
     font-size: 14px;
     margin-left: 10px;
 }
+
+.error2 {
+    color: red;
+    font-size: 14px;
+}
