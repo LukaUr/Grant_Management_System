@@ -23,8 +23,12 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@Valid User user) {
-        userService.registerUser(user);
-        return "redirect:/register";
+    public String processRegistrationForm(@Valid User user, Model model) {
+        boolean success = userService.registerUser(user);
+        if (success){
+            return "redirect:/login";
+        }
+        model.addAttribute("message", "User with this name already exists");
+        return "registration";
     }
 }

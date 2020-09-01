@@ -17,11 +17,16 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    protected void registerUser(User user) {
-        Role role = roleRepository.getOneByName("ROLE_USER");
-        user.getRoles().add(role);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+    protected boolean registerUser(User user) {
+        User testUser = userRepository.getOneByName(user.getName());
+        if (testUser == null) {
+            Role role = roleRepository.getOneByName("ROLE_USER");
+            user.getRoles().add(role);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 
     protected List<User> findAllUsers() {

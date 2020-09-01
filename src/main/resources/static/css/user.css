@@ -8,21 +8,17 @@ table tr td, table tr th {
     padding: 5px 10px;
 }
 
-table a {
+table a, .leftFloat a {
     text-decoration: none;
     color: #0055bb;
 }
 
-table a:hover {
+table a:hover, .leftFloat a:hover {
     color: #0099ee;
 }
 
 table td:nth-of-type(3), table td:nth-of-type(4) {
     text-align: center;
-}
-
-input[type="checkbox"] { /* change "blue" browser chrome to yellow */
-    color: burlywood;
 }
 
 td.line {
@@ -80,4 +76,17 @@ td.line {
     border-left: none;
     border-top: none;
     background-color: inherit;
+    font-size: 16px;
+}
+
+.leftFloat {
+    text-align: left;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
 }
