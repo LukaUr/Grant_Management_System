@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <title>Consent Dictionary</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"></div>
+
+<div>
+    <div th:each="consent, iStat : ${consents}">
+        <p> <span th:text="${iStat.count}"/> <span th:text="${consent.declarationText}"/>declaration</p>
+        <p th:text="${consent.declarationText}">declaration</p>
+    </div>
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>

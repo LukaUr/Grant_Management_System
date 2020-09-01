@@ -6,12 +6,17 @@
     <title>Grant Management System</title>
 </head>
 <body>
-<div th:include="/fragments/institutional :: header"/>
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
 <a th:href="@{/logout}">Logout</a>
 <br>
 <a th:href="@{/register}">Add user</a>
 <br>
 <a th:href="@{/user/show}">Show users</a>
+<br>
+<br>
+<a th:href="@{/dictionaries/consent/show}">Show consent dictionary</a>
+<a th:href="@{/dictionaries/consent/add}">Add element to consent dictionary</a>
+
 <div th:include="/fragments/institutional :: footer"></div>
 </body>
 </html>

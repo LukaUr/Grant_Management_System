@@ -4,11 +4,9 @@ package lukaUr.grantManagementSystem.app.web.model.dictionaries;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -20,5 +18,8 @@ public class ConsentText {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 1000)
+    @Length(min = 10, max = 1000)
     private String declarationText;
+
 }

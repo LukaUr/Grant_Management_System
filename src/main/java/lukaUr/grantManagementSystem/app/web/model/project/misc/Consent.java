@@ -18,7 +18,7 @@ public class Consent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private ConsentText consentText;
 
     private ConsentOption consentOption;
