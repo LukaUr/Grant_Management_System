@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,10 +37,39 @@ public class ConsentTextController {
 
     @PostMapping("/add")
     public String processAddConsentTextForm(@Valid ConsentText consentText, BindingResult result) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "dictionary/addConsent";
         }
         consentTextService.add(consentText);
+        return "redirect:/dictionaries/consent/show";
+    }
+
+    @GetMapping("/delete")
+    public String deleteConsent(@RequestParam Long id, Model model) {
+        ConsentText consentText = consentTextService.find(id);
+        boolean success = consentTextService.delete(consentText);
+        if (!success) {
+            model.addAttribute("message", "This consent can not be deleted. Probably in use.");
+        }
+        return "redirect:/dictionaries/consent/show";
+    }
+
+    @GetMapping("/edit")
+    public String showEditConsentForm(@RequestParam Long id, Model model) {
+        ConsentText consentText = consentTextService.find(id);
+        model.addAttribute("consentText", consentText);
+        return "dictionary/editConsent";
+    }
+
+    @PostMapping("/edit")
+    public String processEditConsentForm(@Valid ConsentText consentText, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "dictionary/editConsent";
+        }
+        boolean success = consentTextService.update(consentText);
+        if (!success) {
+            model.addAttribute("message", "This consent can not be edited.");
+        }
         return "redirect:/dictionaries/consent/show";
     }
 }

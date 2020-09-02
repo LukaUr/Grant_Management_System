@@ -23,15 +23,7 @@ table a:hover, .leftFloat a:hover {
     color: #0099ee;
 }
 
-table td:nth-of-type(3), table td:nth-of-type(4) {
-    text-align: center;
-}
-
-.name {
-    font-weight: bold;
-}
-
-.boxDiv {
+.mainDiv {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -57,28 +49,6 @@ table td:nth-of-type(3), table td:nth-of-type(4) {
 .button:hover {
     background-color: #0066cc;
 }
-.centringDiv {
-    padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    margin: 10px;
-}
-
-.inputDiv{
-    margin: 10px 10px;
-    width: 300px;
-    color: #0055bb;
-}
-
-.inputDiv input {
-    width: 100%;
-    height: 30px;
-    border-right: none;
-    border-left: none;
-    border-top: none;
-    background-color: inherit;
-    font-size: 16px;
-}
 
 .leftFloat {
     text-align: left;
@@ -90,9 +60,4 @@ table td:nth-of-type(3), table td:nth-of-type(4) {
     color: red;
     font-size: 14px;
     margin-left: 10px;
-}
-
-.error2 {
-    color: red;
-    font-size: 14px;
 }

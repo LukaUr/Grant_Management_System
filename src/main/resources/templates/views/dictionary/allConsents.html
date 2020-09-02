@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
     <title>Consent Dictionary</title>
 </head>
 <body>
 <div th:include="/fragments/institutional :: header" class="pageheader"></div>
 
-<div>
-    <div th:each="consent, iStat : ${consents}">
-        <p> <span th:text="${iStat.count}"/> <span th:text="${consent.declarationText}"/>declaration</p>
-        <p th:text="${consent.declarationText}">declaration</p>
+<div class="mainDiv">
+    <h2>Consent dictionary</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Text</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        <tr th:each="consent : ${consents}">
+            <td th:text="${consent.id}"> id</td>
+            <td th:text="${consent.declarationText}"> text</td>
+            <td><a th:href="@{/dictionaries/consent/delete(id=${consent.id})}">Delete</a></td>
+            <td><a th:href="@{/dictionaries/consent/edit(id=${consent.id})}">Edit</a></td>
+        </tr>
+    </table>
+    <div th:if="${message}" th:text="${message}" class="error">
+        message
+    </div>
+    <div class="leftFloat">
+        <p><a th:href="@{/}">Back to main page</a></p>
+        <p><a th:href="@{/dictionaries/consent/add}">Add consent</a></p>
     </div>
 </div>
 
