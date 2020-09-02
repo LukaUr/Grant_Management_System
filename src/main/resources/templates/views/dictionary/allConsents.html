@@ -24,9 +24,6 @@
             <td><a th:href="@{/dictionaries/consent/edit(id=${consent.id})}">Edit</a></td>
         </tr>
     </table>
-    <div th:if="${message}" th:text="${message}" class="error">
-        message
-    </div>
     <div class="leftFloat">
         <p><a th:href="@{/}">Back to main page</a></p>
         <p><a th:href="@{/dictionaries/consent/add}">Add consent</a></p>

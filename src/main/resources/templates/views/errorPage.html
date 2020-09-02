@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
+    <title>Error</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"></div>
+
+<div class="mainDiv">
+    <p th:text="${message} ?: 'Something went wrong!'" class="error"></p>
+    <a th:href="${link} ?: '/'"><button class="button">Back</button></a>
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>

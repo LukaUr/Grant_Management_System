@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
+    <title>Add Element to Indicator Dictionary</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"></div>
+
+<div class="mainDiv">
+    <h2>New indicator</h2>
+    <form th:action="@{/dictionaries/indicators/add}" method="post" th:object="${indicator}">
+        <label>
+            Name<br>
+            <textarea cols="100" rows="3" th:field="*{name}"></textarea>
+        </label><br>
+        <label>
+            Description<br>
+            <textarea cols="100" rows="10" th:field="*{description}"></textarea>
+        </label><br>
+        <label>
+            Indicator type<br>
+            <label th:each="type : ${types}">
+                <input type="radio" th:field="*{indicatorType}" th:value="${type}" th:text="${type}"/><br>
+            </label>
+        </label>
+        <br>
+        <button type="submit" class="button">Add</button>
+        <a th:href="@{/dictionaries/indicators/show}">
+            <button type="button" class="button">Cancel</button>
+        </a>
+    </form>
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>

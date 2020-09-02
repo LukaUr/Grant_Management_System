@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -23,10 +21,15 @@ public class Indicator {
 
     private IndicatorType indicatorType;
 
+    @Size(min = 5, max = 255)
     private String name;
 
+    @Column(length = 1000)
+    @Size(min = 5, max = 1000)
     private String description;
 
+    @Column(length = 20)
+    @Size(max = 20)
     private String value;
 
     private Year plannedchievement;

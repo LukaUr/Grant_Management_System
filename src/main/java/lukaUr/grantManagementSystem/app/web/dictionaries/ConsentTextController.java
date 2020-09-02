@@ -50,6 +50,8 @@ public class ConsentTextController {
         boolean success = consentTextService.delete(consentText);
         if (!success) {
             model.addAttribute("message", "This consent can not be deleted. Probably in use.");
+            model.addAttribute("link", "/dictionaries/consent/show");
+            return "errorPage";
         }
         return "redirect:/dictionaries/consent/show";
     }
@@ -69,6 +71,8 @@ public class ConsentTextController {
         boolean success = consentTextService.update(consentText);
         if (!success) {
             model.addAttribute("message", "This consent can not be edited.");
+            model.addAttribute("link", "/dictionaries/consent/show");
+            return "errorPage";
         }
         return "redirect:/dictionaries/consent/show";
     }
