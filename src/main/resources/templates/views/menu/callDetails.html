@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+    <title>User Menu</title>
+</head>
+<body>
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
+<div class="userInfo">
+    <span>user: </span>
+    <span class="userName" th:text="${userName}"> name </span>
+    <span> </span>
+    <a th:href="@{/logout}">sign out</a>
+</div>
+<div class="mainDiv">
+    <div class="callsDiv">
+        <h2>Calls for Projects Details</h2>
+        <div>
+            <p>
+                <span>call id: </span>
+                <span th:text="${call.id}"> id</span>
+            </p>
+        </div>
+        <div>
+            <p>
+                <span>Name: </span>
+                <span th:text="${call.name}" class="callName"> id</span>
+            </p>
+        </div>
+        <div>
+            <p>
+                <span>Description: </span>
+                <textarea th:text="${call.description}" disabled cols="100" rows="10"> description</textarea>
+            </p>
+        </div>
+        <div>
+            <a th:href="@{/menu/apply(id=${call.id})}">
+                <button class="button">Apply</button>
+            </a>
+        </div>
+
+
+        <div class="leftFloat">
+            <a th:href="@{/menu}">Back</a>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+</body>
+</html>

@@ -12,7 +12,7 @@ public class CallForProjectsService {
 
     private final CallForProjectsRepository callRepository;
 
-    protected List<CallForProjects> findAll() {
+    public List<CallForProjects> findAll() {
         return callRepository.findAll();
     }
 
@@ -20,7 +20,7 @@ public class CallForProjectsService {
         callRepository.save(callForProjects);
     }
 
-    protected CallForProjects find(Long id) {
+    public CallForProjects find(Long id) {
         return callRepository.getOne(id);
     }
 

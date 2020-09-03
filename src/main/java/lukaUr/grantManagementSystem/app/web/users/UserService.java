@@ -38,7 +38,7 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    protected User findById(Long id) {
+    public User findById(Long id) {
         return userRepository.getOne(id);
     }
 
