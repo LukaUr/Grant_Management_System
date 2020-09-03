@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
+    <title>Calls For Projects</title>
+</head>
+<body>
+
+<div th:include="/fragments/institutional :: header" class="pageheader"></div>
+
+<div class="mainDiv">
+    <h2>Calls for Projects</h2>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Funding</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        <tr th:each="call : ${calls}">
+            <td th:text="${call.id}"> id</td>
+            <td th:text="${call.name}"> name</td>
+            <td th:text="${call.description}"> description</td>
+            <td th:text="${call.funding}"> type </td>
+            <td><a th:href="@{/call/delete(id=${call.id})}">Delete</a></td>
+            <td><a th:href="@{/call/edit(id=${call.id})}">Edit</a></td>
+        </tr>
+    </table>
+    <div class="leftFloat">
+        <p><a th:href="@{/}">Back to main page</a></p>
+        <p><a th:href="@{/call/add}">Add Call for Projects</a></p>
+    </div>
+</div>
+
+<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+
+</body>
+</html>

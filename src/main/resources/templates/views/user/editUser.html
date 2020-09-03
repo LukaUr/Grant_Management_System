@@ -13,6 +13,8 @@
     <form th:object="${user}" method="post" th:action="@{/user/edit}">
         <label>
             <input type="text" th:field="*{id}" hidden>
+            <input type="text" th:field="*{name}" hidden>
+            <input type="text" th:field="*{password}" hidden>
         </label>
         <label>
             <p>Name: <span class="name" th:text="*{name}"> name </span></p>

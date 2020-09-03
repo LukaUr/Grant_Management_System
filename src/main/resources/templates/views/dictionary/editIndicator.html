@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
-    <title>Add Element to Indicator Dictionary</title>
+    <title>Edit Element in Indicator Dictionary</title>
 </head>
 <body>
 <div th:include="/fragments/institutional :: header" class="pageheader"></div>
 
 <div class="mainDiv">
-    <h2>New indicator</h2>
-    <form th:action="@{/dictionaries/indicators/add}" method="post" th:object="${indicator}">
+    <h2>Edit indicator</h2>
+    <form th:action="@{/dictionaries/indicators/edit}" method="post" th:object="${indicator}">
         <label>
             Name<br>
             <textarea cols="100" rows="3" th:field="*{name}"></textarea>
@@ -30,7 +30,8 @@
             <p th:if="${#fields.hasErrors('indicatorType')}" th:errors="*{indicatorType}" class="error">No type selected</p>
         </label>
         <br>
-        <button type="submit" class="button">Add</button>
+        <input type="text" th:field="*{id}" hidden>
+        <button type="submit" class="button">Edit</button>
         <a th:href="@{/dictionaries/indicators/show}">
             <button type="button" class="button">Cancel</button>
         </a>

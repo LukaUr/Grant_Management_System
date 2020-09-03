@@ -6,10 +6,7 @@ import lukaUr.grantManagementSystem.app.web.model.dictionaries.IndicatorType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -22,6 +19,12 @@ public class IndicatorController {
 
     private final IndicatorService indicatorService;
 
+    @ModelAttribute("types")
+    private IndicatorType[] types() {
+        return IndicatorType.values();
+    }
+
+
     @GetMapping("/show")
     public String showAllIndicators(Model model) {
         List<Indicator> indicators = indicatorService.findAll();
@@ -33,7 +36,6 @@ public class IndicatorController {
     public String showAddIndicatortForm(Model model) {
         Indicator indicator = new Indicator();
         model.addAttribute("indicator", indicator);
-        model.addAttribute("types", Arrays.asList(IndicatorType.values()));
         return "dictionary/addIndicator";
     }
 

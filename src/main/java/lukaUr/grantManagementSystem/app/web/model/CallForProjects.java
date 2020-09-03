@@ -6,6 +6,9 @@ import lombok.ToString;
 import lukaUr.grantManagementSystem.app.web.model.dictionaries.ConsentText;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +23,17 @@ public class CallForProjects {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 200)
+    @Size(min = 5, max = 200)
     private String name;
 
+    @Column(nullable = false, length = 1000)
+    @Size(min = 5, max = 1000)
     private String description;
 
+    @Column(nullable = false)
+    @DecimalMin("0")
+    @NotNull
     private BigDecimal funding;
 
     @ManyToMany

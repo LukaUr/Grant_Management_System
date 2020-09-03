@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/dictionary.css}" type="text/css">
-    <title>Add Element to Indicator Dictionary</title>
+    <title>Add Call for Projects</title>
 </head>
 <body>
-<div th:include="/fragments/institutional :: header" class="pageheader"></div>
 
-<div class="mainDiv">
-    <h2>New indicator</h2>
-    <form th:action="@{/dictionaries/indicators/add}" method="post" th:object="${indicator}">
+<div th:include="/fragments/institutional :: header" class="pageheader"/>
+<div class="boxDiv">
+
+    <h2>New Call for Projects</h2>
+    <form th:action="@{/call/add}" method="post" th:object="${call}">
         <label>
             Name<br>
             <textarea cols="100" rows="3" th:field="*{name}"></textarea>
@@ -23,20 +24,28 @@
             <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error">Incorrect description</p>
         </label><br>
         <label>
-            Indicator type<br>
-            <label th:each="type : ${types}">
-                <input type="radio" th:field="*{indicatorType}" th:value="${type}" th:text="${type}"/><br>
+            Funding<br>
+            <label>
+                <input type="text" th:field="*{funding}"/><br>
             </label>
-            <p th:if="${#fields.hasErrors('indicatorType')}" th:errors="*{indicatorType}" class="error">No type selected</p>
+            <p th:if="${#fields.hasErrors('funding')}" th:errors="*{funding}" class="error">No funding</p>
+        </label>
+        <label>
+            <label th:each="consent : ${consents}">
+                <input type="checkbox" th:field="*{consentSet}" th:value="${consent.id}" th:text="${consent.declarationText}">
+                <br>
+            </label>
         </label>
         <br>
         <button type="submit" class="button">Add</button>
-        <a th:href="@{/dictionaries/indicators/show}">
+        <a th:href="@{/call/show}">
             <button type="button" class="button">Cancel</button>
         </a>
     </form>
-</div>
 
+
+</div>
 <div th:include="/fragments/institutional :: footer" class="copyright"></div>
+
 </body>
 </html>

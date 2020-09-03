@@ -15,7 +15,7 @@ public class ConsentTextService {
 
     private final ConsentTextRepository consentTextRepository;
 
-    protected List<ConsentText> findAll() {
+    public List<ConsentText> findAll() {
         return consentTextRepository.findAll();
     }
 
