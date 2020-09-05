@@ -1,0 +1,21 @@
+.initialProjectDiv {
+    width: 100%;
+    min-width: 600px;
+    padding: 20px 50px;
+    border: solid lightgray 1px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: inherit;
+}
+
+.mainDiv .header {
+    padding: 0 50px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.initialProjectDiv input {
+    width: 100%;
+}

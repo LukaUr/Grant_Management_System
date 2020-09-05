@@ -42,10 +42,14 @@ public class UserService {
         return userRepository.getOne(id);
     }
 
-    protected void update(User user) {
+    public void update(User user) {
         User updatedUser = userRepository.getOne(user.getId());
         updatedUser.setRoles(user.getRoles());
         userRepository.save(updatedUser);
+    }
+
+    public User findByName(String name) {
+        return userRepository.getOneByName(name);
     }
 
 }

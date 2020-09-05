@@ -31,9 +31,6 @@ public class User {
     @NotBlank
     private String password;
 
-    @OneToMany
-    private Set<Project> projects = new HashSet<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();

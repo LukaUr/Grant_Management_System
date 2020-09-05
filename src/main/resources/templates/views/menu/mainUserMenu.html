@@ -7,39 +7,53 @@
     <title>User Menu</title>
 </head>
 <body>
-<div th:include="/fragments/institutional :: header" class="pageheader"/>
-<div class="userInfo">
-    <span>user: </span>
-    <span class="userName" th:text="${userName}"> name </span>
-    <span> </span>
-    <a th:href="@{/logout}">sign out</a>
-</div>
-<div class="mainDiv">
-<div class="callsDiv">
-    <h2>Available Calls for Projects</h2>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Funding</th>
-            <th colspan="2">Actions</th>
-        </tr>
-        <tr th:each="call : ${calls}">
-            <td th:text="${call.id}"> id</td>
-            <td th:text="${call.name}"> name</td>
-            <td th:text="${call.funding}"> type </td>
-            <td><a th:href="@{/menu/details(id=${call.id})}">Show details</a></td>
-            <td><a th:href="@{/menu/apply(id=${call.id})}"><button class="button">Apply</button></a></td>
-        </tr>
-    </table>
+<div th:include="/fragments/userMenuFragments :: header" class="pageheader"/>
 
+<div class="mainDiv">
+    <div class="callsDiv">
+        <h2>Available Calls for Projects</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Funding</th>
+                <th colspan="2">Actions</th>
+            </tr>
+            <tr th:each="call : ${calls}">
+                <td th:text="${call.id}"> id</td>
+                <td th:text="${call.name}" class="bold"> name</td>
+                <td th:text="${call.funding}"> type</td>
+                <td><a th:href="@{/menu/details(id=${call.id})}">Show details</a></td>
+                <td><a th:href="@{/menu/apply(id=${call.id})}">
+                    <button class="button">Apply</button>
+                </a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="projectsDiv">
+        <h2>Your projects</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Call</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="project : ${projects}">
+                <td th:text="${project.id}"> Id </td>
+                <td th:text="${project.name}" class="bold"> Name </td>
+                <td th:text="${project.callForProjects.name}"> Call </td>
+                <td>
+                    <a th:href="@{/project/project(id=${project.id})}">
+                        <button class="button">Show</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class="leftFloat">
 
     </div>
-
-
-</div>
-
 </div>
 
 <div th:include="/fragments/institutional :: footer" class="copyright"></div>

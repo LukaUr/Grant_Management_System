@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <h2>Grant Management System</h2>
+    <div class="userInfo">
+        <span>user: </span>
+        <span class="userName" th:text="${userName}"> name </span>
+        <span> </span>
+        <a th:href="@{/logout}">sign out</a>
+    </div>
+</div>
+<div th:fragment="footer">
+    <p>Copyright: Łukasz Urbanek</p>
+</div>
+</body>
+</html>

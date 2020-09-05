@@ -1,10 +1,11 @@
 table {
     border-collapse: collapse;
     border-spacing: 0;
+    width: 100%;
 }
 
 table tr:first-of-type {
-    background-color: #584949;
+    background-color: #9c9999;
 }
 
 table tr th {
@@ -35,21 +36,25 @@ table a:hover, .leftFloat a:hover, .userInfo a:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 50px;
+    padding: 30px 50px;
     border: solid lightgray 1px;
     border-radius: 10px;
     box-sizing: border-box;
     background-color: #fffff8;
-    margin: 50px 0;
+    z-index: 100;
 }
 
-.callsDiv {
+.callsDiv, .projectsDiv {
     width: 100%;
-    padding: 0 50px 20px;
+    padding: 20px 50px;
     border: solid lightgray 1px;
     border-radius: 10px;
     box-sizing: border-box;
     background-color: inherit;
+}
+
+.callsDiv {
+    margin-bottom: 20px;
 }
 
 .button {
@@ -80,9 +85,10 @@ table a:hover, .leftFloat a:hover, .userInfo a:hover {
 
 .userInfo {
     float: right;
-    background-color: #493c3c;
+    background-color: #505050;
     color: white;
-    padding: 5px;
+    padding: 5px 20px;
+    border-radius: 5px;
 }
 
 .userInfo span, .userInfo a {
@@ -97,17 +103,22 @@ table a:hover, .leftFloat a:hover, .userInfo a:hover {
 }
 
 h2 {
+    margin-top: 0;
     margin-bottom: 0;
 }
 
 .callsDiv textarea {
     color: black;
     background-color: inherit;
-    border: #db7171;
+    border: lightgray solid 1px;
     font-size: 16px;
     font-family: sans-serif;
 }
 
-.callsDiv .callName {
+.bold {
     font-weight: bold;
+}
+
+td:last-child, th:last-child{
+    text-align: center;
 }
