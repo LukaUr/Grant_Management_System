@@ -19,3 +19,87 @@
 .initialProjectDiv input {
     width: 100%;
 }
+
+.container {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 99%;
+    background-color: lightgray;
+    border: gray solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px 0.5%;
+    min-height: 600px;
+    box-sizing: border-box;
+}
+
+.leftMenu {
+    display: flex;
+    flex-direction: column;
+    order: 1;
+    flex-grow: 1;
+    padding: 10px 0 10px 10px;
+    background-color: ivory;
+    border: gray solid 1px;
+    margin: 0;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+}
+
+.mainView {
+    order: 2;
+    flex-grow: 7;
+    padding: 10px 10px 10px 0;
+    background-color: ivory;
+    border: gray solid 1px;
+    margin: 0;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.mainInside {
+    height: 100%;
+    color: inherit;
+    border: gray solid 1px;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    box-sizing: border-box;
+}
+
+.leftMenuItem {
+    border: gray solid 1px;
+    border-top: none;
+    background-color: lightgray;
+    flex-grow: 1;
+    padding: 30px 10px;
+
+}
+
+.leftMenuItem:first-of-type {
+    border-top: gray solid 1px;
+    border-radius: 5px 0 0 0;
+}
+
+
+.leftMenuItem:hover {
+    background-color: ivory;
+    transition: 0.2s;
+}
+
+.active {
+    border-right: none;
+    background-color: ivory;
+}
+
+.leftMenuItemWithButton {
+    padding: 5px 10px;
+    text-align: center;
+    border: gray solid 1px;
+    border-top: none;
+    background-color: lightgray;
+    flex-grow: 1;
+    border-radius: 0 0 0 5px;
+}
