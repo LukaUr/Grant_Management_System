@@ -1,3 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    background-size: cover;
+    background-color: #eeecec;
+}
+
+.copyright {
+    padding: 20px;
+    background-color: ivory;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.pageheader {
+    padding: 20px;
+    background-color: ivory;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 .initialProjectDiv {
     width: 100%;
     min-width: 600px;
@@ -21,7 +46,6 @@
 }
 
 .container {
-
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -40,7 +64,7 @@
     display: flex;
     flex-direction: column;
     order: 1;
-    flex-grow: 1;
+    width: 300px;
     padding: 10px 0 10px 10px;
     background-color: ivory;
     border: gray solid 1px;
@@ -51,7 +75,7 @@
 
 .mainView {
     order: 2;
-    flex-grow: 7;
+    flex-grow: 1;
     padding: 10px 10px 10px 0;
     background-color: ivory;
     border: gray solid 1px;
@@ -67,13 +91,13 @@
     border-left: none;
     border-radius: 0 5px 5px 0;
     box-sizing: border-box;
+    padding: 20px;
 }
 
 .leftMenuItem {
     border: gray solid 1px;
     border-top: none;
     background-color: lightgray;
-    flex-grow: 1;
     padding: 30px 10px;
 
 }
@@ -102,4 +126,12 @@
     background-color: lightgray;
     flex-grow: 1;
     border-radius: 0 0 0 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.section {
+
 }

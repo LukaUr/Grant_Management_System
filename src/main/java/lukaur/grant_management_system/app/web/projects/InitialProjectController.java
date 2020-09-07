@@ -58,10 +58,9 @@ public class InitialProjectController {
         String userName = principal.getName();
         User user = userService.findByName(userName);
         project.setUser(user);
-        boolean success = projectsService.create(project);
-        log.info("project saved: " + success);
-        if (success) {
-            return "redirect:/project/project";
+        Project saved = projectsService.create(project);
+        if (saved != null) {
+            return "redirect:/project/project?id="+saved.getId();
         }
         log.error("Can't save");
         model.addAttribute("message", "Can not create new project");

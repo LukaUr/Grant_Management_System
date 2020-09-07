@@ -1,4 +1,4 @@
-    body{
+body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -7,7 +7,7 @@
     background-color: #eeecec;
 }
 
-.copyright{
+.copyright {
     padding: 20px;
     background-color: ivory;
     position: absolute;
@@ -15,11 +15,11 @@
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    transform: translate( 0, -100%);
+    transform: translate(0, -100%);
     float: bottom;
 }
 
-.pageheader{
+.pageheader {
     padding: 20px;
     background-color: ivory;
     width: 100%;

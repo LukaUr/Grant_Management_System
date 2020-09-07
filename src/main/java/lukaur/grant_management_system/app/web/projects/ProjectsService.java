@@ -13,17 +13,21 @@ public class ProjectsService {
 
     private final ProjectsRepository projectsRepository;
 
-    protected boolean create(Project project) {
+    protected Project create(Project project) {
         try {
-            projectsRepository.save(project);
-            return true;
+            Project saved = projectsRepository.save(project);
+            return saved;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
     public List<Project> findAllByUser(User user) {
         return projectsRepository.findAllByUser(user);
+    }
+
+    protected Project findById(Long projectId) {
+        return projectsRepository.getOne(projectId);
     }
 }
