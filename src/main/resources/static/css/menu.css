@@ -83,24 +83,6 @@ table a:hover, .leftFloat a:hover, .userInfo a:hover {
     margin-left: 10px;
 }
 
-.userInfo {
-    float: right;
-    background-color: #505050;
-    color: white;
-    padding: 5px 20px;
-    border-radius: 5px;
-}
-
-.userInfo span, .userInfo a {
-    color: #adaaaa;
-    text-decoration: none;
-}
-
-.userInfo .userName {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-}
 
 h2 {
     margin-top: 0;
@@ -122,3 +104,4 @@ h2 {
 td:last-child, th:last-child{
     text-align: center;
 }
+

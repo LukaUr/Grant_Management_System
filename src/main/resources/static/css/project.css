@@ -1,27 +1,4 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    font-size: 16px;
-    background-size: cover;
-    background-color: #eeecec;
-}
 
-.copyright {
-    padding: 20px;
-    background-color: ivory;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-.pageheader {
-    padding: 20px;
-    background-color: ivory;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-}
 
 .initialProjectDiv {
     width: 100%;
@@ -66,7 +43,7 @@ body {
     order: 1;
     width: 300px;
     padding: 10px 0 10px 10px;
-    background-color: ivory;
+    background-color: whitesmoke;
     border: gray solid 1px;
     margin: 0;
     border-right: none;
@@ -77,7 +54,7 @@ body {
     order: 2;
     flex-grow: 1;
     padding: 10px 10px 10px 0;
-    background-color: ivory;
+    background-color: whitesmoke;
     border: gray solid 1px;
     margin: 0;
     border-left: none;
@@ -115,7 +92,7 @@ body {
 
 .active {
     border-right: none;
-    background-color: ivory;
+    background-color: whitesmoke;
 }
 
 .leftMenuItemWithButton {
@@ -130,8 +107,4 @@ body {
 
 .hidden {
     display: none;
-}
-
-.section {
-
 }

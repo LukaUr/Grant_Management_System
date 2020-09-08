@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="applicant">
+    <h2>3.1. Applicant</h2>
+    <label>
+        <h3>3.1.1. Applicant name</h3>
+        <textarea th:field="*{applicant.identity.name}" cols="100" rows="5"></textarea>
+
+    </label>
+    <label>
+        <h3>3.1.2. Legal form</h3>
+        <textarea th:field="*{applicant.identity.legalForm}" cols="100" rows="5"></textarea>
+    </label>
+    <label>
+        <h3>3.1.3. Registration number</h3>
+        <input type="text" th:field="*{applicant.identity.registationNumber}"></input>
+    </label>
+    <label>
+        <h3>3.1.4. VAT number</h3>
+        <input type="text" th:field="*{applicant.identity.VATNumber}"></input>
+    </label>
+    <label>
+        <h3>3.1.5. Bank account number</h3>
+        <input type="number" th:field="*{applicant.identity.bankAccountNumber}"></input>
+    </label>
+    <h3>3.1.6. Contact details</h3>
+    <label>
+        <p>Email:</p>
+        <input type="email" th:field="*{applicant.identity.email}"></input>
+    </label>
+    <label>
+        <p>Phone number:</p>
+        <input type="number" th:field="*{applicant.identity.phone}"></input>
+    </label>
+    <label>
+        <p>Country:</p>
+        <input type="text" th:field="*{applicant.identity.country}"></input>
+    </label>
+    <label>
+        <p>Post code:</p>
+        <input type="text" th:field="*{applicant.identity.postCode}"></input>
+    </label>
+    <label>
+        <p>Address:</p>
+        <input type="text" th:field="*{applicant.identity.addressLine1}"></input>
+    </label>
+    <label>
+        <br>
+        <input type="text" th:field="*{applicant.identity.addressLine2}"></input>
+    </label>
+    <h3>3.1.7. Contact Person</h3>
+    <label>
+        <p>Name:</p>
+        <input type="text" th:field="*{applicant.contactPerson.name}"></input>
+    </label>
+    <label>
+        <p>Position:</p>
+        <input type="text" th:field="*{applicant.contactPerson.position}"></input>
+    </label>
+    <label>
+        <p>Phone:</p>
+        <input type="number" th:field="*{applicant.contactPerson.phone}"></input>
+    </label>
+    <label>
+        <p>Email:</p>
+        <input type="email" th:field="*{applicant.contactPerson.email}"></input>
+    </label>
+    <h3>3.1.8. LEgal representative</h3>
+    <label>
+        <p>Name:</p>
+        <input type="text" th:field="*{applicant.legalRepresentative.name}"></input>
+    </label>
+    <label>
+        <p>Position:</p>
+        <input type="text" th:field="*{applicant.legalRepresentative.position}"></input>
+    </label>
+    <label>
+        <p>Phone:</p>
+        <input type="number" th:field="*{applicant.legalRepresentative.phone}"></input>
+    </label>
+    <label>
+        <p>Email:</p>
+        <input type="email" th:field="*{applicant.legalRepresentative.email}"></input>
+    </label>
+</div>
+
+
+</body>
+</html>

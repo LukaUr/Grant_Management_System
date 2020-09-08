@@ -5,24 +5,65 @@ body {
     font-size: 16px;
     background-size: cover;
     background-color: #eeecec;
+    box-sizing: border-box;
 }
 
 .copyright {
-    padding: 20px;
+    padding: 5px;
     background-color: ivory;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    transform: translate(0, -100%);
-    float: bottom;
+    border-top: lightgray solid 1px;
 }
 
+.distancer-top {
+    height: 90px;
+}
+
+.distancer-bottom {
+    height: 50px;
+}
 .pageheader {
     padding: 20px;
     background-color: ivory;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
+    position: fixed;
+    top: 0;
+    height: 70px;
+}
+
+.userInfo {
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    background-color: #505050;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+    z-index: 101;
+}
+
+.userInfo span, .userInfo a {
+    color: #adaaaa;
+    text-decoration: none;
+}
+
+.userInfo .userName {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menuNavbar {
+    background-color: dimgrey;
+    color: whitesmoke;
+    height: 30px;
+    position: fixed;
+    top: 70px;
+    width: 100%;
 }

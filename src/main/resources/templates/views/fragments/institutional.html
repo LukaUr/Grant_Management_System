@@ -5,11 +5,28 @@
     <title>Title</title>
 </head>
 <body>
+
 <div th:fragment="header">
-<h2>Grant Management System</h2>
+    <div class="pageheader">
+        <h2>Grant Management System</h2>
+    </div>
+    <div class="menuNavbar">
+        <div class="userInfo">
+            <span>user: </span>
+            <span class="userName" th:text="${userName}"> name </span>
+            <span> </span>
+            <a th:href="@{/logout}">sign out</a>
+        </div>
+    </div>
+    <div class="distancer-top"></div>
 </div>
+
 <div th:fragment="footer">
-    <p>Copyright: Łukasz Urbanek</p>
+    <div class="distancer-bottom"></div>
+    <div class="copyright">
+        <p>Copyright: Łukasz Urbanek</p>
+    </div>
 </div>
+
 </body>
 </html>

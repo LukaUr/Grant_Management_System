@@ -18,6 +18,7 @@ body{
     box-shadow: 0 10px 20px black;    
     border-radius: 10px;
     box-sizing: border-box;
+    border-bottom: lightgray solid 1px;
 }
 
 .loginBox h2 {
@@ -82,16 +83,15 @@ body{
     background-color: #0066cc;
 }
 
-.copyright{
+.copyright {
     padding: 20px;
     background-color: ivory;
-    position: absolute;
-    left: 50%;
-    top: 100%;
+    position: fixed;
+    bottom: 0;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    transform: translate( -50%, -100%);
+    border-top: lightgray solid 1px;
 }
 
 .alert{

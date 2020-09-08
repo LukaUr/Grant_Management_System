@@ -4,26 +4,28 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/project.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <title>New project</title>
 </head>
 <body>
-<div th:include="/fragments/userMenuFragments :: header" class="pageheader"/>
+<div th:include="/fragments/userMenuFragments :: header"/>
 <div class="container">
     <div class="leftMenu">
         <div class="leftMenuItem active" data-section="general">General information</div>
         <div class="leftMenuItem" data-section="applicant">Applicant</div>
+        <div class="leftMenuItem" data-section="partners">Partners</div>
         <div class="leftMenuItem" data-section="sustainability">Sustainability</div>
         <div class="leftMenuItem" data-section="inidcators">Indicators</div>
         <div class="leftMenuItem" data-section="timetable">Timetable</div>
         <div class="leftMenuItem" data-section="budget">Financial information</div>
         <div class="leftMenuItem" data-section="consents">Consents</div>
         <div class="leftMenuItemWithButton">
-<!--            <p>-->
-<!--                <button class="button">Edit</button>-->
-<!--            </p>-->
-<!--            <p>-->
-<!--                <button class="button">Submit</button>-->
-<!--            </p>-->
+            <!--            <p>-->
+            <!--                <button class="button">Edit</button>-->
+            <!--            </p>-->
+            <!--            <p>-->
+            <!--                <button class="button">Submit</button>-->
+            <!--            </p>-->
             <p>
                 <a th:href="@{/menu}">
                     <button class="button">Back</button>
@@ -36,8 +38,16 @@
         <div class="mainInside">
             <form action="/project/save" method="post" th:object="${project}">
                 <div th:include="/fragments/sections/general :: general" class="section" id="general"></div>
-                <div class="section hidden" id="applicant">test applicant</div>
-                <div class="section hidden" id="sustainability">test sustainability</div>
+                <div th:include="/fragments/sections/applicant :: applicant" class="section hidden" id="applicant"></div>
+                <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
+
+
+
+
+
+
+                <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
+                     id="sustainability"></div>
                 <div class="section hidden" id="inidcators">test indicators</div>
                 <div class="section hidden" id="timetable">test timetable</div>
                 <div class="section hidden" id="budget">test budget</div>
@@ -47,7 +57,7 @@
     </div>
 </div>
 
-<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+<div th:include="/fragments/userMenuFragments :: footer"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script th:src="@{/js/projectView.js}"></script>
