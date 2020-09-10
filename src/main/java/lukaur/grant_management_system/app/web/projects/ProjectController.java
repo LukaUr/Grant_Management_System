@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
+import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.http.HttpRequest;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -40,8 +44,14 @@ public class ProjectController {
         return principal.toString();
     }
 
+    @ModelAttribute("consentOptions")
+    private List<ConsentOption> consentOptions() {
+        return Arrays.asList(ConsentOption.values().clone());
+    }
+
     @GetMapping("/project")
     public String showProject(@RequestParam Long id, Model model) {
+
         Project project = projectsService.findById(id);
         model.addAttribute("project", project);
         return "project/project";
@@ -49,7 +59,9 @@ public class ProjectController {
 
     @PostMapping("/save")
     public String processProjectSave(@Valid Project project,
+                                     @RequestParam Map<String, String> allParams,
                                      BindingResult result) {
+        allParams.forEach((k, v) -> System.out.println(k + ": " + v));
         if (result.hasErrors()) {
             log.error("Cant save a project");
             return "project?projet";

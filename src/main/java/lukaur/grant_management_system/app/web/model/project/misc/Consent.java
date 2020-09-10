@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @ToString(of = "consentText")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "consentText")
 public class Consent {
 
     @Id
