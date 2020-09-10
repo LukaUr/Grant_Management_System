@@ -33,7 +33,7 @@ public class ProjectDetails {
 
     private String oparationalCapacity;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Indicator> indicators;
 
 

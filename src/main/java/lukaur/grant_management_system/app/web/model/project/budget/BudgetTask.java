@@ -21,10 +21,10 @@ public class BudgetTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Task task;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BudgetEntry> budgetEntryList = new ArrayList<>();
 
 }

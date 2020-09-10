@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="indicators">
+
+    <h3>5.1. Incdicators</h3>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Value</th>
+            <th>Year of expected achievment</th>
+        </tr>
+        <label th:for="*{projectDetails.indicators}">
+            <tr th:each="indicator, index : ${indicators}">
+                <td th:text="${indicator.id}"></td>
+                <td th:text="${indicator.name}"></td>
+                <td th:text="${indicator.description}"></td>
+                <td th:text="${indicator.indicatorType}"></td>
+                <label th:for="${indicator}">
+                    <td>
+                        <input type="number" th:field="${projectDetails.indicators[index].value}"/>
+                        <input type="number" th:field="${indicator.id}" hidden/>
+                    </td>
+                    <td th:text="${indicator.plannedchievement}">
+                        <input type="number" th:field="${indicator.plannedchievement}" hidden/>
+                    </td>
+                </label>
+
+            </tr>
+        </label>
+
+    </table>
+
+
+</div>
+</body>
+</html>

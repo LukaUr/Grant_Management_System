@@ -42,22 +42,22 @@ public class Project {
     @JoinColumn(nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private CallForProjects callForProjects;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Applicant applicant;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ProjectDetails projectDetails;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Timetable timetable;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Budget budget;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Consent> consents = new HashSet<>();
 
     private String controlSum;

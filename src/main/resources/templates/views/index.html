@@ -7,29 +7,38 @@
 </head>
 <body>
 <div th:include="/fragments/institutional :: header"/>
-<a th:href="@{/logout}">Logout</a>
-<br>
-<a th:href="@{/register}">Add user</a>
-<br>
-<a th:href="@{/user/show}">Show users</a>
-<br>
-<br>
-<a th:href="@{/dictionaries/consent/show}">Show consent dictionary</a>
-<br>
-<a th:href="@{/dictionaries/consent/add}">Add element to consent dictionary</a>
-<br>
-<br>
-<a th:href="@{/dictionaries/indicators/show}">Show indicator dictionary</a>
-<br>
-<a th:href="@{/dictionaries/indicators/add}">Add element to indicator dictionary</a>
-<br>
-<br>
-<a th:href="@{/call/show}">Show calls</a>
-<br>
-<a th:href="@{/call/add}">Add call</a>
-<br>
-<br>
-<a th:href="@{/menu}">User menu</a>
+<div class="indexMainContainer">
+    <div class="indexBox">
+        <h3>Users</h3>
+        <a th:href="@{/user/show}">Show users</a>
+        <br>
+        <a th:href="@{/register}">Add user</a>
+    </div>
+    <div class="indexBox">
+        <h3>Consents</h3>
+        <a th:href="@{/dictionaries/consent/show}">Show consent dictionary</a>
+        <br>
+        <a th:href="@{/dictionaries/consent/add}">Add element to consent dictionary</a>
+    </div>
+    <div class="indexBox">
+        <h3>Indicators</h3>
+        <a th:href="@{/dictionaries/indicators/show}">Show indicator dictionary</a>
+        <br>
+        <a th:href="@{/dictionaries/indicators/add}">Add element to indicator dictionary</a>
+    </div>
+    <div class="indexBox">
+        <h3>Calls</h3>
+        <a th:href="@{/call/show}">Show calls</a>
+        <br>
+        <a th:href="@{/call/add}">Add call</a>
+    </div>
+    <div class="indexBox">
+        <h3>Navigation</h3>
+        <a th:href="@{/menu}">User menu</a>
+        <br>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
 <div th:include="/fragments/institutional :: footer"></div>
 </body>
 </html>

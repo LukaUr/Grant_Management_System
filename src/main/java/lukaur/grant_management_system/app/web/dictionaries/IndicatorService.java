@@ -11,7 +11,7 @@ import java.util.List;
 public class IndicatorService {
     private final IndicatorRepository indicatorRepository;
 
-    protected List<Indicator> findAll() {
+    public List<Indicator> findAll() {
         return indicatorRepository.findAll();
     }
 

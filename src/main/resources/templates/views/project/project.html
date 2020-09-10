@@ -9,52 +9,95 @@
 </head>
 <body>
 <div th:include="/fragments/userMenuFragments :: header"/>
+
 <div class="container">
-    <div class="leftMenu">
-        <div class="leftMenuItem active" data-section="general">General information</div>
-        <div class="leftMenuItem" data-section="applicant">Applicant</div>
-        <div class="leftMenuItem" data-section="partners">Partners</div>
-        <div class="leftMenuItem" data-section="sustainability">Sustainability</div>
-        <div class="leftMenuItem" data-section="inidcators">Indicators</div>
-        <div class="leftMenuItem" data-section="timetable">Timetable</div>
-        <div class="leftMenuItem" data-section="budget">Financial information</div>
-        <div class="leftMenuItem" data-section="consents">Consents</div>
-        <div class="leftMenuItemWithButton">
-            <!--            <p>-->
-            <!--                <button class="button">Edit</button>-->
-            <!--            </p>-->
-            <!--            <p>-->
-            <!--                <button class="button">Submit</button>-->
-            <!--            </p>-->
-            <p>
-                <a th:href="@{/menu}">
-                    <button class="button">Back</button>
-                </a>
-            </p>
+
+        <div class="leftMenu">
+            <div class="leftMenuItem active" data-section="general">General information</div>
+            <div class="leftMenuItem" data-section="applicant">Applicant</div>
+            <div class="leftMenuItem" data-section="partners">Partners</div>
+            <div class="leftMenuItem" data-section="sustainability">Sustainability</div>
+            <div class="leftMenuItem" data-section="inidcators">Indicators</div>
+            <div class="leftMenuItem" data-section="timetable">Timetable</div>
+            <div class="leftMenuItem" data-section="budget">Financial information</div>
+            <div class="leftMenuItem" data-section="consents">Consents</div>
+            <div class="leftMenuItemWithButton">
+                            <p>
+                                <button class="button" type="submit" form="projectForm">Save</button>
+                            </p>
+                <!--            <p>-->
+                <!--                <button class="button">Submit</button>-->
+                <!--            </p>-->
+                <p>
+                    <a th:href="@{/menu}">
+                        <button class="button">Back</button>
+                    </a>
+                </p>
+            </div>
+
         </div>
-
-    </div>
-    <div class="mainView">
-        <div class="mainInside">
-            <form action="/project/save" method="post" th:object="${project}">
+        <div class="mainView">
+            <div class="mainInside">
+                <form th:action="@{/project/save}" method="post" th:object="${project}" id="projectForm">
                 <div th:include="/fragments/sections/general :: general" class="section" id="general"></div>
-                <div th:include="/fragments/sections/applicant :: applicant" class="section hidden" id="applicant"></div>
+                <div th:include="/fragments/sections/applicant :: applicant" class="section hidden"
+                     id="applicant"></div>
                 <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
-
-
-
-
 
 
                 <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
                      id="sustainability"></div>
-                <div class="section hidden" id="inidcators">test indicators</div>
+                <!--                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden" id="inidcators"></div>-->
+                <div class="section hidden" id="inidcators">
+
+                    <h3>5.1. Incdicators</h3>
+                    <table>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Value</th>
+                            <th>Year of expected achievment</th>
+                        </tr>
+                        <label th:for="*{projectDetails.indicators}">
+                            <tr th:each="indicator, index : ${indicators}">
+                                <td th:text="${indicator.id}"></td>
+                                <td th:text="${indicator.name}"></td>
+                                <td th:text="${indicator.description}"></td>
+                                <td th:text="${indicator.indicatorType}"></td>
+                                <label th:for="${indicator}">
+                                    <td>
+                                        <input type="number" th:id="indicator.value"
+                                               th:name="${project.projectDetails.indicators}"
+                                               th:value="${indicator.value}"/>
+                                        <input type="number" th:id="indicator.id"
+                                               th:name="${project.projectDetails.indicators}" th:value="${indicator.id}"
+                                               hidden/>
+
+                                    </td>
+                                    <td>
+                                        <input type="number" th:id="indicator.plannedchievement"
+                                               th:name="${project.projectDetails.indicators}"
+                                               th:value="${indicator.plannedchievement}"/>
+
+                                    </td>
+                                </label>
+
+                            </tr>
+                        </label>
+
+                    </table>
+                </div>
+
+
                 <div class="section hidden" id="timetable">test timetable</div>
                 <div class="section hidden" id="budget">test budget</div>
                 <div class="section hidden" id="consents">test consents</div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
+
 </div>
 
 <div th:include="/fragments/userMenuFragments :: footer"></div>

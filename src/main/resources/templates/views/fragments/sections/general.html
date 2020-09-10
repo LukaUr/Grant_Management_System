@@ -9,13 +9,23 @@
 <div th:fragment="general">
     <h2>1. General project information</h2>
     <label>
+        <input type="text" th:field="*{id}" hidden/>
+    </label>
+    <label>
+        <input type="text" th:field="*{user}" hidden/>
+    </label>
+    <label>
+        <input type="text" th:field="*{projectDetails.id}" hidden/>
+    </label>
+    <label>
         <h3>1.1. Project name</h3>
         <textarea th:field="*{name}" cols="100" rows="5"></textarea>
 
     </label>
     <label>
         <h3>1.2. Call for projects</h3>
-        <textarea th:field="*{callForProjects.name}" cols="100" rows="5"></textarea>
+        <input type="number" name="callForProjects" th:id="callForProjects" th:value="*{callForProjects.id}" hidden/>
+        <textarea th:text="*{callForProjects.name}" cols="100" rows="5" disabled></textarea>
     </label>
     <label>
         <h3>1.3. Main Objective</h3>

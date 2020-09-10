@@ -83,12 +83,6 @@ table a:hover, .leftFloat a:hover, .userInfo a:hover {
     margin-left: 10px;
 }
 
-
-h2 {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 .callsDiv textarea {
     color: black;
     background-color: inherit;

@@ -24,7 +24,7 @@
 
 .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: stretch;
     width: 99%;

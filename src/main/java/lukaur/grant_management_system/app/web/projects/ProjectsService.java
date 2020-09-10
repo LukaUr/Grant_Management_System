@@ -30,4 +30,8 @@ public class ProjectsService {
     protected Project findById(Long projectId) {
         return projectsRepository.getOne(projectId);
     }
+
+    protected void save(Project project) {
+        projectsRepository.save(project);
+    }
 }

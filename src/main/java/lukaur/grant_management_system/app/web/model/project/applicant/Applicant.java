@@ -20,16 +20,16 @@ public class Applicant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private LegalEntity identity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Person contactPerson;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Person legalRepresentative;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<LegalEntity> partners = new HashSet<>();
 
 }

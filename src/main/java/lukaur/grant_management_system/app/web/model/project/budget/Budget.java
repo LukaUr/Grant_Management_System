@@ -25,10 +25,10 @@ public class Budget {
 
     private  BigDecimal totalFunding;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Funding> fundingSet;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<BudgetTask> budgetTasks = new ArrayList<>();
 
 }

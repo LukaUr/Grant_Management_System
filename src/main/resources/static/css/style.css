@@ -67,3 +67,38 @@ body {
     top: 70px;
     width: 100%;
 }
+
+.indexMainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-evenly;
+    padding: 100px 300px;
+    z-index: 0;
+}
+
+.indexBox {
+    margin: 30px 10px;
+    padding: 30px;
+    background-color: whitesmoke;
+    border: lightgray solid 5px;
+    box-shadow: 0px 10px 20px black;
+    width: 300px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.indexBox a {
+    text-decoration: none;
+    color: dimgray;
+}
+
+.indexBox a:hover {
+    color: deepskyblue;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
