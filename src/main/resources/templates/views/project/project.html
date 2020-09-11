@@ -65,7 +65,7 @@
                                 <td th:text="${indicator.id}"></td>
                                 <td th:text="${indicator.name}"></td>
                                 <td th:text="${indicator.description}"></td>
-                                <td th:text="${indicator.indicatorType}"></td>
+                                <td th:text="${indicator.indicatorType.display()}"></td>
                                 <label th:for="${indicator}">
                                     <td>
                                         <input type="number" th:id="indicator.value"
@@ -94,16 +94,22 @@
                 <div class="section hidden" id="timetable">test timetable</div>
                 <div class="section hidden" id="budget">test budget</div>
                 <div class="section hidden" id="consents">
-                    <label for="consents">
-                        <label th:each="consent : ${project.consents}">
+                    <div>
+                        <h3>8.1. Consents</h3>
+                        <div th:each="consent, stat : *{consents}" class="consent">
                             <p>
-                                <span th:text="${consent.consentText.declarationText}"> text </span>
+                                <span th:text="*{consents[__${stat.index}__].consentText.declarationText}"> text </span>
+                                <input type="text" th:field="*{consents[__${stat.index}__].consentText}" hidden>
+                                <input type="text" th:field="*{consents[__${stat.index}__].id}" hidden>
                                 <br>
-                                <input th:each="option : ${consentOptions}" type="radio" th:name="${consent.consentText}"
-                                       th:value="${option}" th:text="${option.getDisplay()}"/>
+                                <label th:each="option : ${consentOptions}">
+                                    <input type="radio"
+                                           th:field="*{consents[__${stat.index}__].consentOption}"
+                                           th:value="${option}" th:text="${option.getDisplay()}"/>
+                                </label>
                             </p>
-                        </label>
-                    </label>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

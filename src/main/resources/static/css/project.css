@@ -108,3 +108,11 @@
 .hidden {
     display: none;
 }
+
+.consent {
+    margin: 5px 20px 5px 0;
+    padding: 10px;
+    border: lightgray solid 1px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}

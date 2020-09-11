@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,21 +65,16 @@ public class InitialProjectController {
         User user = userService.findByName(userName);
         project.setUser(user);
 //        set consents
-        Set<Consent> consentSet = callForProjectsService
+        List<Consent> consents = callForProjectsService
                 .find(project.getCallForProjects().getId()).getConsentSet()
                 .stream()
-                .peek(System.out::println)
                 .map(c -> {
                     Consent consent = new Consent();
                     consent.setConsentText(c);
                     return consent;
                 })
-                .peek(System.out::println)
-                .collect(Collectors.toSet());
-
-        System.out.println(consentSet.size());
-        consentSet.forEach(System.out::println);
-        project.setConsents(consentSet);
+                .collect(Collectors.toList());
+        project.setConsents(consents);
 //        save project
         Project saved = projectsService.create(project);
         if (saved != null) {

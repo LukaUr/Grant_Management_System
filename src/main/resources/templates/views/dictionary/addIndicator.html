@@ -25,7 +25,7 @@
         <label>
             Indicator type<br>
             <label th:each="type : ${types}">
-                <input type="radio" th:field="*{indicatorType}" th:value="${type}" th:text="${type}"/><br>
+                <input type="radio" th:field="*{indicatorType}" th:value="${type}" th:text="${type.display()}"/><br>
             </label>
             <p th:if="${#fields.hasErrors('indicatorType')}" th:errors="*{indicatorType}" class="error">No type selected</p>
         </label>

@@ -16,8 +16,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -57,8 +57,8 @@ public class Project {
     @OneToOne(cascade = CascadeType.ALL)
     private Budget budget;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Consent> consents = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Consent> consents = new ArrayList<>();
 
     private String controlSum;
 

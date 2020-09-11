@@ -23,7 +23,7 @@
             <td th:text="${indicator.id}"> id</td>
             <td th:text="${indicator.name}"> name</td>
             <td th:text="${indicator.description}"> description</td>
-            <td th:text="${indicator.getIndicatorType()}"> type </td>
+            <td th:text="${indicator.getIndicatorType().display()}"> type </td>
             <td><a th:href="@{/dictionaries/indicators/delete(id=${indicator.id})}">Delete</a></td>
             <td><a th:href="@{/dictionaries/indicators/edit(id=${indicator.id})}">Edit</a></td>
         </tr>
