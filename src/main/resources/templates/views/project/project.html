@@ -42,7 +42,66 @@
                 <div th:include="/fragments/sections/general :: general" class="section" id="general"></div>
                 <div th:include="/fragments/sections/applicant :: applicant" class="section hidden"
                      id="applicant"></div>
-                <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
+
+
+                <div class="section hidden" id="partners">
+
+                    <h2>4.1. Partners</h2>
+                    <div th:each="partner, stat : *{applicant.partners}" class="partner">
+                        <input type="text" th:field="*{applicant.partners[__${stat.index}__].id}" hidden/>
+                        <label>
+                            <h3>3.1.1. Partner name</h3>
+                            <textarea th:field="*{applicant.partners[__${stat.index}__].name}" cols="100" rows="5"></textarea>
+
+                        </label>
+                        <label>
+                            <h3>3.1.2. Legal form</h3>
+                            <textarea th:field="*{applicant.partners[__${stat.index}__].legalForm}" cols="100" rows="5"></textarea>
+                        </label>
+                        <label>
+                            <h3>3.1.3. Registration number</h3>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].registationNumber}"/>
+                        </label>
+                        <label>
+                            <h3>3.1.4. VAT number</h3>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].VATNumber}"/>
+                        </label>
+                        <label>
+                            <h3>3.1.5. Bank account number</h3>
+                            <input type="number" th:field="*{applicant.partners[__${stat.index}__].bankAccountNumber}"/>
+                        </label>
+                        <h3>3.1.6. Contact details</h3>
+                        <label>
+                            <p>Email:</p>
+                            <input type="email" th:field="*{applicant.partners[__${stat.index}__].email}"/>
+                        </label>
+                        <label>
+                            <p>Phone number:</p>
+                            <input type="number" th:field="*{applicant.partners[__${stat.index}__].phone}"/>
+                        </label>
+                        <label>
+                            <p>Country:</p>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].country}"/>
+                        </label>
+                        <label>
+                            <p>Post code:</p>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].postCode}"/>
+                        </label>
+                        <label>
+                            <p>Address:</p>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine1}"/>
+                        </label>
+                        <label>
+                            <br>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine2}"/>
+                        </label>
+                    </div>
+                    <div th:fragment="partners" id="addPartnerButton">
+                        <button class="button">Add partner</button>
+                    </div>
+
+
+                </div>
 
 
                 <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
@@ -93,24 +152,7 @@
 
                 <div class="section hidden" id="timetable">test timetable</div>
                 <div class="section hidden" id="budget">test budget</div>
-                <div class="section hidden" id="consents">
-                    <div>
-                        <h3>8.1. Consents</h3>
-                        <div th:each="consent, stat : *{consents}" class="consent">
-                            <p>
-                                <span th:text="*{consents[__${stat.index}__].consentText.declarationText}"> text </span>
-                                <input type="text" th:field="*{consents[__${stat.index}__].consentText}" hidden>
-                                <input type="text" th:field="*{consents[__${stat.index}__].id}" hidden>
-                                <br>
-                                <label th:each="option : ${consentOptions}">
-                                    <input type="radio"
-                                           th:field="*{consents[__${stat.index}__].consentOption}"
-                                           th:value="${option}" th:text="${option.getDisplay()}"/>
-                                </label>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <div th:include="/fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
             </form>
         </div>
     </div>

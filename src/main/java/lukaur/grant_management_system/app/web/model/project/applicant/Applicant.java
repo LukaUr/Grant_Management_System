@@ -1,6 +1,8 @@
 package lukaur.grant_management_system.app.web.model.project.applicant;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -30,6 +32,6 @@ public class Applicant {
     private Person legalRepresentative;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<LegalEntity> partners = new HashSet<>();
+    private List<LegalEntity> partners = new ArrayList<>();
 
 }

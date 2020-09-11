@@ -11,7 +11,7 @@ public enum ConsentOption {
         this.display = display;
     }
 
-    public String getDisplay() {
+    public String display() {
         return this.display;
     }
 }

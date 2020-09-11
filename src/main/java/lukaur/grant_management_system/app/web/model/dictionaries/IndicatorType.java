@@ -6,6 +6,7 @@ public enum IndicatorType {
     RESULT_INDICATOR("result");
 
     String display;
+
     IndicatorType(String display) {
         this.display = display;
     }

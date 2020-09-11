@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="consents">
+    <div>
+        <h3>8.1. Consents</h3>
+        <div th:each="consent, stat : *{consents}" class="consent">
+            <p>
+                <span th:text="*{consents[__${stat.index}__].consentText.declarationText}"> text </span>
+                <input type="text" th:field="*{consents[__${stat.index}__].consentText}" hidden>
+                <input type="text" th:field="*{consents[__${stat.index}__].id}" hidden>
+                <br>
+                <label th:each="option : ${consentOptions}">
+                    <input type="radio"
+                           th:field="*{consents[__${stat.index}__].consentOption}"
+                           th:value="${option}" th:text="${option.display()}"/>
+                </label>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
