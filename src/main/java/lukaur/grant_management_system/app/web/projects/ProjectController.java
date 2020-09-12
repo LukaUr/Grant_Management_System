@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
+import lukaur.grant_management_system.app.web.model.project.applicant.LegalEntity;
 import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,6 +54,7 @@ public class ProjectController {
     public String showProject(@RequestParam Long id, Model model) {
 
         Project project = projectsService.findById(id);
+//        project.getApplicant().getPartners();
         model.addAttribute("project", project);
         return "project/project";
     }
@@ -69,6 +71,14 @@ public class ProjectController {
         log.info("Attempting to save project");
         projectsService.save(project);
         log.info("Project saved");
+        return "redirect:/menu";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        log.info("test started");
+        List<LegalEntity> partners = projectsService.getPartners(3L);
+        partners.forEach(p -> log.info(String.valueOf(p)));
         return "redirect:/menu";
     }
 }

@@ -7,86 +7,89 @@
 <body>
 
 <div th:fragment="applicant">
-    <h2>3.1. Applicant</h2>
+    <h2>2. Applicant</h2>
     <label>
-        <h3>3.1.1. Applicant name</h3>
+        <h3>2.1. Applicant name</h3>
+
+        <input th:field="*{applicant.id}" type="text" hidden/>
+        <input th:field="*{applicant.identity.id}" type="text" hidden/>
         <textarea th:field="*{applicant.identity.name}" cols="100" rows="5"></textarea>
 
     </label>
     <label>
-        <h3>3.1.2. Legal form</h3>
+        <h3>2.2. Legal form</h3>
         <textarea th:field="*{applicant.identity.legalForm}" cols="100" rows="5"></textarea>
     </label>
     <label>
-        <h3>3.1.3. Registration number</h3>
-        <input type="text" th:field="*{applicant.identity.registationNumber}"></input>
+        <h3>2.3. Registration number</h3>
+        <input type="text" th:field="*{applicant.identity.registrationNumber}"/>
     </label>
     <label>
-        <h3>3.1.4. VAT number</h3>
-        <input type="text" th:field="*{applicant.identity.VATNumber}"></input>
+        <h3>2.4. VAT number</h3>
+        <input type="text" th:field="*{applicant.identity.vatNumber}"/>
     </label>
     <label>
-        <h3>3.1.5. Bank account number</h3>
-        <input type="number" th:field="*{applicant.identity.bankAccountNumber}"></input>
+        <h3>2.5. Bank account number</h3>
+        <input type="number" th:field="*{applicant.identity.bankAccountNumber}"/>
     </label>
-    <h3>3.1.6. Contact details</h3>
+    <h3>2.6. Contact details</h3>
     <label>
         <p>Email:</p>
-        <input type="email" th:field="*{applicant.identity.email}"></input>
+        <input type="email" th:field="*{applicant.identity.email}"/>
     </label>
     <label>
         <p>Phone number:</p>
-        <input type="number" th:field="*{applicant.identity.phone}"></input>
+        <input type="number" th:field="*{applicant.identity.phone}"/>
     </label>
     <label>
         <p>Country:</p>
-        <input type="text" th:field="*{applicant.identity.country}"></input>
+        <input type="text" th:field="*{applicant.identity.country}"/>
     </label>
     <label>
         <p>Post code:</p>
-        <input type="text" th:field="*{applicant.identity.postCode}"></input>
+        <input type="text" th:field="*{applicant.identity.postCode}"/>
     </label>
     <label>
         <p>Address:</p>
-        <input type="text" th:field="*{applicant.identity.addressLine1}"></input>
+        <input type="text" th:field="*{applicant.identity.addressLine1}"/>
     </label>
     <label>
         <br>
-        <input type="text" th:field="*{applicant.identity.addressLine2}"></input>
+        <input type="text" th:field="*{applicant.identity.addressLine2}"/>
     </label>
-    <h3>3.1.7. Contact Person</h3>
+    <h3>2.7. Contact Person</h3>
     <label>
         <p>Name:</p>
-        <input type="text" th:field="*{applicant.contactPerson.name}"></input>
+        <input type="text" th:field="*{applicant.contactPerson.name}"/>
     </label>
     <label>
         <p>Position:</p>
-        <input type="text" th:field="*{applicant.contactPerson.position}"></input>
+        <input type="text" th:field="*{applicant.contactPerson.position}"/>
     </label>
     <label>
         <p>Phone:</p>
-        <input type="number" th:field="*{applicant.contactPerson.phone}"></input>
+        <input type="number" th:field="*{applicant.contactPerson.phone}"/>
     </label>
     <label>
         <p>Email:</p>
-        <input type="email" th:field="*{applicant.contactPerson.email}"></input>
+        <input type="email" th:field="*{applicant.contactPerson.email}"/>
     </label>
-    <h3>3.1.8. LEgal representative</h3>
+    <h3>2.8. Legal representative</h3>
     <label>
         <p>Name:</p>
-        <input type="text" th:field="*{applicant.legalRepresentative.name}"></input>
+        <input type="text" th:field="*{applicant.legalRepresentative.name}"/>
     </label>
     <label>
         <p>Position:</p>
-        <input type="text" th:field="*{applicant.legalRepresentative.position}"></input>
+        <input type="text" th:field="*{applicant.legalRepresentative.position}"/>
     </label>
     <label>
         <p>Phone:</p>
-        <input type="number" th:field="*{applicant.legalRepresentative.phone}"></input>
+        <input type="number" th:field="*{applicant.legalRepresentative.phone}"/>
     </label>
     <label>
         <p>Email:</p>
-        <input type="email" th:field="*{applicant.legalRepresentative.email}"></input>
+        <input type="email" th:field="*{applicant.legalRepresentative.email}"/>
     </label>
 </div>
 

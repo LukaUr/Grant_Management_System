@@ -46,31 +46,33 @@
 
                 <div class="section hidden" id="partners">
 
-                    <h2>4.1. Partners</h2>
+                    <h2>3. Partners</h2>
                     <div th:each="partner, stat : *{applicant.partners}" class="partner">
+                        <h3>Partner <span th:text="${stat.count}"></span></h3>
+                        <button class="button removeButton">Remove</button>
                         <input type="text" th:field="*{applicant.partners[__${stat.index}__].id}" hidden/>
                         <label>
-                            <h3>3.1.1. Partner name</h3>
+                            <h3>Partner name</h3>
                             <textarea th:field="*{applicant.partners[__${stat.index}__].name}" cols="100" rows="5"></textarea>
 
                         </label>
                         <label>
-                            <h3>3.1.2. Legal form</h3>
+                            <h3>Legal form</h3>
                             <textarea th:field="*{applicant.partners[__${stat.index}__].legalForm}" cols="100" rows="5"></textarea>
                         </label>
                         <label>
-                            <h3>3.1.3. Registration number</h3>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].registationNumber}"/>
+                            <h3>Registration number</h3>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].registrationNumber}"/>
                         </label>
                         <label>
-                            <h3>3.1.4. VAT number</h3>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].VATNumber}"/>
+                            <h3>VAT number</h3>
+                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].vatNumber}"/>
                         </label>
                         <label>
-                            <h3>3.1.5. Bank account number</h3>
+                            <h3>Bank account number</h3>
                             <input type="number" th:field="*{applicant.partners[__${stat.index}__].bankAccountNumber}"/>
                         </label>
-                        <h3>3.1.6. Contact details</h3>
+                        <h3>Contact details</h3>
                         <label>
                             <p>Email:</p>
                             <input type="email" th:field="*{applicant.partners[__${stat.index}__].email}"/>

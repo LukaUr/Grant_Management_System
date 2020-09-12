@@ -47,7 +47,7 @@ public class Project {
     @ManyToOne(cascade = CascadeType.MERGE)
     private CallForProjects callForProjects;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Applicant applicant;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -116,3 +116,10 @@
     border-radius: 10px;
     box-sizing: border-box;
 }
+
+.partner {
+    margin: 10px;
+    padding: 10px;
+    border: lightgray solid 1px;
+    border-radius: 10px;
+}

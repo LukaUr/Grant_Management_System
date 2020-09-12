@@ -3,17 +3,25 @@ package lukaur.grant_management_system.app.web.projects;
 import lombok.RequiredArgsConstructor;
 import lukaur.grant_management_system.app.web.model.User;
 import lukaur.grant_management_system.app.web.model.project.Project;
+import lukaur.grant_management_system.app.web.model.project.applicant.LegalEntity;
+import lukaur.grant_management_system.app.web.projects.parts.ApplicantRepository;
+import lukaur.grant_management_system.app.web.projects.parts.LegalEntityRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class ProjectsService {
 
     private final ProjectsRepository projectsRepository;
+    private final LegalEntityRepository legalEntityRepository;
+    private final ApplicantRepository applicantRepository;
 
-    protected Project create(Project project) {
+    public Project create(Project project) {
         try {
             Project saved = projectsRepository.save(project);
             return saved;
@@ -31,7 +39,28 @@ public class ProjectsService {
         return projectsRepository.getOne(projectId);
     }
 
-    protected void save(Project project) {
+    public void save(Project project) {
+        List<LegalEntity> partnersFromBase = getPartners(project.getApplicant().getId());
+        List<LegalEntity> partnersFromForm = project.getApplicant().getPartners();
+        List<LegalEntity> newPartners = project
+                .getApplicant()
+                .getPartners()
+                .stream()
+                .filter((p) -> !p.equals(new LegalEntity()))
+                .collect(Collectors.toList());
+        project.getApplicant().setPartners(newPartners);
+        legalEntityRepository.save(project.getApplicant().getIdentity());
+        legalEntityRepository.saveAll(project.getApplicant().getPartners());
+        applicantRepository.save(project.getApplicant());
+        partnersFromBase
+                .stream()
+                .filter(p -> !newPartners.contains(p))
+                .forEach(legalEntityRepository::delete);
         projectsRepository.save(project);
+
+    }
+
+    public List<LegalEntity> getPartners(Long id) {
+        return legalEntityRepository.findAllPartnersByApplicantId(id);
     }
 }

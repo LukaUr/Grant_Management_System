@@ -14,7 +14,7 @@ import javax.validation.constraints.Email;
 @Entity
 @Data
 @ToString(of = "name")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 public class LegalEntity {
 
     @Id
@@ -25,9 +25,9 @@ public class LegalEntity {
 
     private String legalForm;
 
-    private String registationNumber;
+    private String registrationNumber;
 
-    private String VATNumber;
+    private String vatNumber;
 
     private String bankAccountNumber;
 

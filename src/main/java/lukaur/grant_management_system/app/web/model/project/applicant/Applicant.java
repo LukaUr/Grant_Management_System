@@ -31,7 +31,7 @@ public class Applicant {
     @OneToOne(cascade = CascadeType.ALL)
     private Person legalRepresentative;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<LegalEntity> partners = new ArrayList<>();
 
 }
