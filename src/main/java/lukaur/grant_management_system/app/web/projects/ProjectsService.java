@@ -9,7 +9,6 @@ import lukaur.grant_management_system.app.web.model.project.applicant.LegalEntit
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
 import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
 import lukaur.grant_management_system.app.web.model.project.timetable.Task;
-import lukaur.grant_management_system.app.web.model.project.timetable.Timetable;
 import lukaur.grant_management_system.app.web.projects.repositories.ApplicantRepository;
 import lukaur.grant_management_system.app.web.projects.repositories.LegalEntityRepository;
 import lukaur.grant_management_system.app.web.projects.repositories.TaskRepository;
@@ -38,8 +37,7 @@ public class ProjectsService {
 
     public Project create(Project project) {
         try {
-            Project saved = projectsRepository.save(project);
-            return saved;
+            return projectsRepository.save(project);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,15 +48,79 @@ public class ProjectsService {
         return projectsRepository.findAllByUser(user);
     }
 
-    protected Project findById(Long projectId) {
+    public Project findById(Long projectId) {
         return projectsRepository.getOne(projectId);
     }
 
     public void save(Project project) {
 //        perserve creation date
+        perserveCreationDate(project);
+//        manage adding, deleting and updateing partners
+        managePartners(project);
+//        manage adding, deleting and updating tasks
+        manageTimetable(project);
+//        final save
+        projectsRepository.save(project);
+    }
+
+    public List<LegalEntity> getPartners(Long id) {
+        return legalEntityRepository.findAllPartnersByApplicantId(id);
+    }
+
+    public List<Task> getTasks(Long id) {
+        return timetableRepository.findAllTasksByTimetableId(id);
+    }
+
+    public Project initialize(Project project,
+                           Principal principal) {
+//        set user
+        setUser(project, principal);
+//        set consents
+        setConsents(project);
+//        set indicators
+        setIndicators(project);
+//        save project
+        return this.create(project);
+    }
+
+    private void setIndicators(Project project) {
+        List<ProjectIndicator> indicators = indicatorRepository
+                .findAll()
+                .stream()
+                .map(i -> {
+                    ProjectIndicator indicator = new ProjectIndicator();
+                    indicator.setIndicator(i);
+                    return indicator;
+                })
+                .collect(Collectors.toList());
+        project.setIndicators(indicators);
+    }
+
+    private void setConsents(Project project) {
+        List<Consent> consents = callRepository
+                .getOne(project.getCallForProjects().getId()).getConsentSet()
+                .stream()
+                .map(c -> {
+                    Consent consent = new Consent();
+                    consent.setConsentText(c);
+                    return consent;
+                })
+                .collect(Collectors.toList());
+        project.setConsents(consents);
+    }
+
+    private void setUser(Project project, Principal principal) {
+        String userName = principal.getName();
+        User user = userRepository.getOneByName(userName);
+        project.setUser(user);
+    }
+
+    private void perserveCreationDate(Project project) {
         Project oldPRoject = projectsRepository.getOne(project.getId());
         project.setCreated(oldPRoject.getCreated());
-//        manage adding, deleting and updateing partners
+    }
+
+    private void managePartners(Project project) {
         List<LegalEntity> partnersFromBase = getPartners(project.getApplicant().getId());
         List<LegalEntity> newPartners = project
                 .getApplicant()
@@ -74,7 +136,9 @@ public class ProjectsService {
                 .stream()
                 .filter(p -> !newPartners.contains(p))
                 .forEach(legalEntityRepository::delete);
-//        manage adding, deleting and updating tasks
+    }
+
+    private void manageTimetable(Project project) {
         List<Task> tasksFromBase = getTasks(project.getApplicant().getId());
         List<Task> newTasks = project
                 .getTimetable()
@@ -89,49 +153,5 @@ public class ProjectsService {
                 .stream()
                 .filter(t -> !newTasks.contains(t))
                 .forEach(taskRepository::delete);
-//        final save
-        projectsRepository.save(project);
-
-    }
-
-    public List<LegalEntity> getPartners(Long id) {
-        return legalEntityRepository.findAllPartnersByApplicantId(id);
-    }
-
-    public List<Task> getTasks(Long id) {
-        return timetableRepository.findAllTasksByTimetableId(id);
-    }
-
-    public Project initialize(Project project,
-                           Principal principal) {
-//        set user
-        String userName = principal.getName();
-        User user = userRepository.getOneByName(userName);
-        project.setUser(user);
-//        set consents
-        List<Consent> consents = callRepository
-                .getOne(project.getCallForProjects().getId()).getConsentSet()
-                .stream()
-                .map(c -> {
-                    Consent consent = new Consent();
-                    consent.setConsentText(c);
-                    return consent;
-                })
-                .collect(Collectors.toList());
-        project.setConsents(consents);
-//        set indicators
-        List<ProjectIndicator> indicators = indicatorRepository
-                .findAll()
-                .stream()
-                .map(i -> {
-                    ProjectIndicator indicator = new ProjectIndicator();
-                    indicator.setIndicator(i);
-                    return indicator;
-                })
-                .collect(Collectors.toList());
-        project.setIndicators(indicators);
-//        save project
-        Project saved = this.create(project);
-        return saved;
     }
 }
