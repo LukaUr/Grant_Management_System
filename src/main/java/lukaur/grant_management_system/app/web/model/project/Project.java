@@ -10,6 +10,7 @@ import lukaur.grant_management_system.app.web.model.project.applicant.Applicant;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
 import lukaur.grant_management_system.app.web.model.project.misc.ProjectDetails;
+import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
 import lukaur.grant_management_system.app.web.model.project.timetable.Timetable;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,9 +18,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -59,8 +58,11 @@ public class Project {
     @OneToOne(cascade = CascadeType.ALL)
     private Budget budget;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Consent> consents = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ProjectIndicator> indicators;
 
     private String controlSum;
 

@@ -31,10 +31,4 @@ public class Indicator {
     @Size(min = 5, max = 1000)
     private String description;
 
-    @Column(length = 20)
-    @Size(max = 20)
-    private String value;
-
-    private Year plannedchievement;
-
 }

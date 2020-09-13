@@ -42,73 +42,10 @@
                 <div th:include="/fragments/sections/general :: general" class="section" id="general"></div>
                 <div th:include="/fragments/sections/applicant :: applicant" class="section hidden"
                      id="applicant"></div>
-
-
-                <div class="section hidden" id="partners">
-
-                    <h2>3. Partners</h2>
-                    <div th:each="partner, stat : *{applicant.partners}" class="partner">
-                        <h3>Partner <span th:text="${stat.count}"></span></h3>
-                        <button class="button removeButton">Remove</button>
-                        <input type="text" th:field="*{applicant.partners[__${stat.index}__].id}" hidden/>
-                        <label>
-                            <h3>Partner name</h3>
-                            <textarea th:field="*{applicant.partners[__${stat.index}__].name}" cols="100" rows="5"></textarea>
-
-                        </label>
-                        <label>
-                            <h3>Legal form</h3>
-                            <textarea th:field="*{applicant.partners[__${stat.index}__].legalForm}" cols="100" rows="5"></textarea>
-                        </label>
-                        <label>
-                            <h3>Registration number</h3>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].registrationNumber}"/>
-                        </label>
-                        <label>
-                            <h3>VAT number</h3>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].vatNumber}"/>
-                        </label>
-                        <label>
-                            <h3>Bank account number</h3>
-                            <input type="number" th:field="*{applicant.partners[__${stat.index}__].bankAccountNumber}"/>
-                        </label>
-                        <h3>Contact details</h3>
-                        <label>
-                            <p>Email:</p>
-                            <input type="email" th:field="*{applicant.partners[__${stat.index}__].email}"/>
-                        </label>
-                        <label>
-                            <p>Phone number:</p>
-                            <input type="number" th:field="*{applicant.partners[__${stat.index}__].phone}"/>
-                        </label>
-                        <label>
-                            <p>Country:</p>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].country}"/>
-                        </label>
-                        <label>
-                            <p>Post code:</p>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].postCode}"/>
-                        </label>
-                        <label>
-                            <p>Address:</p>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine1}"/>
-                        </label>
-                        <label>
-                            <br>
-                            <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine2}"/>
-                        </label>
-                    </div>
-                    <div th:fragment="partners" id="addPartnerButton">
-                        <button class="button">Add partner</button>
-                    </div>
-
-
-                </div>
-
-
+                <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
                 <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
                      id="sustainability"></div>
-                <!--                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden" id="inidcators"></div>-->
+
                 <div class="section hidden" id="inidcators">
 
                     <h3>5.1. Incdicators</h3>
@@ -121,27 +58,20 @@
                             <th>Value</th>
                             <th>Year of expected achievment</th>
                         </tr>
-                        <label th:for="*{projectDetails.indicators}">
-                            <tr th:each="indicator, index : ${indicators}">
-                                <td th:text="${indicator.id}"></td>
-                                <td th:text="${indicator.name}"></td>
-                                <td th:text="${indicator.description}"></td>
-                                <td th:text="${indicator.indicatorType.display()}"></td>
-                                <label th:for="${indicator}">
+                        <label th:for="*{indicators}">
+                            <tr th:each="projectIndicator, stat : ${project.indicators}">
+                                <td th:text="${projectIndicator.id}"></td>
+                                <td th:text="${projectIndicator.indicator.name}"></td>
+                                <td th:text="${projectIndicator.indicator.description}"></td>
+                                <td th:text="${projectIndicator.indicator.indicatorType.display()}"></td>
+                                <label th:for="${projectIndicator}">
                                     <td>
-                                        <input type="number" th:id="indicator.value"
-                                               th:name="${project.projectDetails.indicators}"
-                                               th:value="${indicator.value}"/>
-                                        <input type="number" th:id="indicator.id"
-                                               th:name="${project.projectDetails.indicators}" th:value="${indicator.id}"
-                                               hidden/>
-
+                                        <input type="number" th:field="*{indicators[__${stat.index}__].value}"/>
+                                        <input type="number" th:field="*{indicators[__${stat.index}__].id}" hidden/>
+                                        <input type="number" th:field="*{indicators[__${stat.index}__].indicator.id}" hidden/>
                                     </td>
                                     <td>
-                                        <input type="number" th:id="indicator.plannedchievement"
-                                               th:name="${project.projectDetails.indicators}"
-                                               th:value="${indicator.plannedchievement}"/>
-
+                                        <input type="number" th:field="*{indicators[__${stat.index}__].plannedAchievement}"/>
                                     </td>
                                 </label>
 

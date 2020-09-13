@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.http.HttpRequest;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +29,8 @@ public class ProjectController {
     private final ProjectsService projectsService;
     private final IndicatorService indicatorService;
 
-    @ModelAttribute("indicators")
-    private List<Indicator> indicators() {
+    @ModelAttribute("indicatorList")
+    private List<Indicator> indicatorList() {
         return indicatorService.findAll();
     }
 

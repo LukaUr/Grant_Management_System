@@ -3,11 +3,13 @@ package lukaur.grant_management_system.app.web.projects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.calls.CallForProjectsService;
+import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.User;
 import lukaur.grant_management_system.app.web.model.dictionaries.ConsentText;
 import lukaur.grant_management_system.app.web.model.project.Project;
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
+import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
 import lukaur.grant_management_system.app.web.users.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +32,6 @@ public class InitialProjectController {
 
     private final CallForProjectsService callForProjectsService;
     private final ProjectsService projectsService;
-    private final UserService userService;
 
     @ModelAttribute("userName")
     private String userName() {
@@ -60,23 +61,7 @@ public class InitialProjectController {
             model.addAttribute("call", call);
             return "project/initialProject";
         }
-//        set user
-        String userName = principal.getName();
-        User user = userService.findByName(userName);
-        project.setUser(user);
-//        set consents
-        List<Consent> consents = callForProjectsService
-                .find(project.getCallForProjects().getId()).getConsentSet()
-                .stream()
-                .map(c -> {
-                    Consent consent = new Consent();
-                    consent.setConsentText(c);
-                    return consent;
-                })
-                .collect(Collectors.toList());
-        project.setConsents(consents);
-//        save project
-        Project saved = projectsService.create(project);
+        Project saved = projectsService.initialize(project, principal);
         if (saved != null) {
             return "redirect:/project/project?id=" + saved.getId();
         }

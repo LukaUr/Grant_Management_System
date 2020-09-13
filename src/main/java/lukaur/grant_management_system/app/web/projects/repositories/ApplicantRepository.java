@@ -1,4 +1,4 @@
-package lukaur.grant_management_system.app.web.projects.parts;
+package lukaur.grant_management_system.app.web.projects.repositories;
 
 import lukaur.grant_management_system.app.web.model.project.applicant.Applicant;
 import org.springframework.data.jpa.repository.JpaRepository;

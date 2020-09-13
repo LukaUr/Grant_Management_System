@@ -7,6 +7,7 @@ import lombok.ToString;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,11 +33,4 @@ public class ProjectDetails {
     private String financialCapacity;
 
     private String oparationalCapacity;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Indicator> indicators;
-
-
-
-
 }

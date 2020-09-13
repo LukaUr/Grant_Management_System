@@ -6,7 +6,67 @@
 </head>
 <body>
 <div th:fragment="partners">
-    <button class="button">Add partner</button>
+
+
+
+        <h2>3. Partners</h2>
+        <div th:each="partner, stat : *{applicant.partners}" class="partner">
+            <h3>Partner <span th:text="${stat.count}"></span></h3>
+            <button class="button removeButton">Remove</button>
+            <input type="text" th:field="*{applicant.partners[__${stat.index}__].id}" hidden/>
+            <label>
+                <h3>Partner name</h3>
+                <textarea th:field="*{applicant.partners[__${stat.index}__].name}" cols="100" rows="5"></textarea>
+
+            </label>
+            <label>
+                <h3>Legal form</h3>
+                <textarea th:field="*{applicant.partners[__${stat.index}__].legalForm}" cols="100" rows="5"></textarea>
+            </label>
+            <label>
+                <h3>Registration number</h3>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].registrationNumber}"/>
+            </label>
+            <label>
+                <h3>VAT number</h3>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].vatNumber}"/>
+            </label>
+            <label>
+                <h3>Bank account number</h3>
+                <input type="number" th:field="*{applicant.partners[__${stat.index}__].bankAccountNumber}"/>
+            </label>
+            <h3>Contact details</h3>
+            <label>
+                <p>Email:</p>
+                <input type="email" th:field="*{applicant.partners[__${stat.index}__].email}"/>
+            </label>
+            <label>
+                <p>Phone number:</p>
+                <input type="number" th:field="*{applicant.partners[__${stat.index}__].phone}"/>
+            </label>
+            <label>
+                <p>Country:</p>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].country}"/>
+            </label>
+            <label>
+                <p>Post code:</p>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].postCode}"/>
+            </label>
+            <label>
+                <p>Address:</p>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine1}"/>
+            </label>
+            <label>
+                <br>
+                <input type="text" th:field="*{applicant.partners[__${stat.index}__].addressLine2}"/>
+            </label>
+        </div>
+        <div th:fragment="partners" id="addPartnerButton">
+            <button class="button">Add partner</button>
+        </div>
+
+
+
 </div>
 </body>
 </html>
