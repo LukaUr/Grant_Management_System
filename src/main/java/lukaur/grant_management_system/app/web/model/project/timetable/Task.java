@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
 @Data
 @ToString(of = "name")
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 public class Task {
 
     @Id
@@ -24,8 +25,8 @@ public class Task {
 
     private String description;
 
-    private LocalDate taskStart;
+    private Date taskStart;
 
-    private LocalDate taskEnd;
+    private Date taskEnd;
 
 }

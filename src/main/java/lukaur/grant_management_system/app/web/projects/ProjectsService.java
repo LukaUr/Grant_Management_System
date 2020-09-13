@@ -8,8 +8,12 @@ import lukaur.grant_management_system.app.web.model.project.Project;
 import lukaur.grant_management_system.app.web.model.project.applicant.LegalEntity;
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
 import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
+import lukaur.grant_management_system.app.web.model.project.timetable.Task;
+import lukaur.grant_management_system.app.web.model.project.timetable.Timetable;
 import lukaur.grant_management_system.app.web.projects.repositories.ApplicantRepository;
 import lukaur.grant_management_system.app.web.projects.repositories.LegalEntityRepository;
+import lukaur.grant_management_system.app.web.projects.repositories.TaskRepository;
+import lukaur.grant_management_system.app.web.projects.repositories.TimetableRepository;
 import lukaur.grant_management_system.app.web.users.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +33,8 @@ public class ProjectsService {
     private final UserRepository userRepository;
     private final CallForProjectsRepository callRepository;
     private final IndicatorRepository indicatorRepository;
+    private final TimetableRepository timetableRepository;
+    private final TaskRepository taskRepository;
 
     public Project create(Project project) {
         try {
@@ -68,8 +74,21 @@ public class ProjectsService {
                 .stream()
                 .filter(p -> !newPartners.contains(p))
                 .forEach(legalEntityRepository::delete);
-//        save indicators
-
+//        manage adding, deleting and updating tasks
+        List<Task> tasksFromBase = getTasks(project.getApplicant().getId());
+        List<Task> newTasks = project
+                .getTimetable()
+                .getTasks()
+                .stream()
+                .filter((t) -> !t.equals(new Task()))
+                .collect(Collectors.toList());
+        project.getTimetable().setTasks(newTasks);
+        taskRepository.saveAll(project.getTimetable().getTasks());
+        timetableRepository.save(project.getTimetable());
+        tasksFromBase
+                .stream()
+                .filter(t -> !newTasks.contains(t))
+                .forEach(taskRepository::delete);
 //        final save
         projectsRepository.save(project);
 
@@ -77,6 +96,10 @@ public class ProjectsService {
 
     public List<LegalEntity> getPartners(Long id) {
         return legalEntityRepository.findAllPartnersByApplicantId(id);
+    }
+
+    public List<Task> getTasks(Long id) {
+        return timetableRepository.findAllTasksByTimetableId(id);
     }
 
     public Project initialize(Project project,

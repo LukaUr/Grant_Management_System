@@ -19,7 +19,7 @@ public class Timetable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     List<Task> tasks = new ArrayList<>();
 
     private LocalDate projectStart;

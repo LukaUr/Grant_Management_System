@@ -1,11 +1,12 @@
 $(() => {
 
+    const $mainInside = $('.mainInside');
 //    adding events on menu buttons
     const $menuItems = $('.leftMenuItem');
     const $sections = $('.section');
 
     const addEventsOnMenuItems = () => {
-        $menuItems.on('click', function () {
+        $menuItems.on('click', function() {
             $menuItems.removeClass("active");
             $(this).addClass("active");
             $sections.addClass('hidden');
@@ -18,11 +19,12 @@ $(() => {
 
 //    adding partners
     let countPartners = $('.partner').length;
-    $addPartnerBtn = $('#addPartnerButton');
+    let $addPartnerBtn = $('#addPartnerButton');
     $addPartnerBtn.on('click', function (event) {
         event.preventDefault();
         let $partner = $('<div class="partner">');
-        $partner.append($('<h3>Partner</h3>'))
+        $partner.append($('<h3>Partner</h3>'));
+        $partner.append('<button class="button removeButton">Remove</button>');
 
         let $labelName = $('<label>');
         $labelName.append('<h3>Partner name</h3>');
@@ -81,12 +83,53 @@ $(() => {
     });
 
 //    removing partners
-    const $removeButtons = $('.removeButton');
-    $removeButtons.on('click', function (event) {
+    const addEventsOnRemovePartner = () => $mainInside.on('click', '.removeButton', (event) => {
         event.preventDefault();
-        $divToDelete = this.closest('.partner');
-        $divToDelete.remove();
+        $(event.target).closest('.partner').remove();
     });
+    addEventsOnRemovePartner()
 
+//    adding tasks to timetable
+    let countTasks = $('.taskDiv').length;
+    let $addTaskBtn = $('#addTaskButton');
+    $addTaskBtn.on('click', function (event) {
+        event.preventDefault();
+
+        let $task = $('<div class="taskDiv">');
+        $task.append($(`<h3>Task no ${countTasks + 1}</h3>`));
+        $task.append('<button class="button removeTaskButton">Remove</button>');
+
+        $task.append($(`<p>Task name</p>`));
+        let $labelName = $('<label>');
+        $labelName.append(`<input type="text" id="timetable.tasks${countTasks}.name" name="timetable.tasks[${countTasks}].name"/>`);
+        $task.append($labelName);
+
+        $task.append($(`<p>Task description</p>`));
+        let $labelDescription = $('<label>');
+        $labelDescription.append(`<textarea id="timetable.tasks${countTasks}.description" name="timetable.tasks[${countTasks}].description" cols="100" rows="5"></textarea>`);
+        $task.append($labelDescription);
+
+        $task.append($(`<p>Start date</p>`));
+        let $labelStart = $('<label>');
+        $labelStart.append(`<input type="date" id="timetable.tasks${countTasks}.taskStart" name="timetable.tasks[${countTasks}].taskStart"/>`);
+        $task.append($labelStart);
+
+        $task.append($(`<p>End date</p>`));
+        let $labelEnd = $('<label>');
+        $labelEnd.append(`<input type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
+        $task.append($labelEnd);
+
+        $addTaskBtn.before($task)
+        countTasks++;
+    })
+
+//    removing tasks from timetable
+    const addEventsOnRemoveTask = () => $mainInside.on('click', '.removeTaskButton', (event) => {
+        event.preventDefault();
+        $(event.target).closest('.taskDiv').remove();
+    });
+    addEventsOnRemoveTask();
+
+//    task date check
 
 })

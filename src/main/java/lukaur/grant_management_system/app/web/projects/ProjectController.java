@@ -51,9 +51,7 @@ public class ProjectController {
 
     @GetMapping("/project")
     public String showProject(@RequestParam Long id, Model model) {
-
         Project project = projectsService.findById(id);
-//        project.getApplicant().getPartners();
         model.addAttribute("project", project);
         return "project/project";
     }

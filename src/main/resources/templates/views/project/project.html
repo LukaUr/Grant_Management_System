@@ -25,9 +25,6 @@
             <p>
                 <button class="button" type="submit" form="projectForm">Save</button>
             </p>
-            <!--            <p>-->
-            <!--                <button class="button">Submit</button>-->
-            <!--            </p>-->
             <p>
                 <a th:href="@{/menu}">
                     <button class="button">Back</button>
@@ -45,11 +42,47 @@
                 <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
                 <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
                      id="sustainability"></div>
-                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden" id="inidcators"></div>
+                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden"
+                     id="inidcators"></div>
 
 
-                <div class="section hidden" id="timetable">test timetable</div>
-                <div class="section hidden" id="budget">test budget</div>
+                <div class="section hidden" id="timetable">
+                    <h3>6 Timetable</h3>
+                    <input type="number" th:field="*{timetable.id}" hidden/>
+
+                    <div th:each="task, stat : *{timetable.tasks}" class="taskDiv">
+                        <h3>Task no <span th:text="${stat.count}"></span></h3>
+                        <input type="number" th:field="*{timetable.tasks[__${stat.index}__].id}" hidden>
+                        <button class="button removeTaskButton">Remove</button>
+                        <p>Task name</p>
+                        <label>
+                        <input type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
+                        </label>
+                        <p>Task description</p>
+                        <label>
+                            <textarea th:field="*{timetable.tasks[__${stat.index}__].description}" th:text="*{timetable.tasks[__${stat.index}__].description}" cols="100" rows="4"></textarea>
+                        </label>
+                        <p>Start date</p>
+                        <label>
+                            <input type="date" th:field="*{timetable.tasks[__${stat.index}__].taskStart}">
+                        </label>
+                        <p>End date</p>
+                        <label>
+                            <input type="date" th:field="*{timetable.tasks[__${stat.index}__].taskEnd}">
+                        </label>
+                    </div>
+
+                    <div th:fragment="partners" id="addTaskButton">
+                        <button class="button">Add task</button>
+                    </div>
+
+
+                </div>
+
+
+                <div class="section hidden" id="budget">
+                    <input type="number" th:field="*{budget.id}" hidden/>
+                    test budget</div>
                 <div th:include="/fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
             </form>
         </div>
