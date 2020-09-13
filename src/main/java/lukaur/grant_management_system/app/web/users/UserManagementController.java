@@ -19,15 +19,15 @@ import java.util.List;
 public class UserManagementController {
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @GetMapping("/show")
     public String showAllUsers(Model model) {
         List<User> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        Role user = roleRepository.getOneByName("ROLE_USER");
+        Role user = roleService.findByName("ROLE_USER");
         model.addAttribute("role_user", user);
-        Role admin = roleRepository.getOneByName("ROLE_ADMIN");
+        Role admin = roleService.findByName("ROLE_ADMIN");
         model.addAttribute("role_admin", admin);
         return "user/allUsers";
     }
@@ -42,11 +42,11 @@ public class UserManagementController {
     public String showEditUserForm(@RequestParam Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        Role roleUser = roleRepository.getOneByName("ROLE_USER");
+        Role roleUser = roleService.findByName("ROLE_USER");
         model.addAttribute("role_user", roleUser);
-        Role admin = roleRepository.getOneByName("ROLE_ADMIN");
+        Role admin = roleService.findByName("ROLE_ADMIN");
         model.addAttribute("role_admin", admin);
-        List<Role> roles = roleRepository.findAll();
+        List<Role> roles = roleService.findAll();
         model.addAttribute("roles", roles);
         return "user/editUser";
     }
@@ -56,10 +56,10 @@ public class UserManagementController {
                                       @RequestParam(required = false) boolean isUser,
                                       @RequestParam(required = false) boolean isAdmin) {
         if(isUser){
-            user.getRoles().add(roleRepository.getOneByName("ROLE_USER"));
+            user.getRoles().add(roleService.findByName("ROLE_USER"));
         }
         if(isAdmin){
-            user.getRoles().add(roleRepository.getOneByName("ROLE_ADMIN"));
+            user.getRoles().add(roleService.findByName("ROLE_ADMIN"));
         }
         userService.update(user);
         return "redirect:/user/show";
