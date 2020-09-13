@@ -17,19 +17,20 @@
             <th>Value</th>
             <th>Year of expected achievment</th>
         </tr>
-        <label th:for="*{projectDetails.indicators}">
-            <tr th:each="indicator, index : ${indicators}">
-                <td th:text="${indicator.id}"></td>
-                <td th:text="${indicator.name}"></td>
-                <td th:text="${indicator.description}"></td>
-                <td th:text="${indicator.indicatorType}"></td>
-                <label th:for="${indicator}">
+        <label th:for="*{indicators}">
+            <tr th:each="projectIndicator, stat : ${project.indicators}">
+                <td th:text="${projectIndicator.id}"></td>
+                <td th:text="${projectIndicator.indicator.name}"></td>
+                <td th:text="${projectIndicator.indicator.description}"></td>
+                <td th:text="${projectIndicator.indicator.indicatorType.display()}"></td>
+                <label th:for="${projectIndicator}">
                     <td>
-                        <input type="number" th:field="${projectDetails.indicators[index].value}"/>
-                        <input type="number" th:field="${indicator.id}" hidden/>
+                        <input type="number" th:field="*{indicators[__${stat.index}__].value}"/>
+                        <input type="number" th:field="*{indicators[__${stat.index}__].id}" hidden/>
+                        <input type="number" th:field="*{indicators[__${stat.index}__].indicator.id}" hidden/>
                     </td>
-                    <td th:text="${indicator.plannedchievement}">
-                        <input type="number" th:field="${indicator.plannedchievement}" hidden/>
+                    <td>
+                        <input type="number" th:field="*{indicators[__${stat.index}__].plannedAchievement}"/>
                     </td>
                 </label>
 

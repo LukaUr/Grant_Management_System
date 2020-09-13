@@ -4,11 +4,8 @@ package lukaur.grant_management_system.app.web.model.project.misc;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data

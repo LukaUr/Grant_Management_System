@@ -45,41 +45,7 @@
                 <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
                 <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
                      id="sustainability"></div>
-
-                <div class="section hidden" id="inidcators">
-
-                    <h3>5.1. Incdicators</h3>
-                    <table>
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Type</th>
-                            <th>Value</th>
-                            <th>Year of expected achievment</th>
-                        </tr>
-                        <label th:for="*{indicators}">
-                            <tr th:each="projectIndicator, stat : ${project.indicators}">
-                                <td th:text="${projectIndicator.id}"></td>
-                                <td th:text="${projectIndicator.indicator.name}"></td>
-                                <td th:text="${projectIndicator.indicator.description}"></td>
-                                <td th:text="${projectIndicator.indicator.indicatorType.display()}"></td>
-                                <label th:for="${projectIndicator}">
-                                    <td>
-                                        <input type="number" th:field="*{indicators[__${stat.index}__].value}"/>
-                                        <input type="number" th:field="*{indicators[__${stat.index}__].id}" hidden/>
-                                        <input type="number" th:field="*{indicators[__${stat.index}__].indicator.id}" hidden/>
-                                    </td>
-                                    <td>
-                                        <input type="number" th:field="*{indicators[__${stat.index}__].plannedAchievement}"/>
-                                    </td>
-                                </label>
-
-                            </tr>
-                        </label>
-
-                    </table>
-                </div>
+                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden" id="inidcators"></div>
 
 
                 <div class="section hidden" id="timetable">test timetable</div>

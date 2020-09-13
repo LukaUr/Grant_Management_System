@@ -1,6 +1,5 @@
 package lukaur.grant_management_system.app.web.model.dictionaries;
 
-import java.time.Year;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

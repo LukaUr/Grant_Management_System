@@ -3,14 +3,8 @@ package lukaur.grant_management_system.app.web.projects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.calls.CallForProjectsService;
-import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
-import lukaur.grant_management_system.app.web.model.User;
-import lukaur.grant_management_system.app.web.model.dictionaries.ConsentText;
 import lukaur.grant_management_system.app.web.model.project.Project;
-import lukaur.grant_management_system.app.web.model.project.misc.Consent;
-import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
-import lukaur.grant_management_system.app.web.users.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
