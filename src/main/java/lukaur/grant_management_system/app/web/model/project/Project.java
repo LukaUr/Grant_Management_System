@@ -24,6 +24,7 @@ import java.util.List;
 @Data
 @ToString(of = "name")
 @EqualsAndHashCode(of = "id")
+
 public class Project {
 
     @Id

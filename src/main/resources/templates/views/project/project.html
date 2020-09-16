@@ -56,19 +56,23 @@
                         <button class="button removeTaskButton">Remove</button>
                         <p>Task name</p>
                         <label>
-                        <input type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
+                            <input type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
                         </label>
                         <p>Task description</p>
                         <label>
-                            <textarea th:field="*{timetable.tasks[__${stat.index}__].description}" th:text="*{timetable.tasks[__${stat.index}__].description}" cols="100" rows="4"></textarea>
+                            <textarea th:field="*{timetable.tasks[__${stat.index}__].description}"
+                                      th:text="*{timetable.tasks[__${stat.index}__].description}" cols="100"
+                                      rows="4"></textarea>
                         </label>
                         <p>Start date</p>
                         <label>
-                            <input type="date" th:field="*{timetable.tasks[__${stat.index}__].taskStart}">
-                        </label>
-                        <p>End date</p>
-                        <label>
-                            <input type="date" th:field="*{timetable.tasks[__${stat.index}__].taskEnd}">
+                            <input class="dateInput taskStart" type="date"
+                                   th:field="*{timetable.tasks[__${stat.index}__].taskStart}">
+
+                            <p>End date</p>
+
+                            <input class="dateInput taskEnd" type="date"
+                                   th:field="*{timetable.tasks[__${stat.index}__].taskEnd}">
                         </label>
                     </div>
 
@@ -82,7 +86,8 @@
 
                 <div class="section hidden" id="budget">
                     <input type="number" th:field="*{budget.id}" hidden/>
-                    test budget</div>
+                    test budget
+                </div>
                 <div th:include="/fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
             </form>
         </div>

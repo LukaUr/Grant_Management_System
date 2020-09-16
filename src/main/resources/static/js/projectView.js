@@ -6,7 +6,7 @@ $(() => {
     const $sections = $('.section');
 
     const addEventsOnMenuItems = () => {
-        $menuItems.on('click', function() {
+        $menuItems.on('click', function () {
             $menuItems.removeClass("active");
             $(this).addClass("active");
             $sections.addClass('hidden');
@@ -111,13 +111,10 @@ $(() => {
 
         $task.append($(`<p>Start date</p>`));
         let $labelStart = $('<label>');
-        $labelStart.append(`<input type="date" id="timetable.tasks${countTasks}.taskStart" name="timetable.tasks[${countTasks}].taskStart"/>`);
+        $labelStart.append(`<input class="dateInput taskStart" type="date" id="timetable.tasks${countTasks}.taskStart" name="timetable.tasks[${countTasks}].taskStart"/>`);
+        $labelStart.append($(`<p>End date</p>`));
+        $labelStart.append(`<input class="dateInput taskEnd" type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
         $task.append($labelStart);
-
-        $task.append($(`<p>End date</p>`));
-        let $labelEnd = $('<label>');
-        $labelEnd.append(`<input type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
-        $task.append($labelEnd);
 
         $addTaskBtn.before($task)
         countTasks++;
@@ -131,5 +128,20 @@ $(() => {
     addEventsOnRemoveTask();
 
 //    task date check
+    const $timetable = $('#timetable');
+    $timetable.on('input', '.dateInput', (event) => {
+        $task = $(event.target).parent();
+        const $errorTag = $task.find('.error');
+        $errorTag.remove();
+        const $taskStart = $task.find('.taskStart');
+        const $taskEnd = $task.find('.taskEnd');
+        const startDate = $taskStart.val();
+        const endDate = $taskEnd.val();
+        if (startDate > endDate ) {
+            $task.prepend('<p class="error">Start date must be before the end date</p>')
+        }
+
+    })
+
 
 })

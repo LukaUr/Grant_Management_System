@@ -9,14 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
 @Data
 @ToString(of = "name")
 @EqualsAndHashCode
+@DateComparator
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,5 +27,4 @@ public class Task {
     private Date taskStart;
 
     private Date taskEnd;
-
 }

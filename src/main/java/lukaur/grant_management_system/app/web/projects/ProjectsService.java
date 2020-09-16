@@ -53,13 +53,9 @@ public class ProjectsService {
     }
 
     public void save(Project project) {
-//        perserve creation date
         perserveCreationDate(project);
-//        manage adding, deleting and updateing partners
         managePartners(project);
-//        manage adding, deleting and updating tasks
         manageTimetable(project);
-//        final save
         projectsRepository.save(project);
     }
 
@@ -73,13 +69,9 @@ public class ProjectsService {
 
     public Project initialize(Project project,
                            Principal principal) {
-//        set user
         setUser(project, principal);
-//        set consents
         setConsents(project);
-//        set indicators
         setIndicators(project);
-//        save project
         return this.create(project);
     }
 

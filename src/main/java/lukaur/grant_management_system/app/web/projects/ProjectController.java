@@ -58,12 +58,13 @@ public class ProjectController {
 
     @PostMapping("/save")
     public String processProjectSave(@Valid Project project,
-                                     @RequestParam Map<String, String> allParams,
-                                     BindingResult result) {
+                                     BindingResult result,
+                                     @RequestParam Map<String, String> allParams
+                                     ) {
         allParams.forEach((k, v) -> System.out.println(k + ": " + v));
         if (result.hasErrors()) {
             log.error("Cant save a project");
-            return "project?projet";
+            return "project/project";
         }
         log.info("Attempting to save project");
         projectsService.save(project);
