@@ -1,0 +1,28 @@
+#budgetTable {
+
+}
+
+.budgetEntry {
+
+}
+
+.budgetEntry input {
+    width: 90%;
+}
+
+.budgetEntry input.entryCoverage {
+    width: 50%;
+}
+.budgetEntry div {
+    height: 30px;
+    box-sizing: border-box;
+}
+
+.valueNames div {
+    text-align: left;
+    padding-top: 2px;
+}
+
+#budgetTable td:last-of-type {
+    text-align: left;
+}

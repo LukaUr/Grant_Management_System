@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lukaur.grant_management_system.app.web.model.User;
-import lukaur.grant_management_system.app.web.model.project.budget.Budget;
 import lukaur.grant_management_system.app.web.model.project.applicant.Applicant;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
@@ -55,9 +54,6 @@ public class Project {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Timetable timetable;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Budget budget;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consent> consents = new ArrayList<>();

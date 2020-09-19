@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
-import lukaur.grant_management_system.app.web.model.project.applicant.LegalEntity;
 import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
+import lukaur.grant_management_system.app.web.model.project.timetable.Task;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,9 +16,14 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -50,12 +55,17 @@ public class ProjectController {
         return Arrays.asList(ConsentOption.values().clone());
     }
 
+
     @GetMapping("/project")
     public String showProject(@RequestParam Long id, Model model) {
         Project project = projectsService.findById(id);
         model.addAttribute("project", project);
+        List<Integer> yearsOfProject = determineYears(project);  // the budget table requires to determine the project span
+        model.addAttribute("yearsOfProject", yearsOfProject);
         return "project/project";
     }
+
+
 
     @PostMapping("/save")
     public String processProjectSave(@Valid Project project,
@@ -64,7 +74,7 @@ public class ProjectController {
         allParams.forEach((k, v) -> System.out.println(k + ": " + v));
         addErrorsOnTasks(project, result);    //hibernate can't bind automatically errors with tasks, must be added manually
         if (result.hasErrors()) {
-            log.error("Cant save a project");
+            log.error("Cant save the project");
             result.getAllErrors().forEach(System.out::println);
             addInformationOnIndicatorType(project);      //the inforomation on Indicator.Type is lost, must be added manualy
             return "project/project";
@@ -85,17 +95,35 @@ public class ProjectController {
     private void addErrorsOnTasks(Project project, BindingResult result) {
         project.getTimetable().getTasks()
                 .stream()
-                .filter(t -> t.getTaskStart().after(t.getTaskEnd()))
+                .filter(t ->
+                        t.getTaskStart() == null || t.getTaskEnd() == null || t.getTaskStart().after(t.getTaskEnd())
+                )
                 .forEach(t -> result.addError(new ObjectError(
                         t.getClass().toString(), "Start date must be before the end date")));
     }
 
-    @GetMapping("/test")
-    public String test() {
-        log.info("test started");
-        List<LegalEntity> partners = projectsService.getPartners(3L);
-        partners.forEach(p -> log.info(String.valueOf(p)));
-        return "redirect:/menu";
+    private List<Integer> determineYears(Project project) {
+        List<Task> tasks = project.getTimetable().getTasks();
+        Optional<Integer> firstYear = tasks
+                .stream()
+                .map(Task::getTaskStart)
+                .map(Date::toLocalDate)
+                .map(LocalDate::getYear)
+                .min((a, b) -> a - b);
+        Optional<Integer> lastYear = tasks
+                .stream()
+                .map(Task::getTaskEnd)
+                .map(Date::toLocalDate)
+                .map(LocalDate::getYear)
+                .max((a, b) -> a - b);
+        if (firstYear.isPresent() && lastYear.isPresent()) {
+            return (List<Integer>) IntStream
+                    .range(firstYear.get(), lastYear.get()+1)
+                    .boxed()
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
+
 }
 

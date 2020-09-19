@@ -1,4 +1,4 @@
-package lukaur.grant_management_system.app.web.model.project.budget;
+package lukaur.grant_management_system.app.web.model.project.timetable;
 
 import java.math.BigDecimal;
 import java.time.Year;
@@ -23,8 +23,6 @@ public class BudgetEntry {
     private Long id;
 
     private Year year;
-
-    private Integer quarter;
 
     private BigDecimal totalAmount;
 

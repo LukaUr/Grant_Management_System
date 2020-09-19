@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/project.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/budget.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <title>New project</title>
 </head>
@@ -44,13 +45,58 @@
                      id="sustainability"></div>
                 <div th:include="/fragments/sections/indicators :: indicators" class="section hidden"
                      id="inidcators"></div>
-                <div th:include="/fragments/sections/timetable :: timetable" class="section hidden" id="timetable"></div>
-
+                <div th:include="/fragments/sections/timetable :: timetable" class="section hidden"
+                     id="timetable"></div>
 
 
                 <div class="section hidden" id="budget">
-                    <input type="number" th:field="*{budget.id}" hidden/>
-                    test budget
+                    <div id="budgetTableDiv">
+                        <table id="budgetTable" th:if="*{timetable.getTasks().size()!=0}">
+                            <tr>
+                                <th>No.</th>
+                                <th>Task name</th>
+                                <th>Value</th>
+                                <th th:each="year : ${yearsOfProject}" th:text="${year}">year</th>
+                            </tr>
+                            <tr class="budgetTask" th:each="task, taskStat : *{timetable.getTasks()}">
+                                <input type="number" class="budgetTaskId" th:field="*{timetable.getTasks[__${taskStat.index}__].id}" hidden/>
+                                <input type="number" class="budgetTaskStart" th:field="*{timetable.getTasks[__${taskStat.index}__].taskStart}" hidden/>
+                                <input type="number" class="budgetTaskEnd" th:field="*{timetable.getTasks[__${taskStat.index}__].taskEnd}" hidden/>
+                                <td th:text="${taskStat.count}">number</td>
+                                <td th:text="${task.name}">task name</td>
+                                <input type="text" class="budgetTaskName" th:field="*{timetable.getTasks[__${taskStat.index}__].name}" hidden/>
+                                <td>
+                                    <div class="budgetEntry valueNames">
+                                        <div>Total amount</div>
+                                        <div>Grant</div>
+                                        <div>Coverage</div>
+                                        <div>Self funding</div>
+                                    </div>
+                                </td>
+                                <td th:each="entry, entryStat : ${task.budgetEntryList}">
+                                    <div class="budgetEntry">
+                                        <input type="number" class="entryId"
+                                               th:field="*{timetable.getTasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].id}"
+                                               hidden/>
+                                        <input type="number" class="entryYear"
+                                               th:field="*{timetable.getTasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].year}"
+                                               hidden/>
+                                        <div><input type="number" class="entryTotal"
+                                                    th:field="*{timetable.getTasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].totalAmount}"/>
+                                        </div>
+                                        <div><input type="number" class="entryFunding"
+                                                    th:field="*{timetable.getTasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].totalFunding}"/>
+                                        </div>
+                                        <div></div>
+                                        <div><input type="number" class="entrySelf"
+                                                    th:field="*{timetable.getTasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].selfFunding}"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
                 </div>
                 <div th:include="/fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
             </form>
@@ -63,5 +109,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script th:src="@{/js/projectView.js}"></script>
+<script th:src="@{/js/budgetTable.js}"></script>
 </body>
 </html>
