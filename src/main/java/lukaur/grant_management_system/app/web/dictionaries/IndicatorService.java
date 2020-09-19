@@ -19,7 +19,7 @@ public class IndicatorService {
         indicatorRepository.save(indicator);
     }
 
-    protected Indicator find(Long id){return indicatorRepository.getOne(id);}
+    public Indicator find(Long id){return indicatorRepository.getOne(id);}
 
     protected boolean delete(Indicator indicator) {
         try {

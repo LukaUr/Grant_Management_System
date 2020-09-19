@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -59,17 +60,34 @@ public class ProjectController {
     @PostMapping("/save")
     public String processProjectSave(@Valid Project project,
                                      BindingResult result,
-                                     @RequestParam Map<String, String> allParams
-                                     ) {
+                                     @RequestParam Map<String, String> allParams) {
         allParams.forEach((k, v) -> System.out.println(k + ": " + v));
+        addErrorsOnTasks(project, result);    //hibernate can't bind automatically errors with tasks, must be added manually
         if (result.hasErrors()) {
             log.error("Cant save a project");
+            result.getAllErrors().forEach(System.out::println);
+            addInformationOnIndicatorType(project);      //the inforomation on Indicator.Type is lost, must be added manualy
             return "project/project";
         }
         log.info("Attempting to save project");
         projectsService.save(project);
         log.info("Project saved");
         return "redirect:/menu";
+    }
+
+    private void addInformationOnIndicatorType(Project project) {
+        project.getIndicators()
+                .forEach(i -> {
+                    i.setIndicator(indicatorService.find(i.getIndicator().getId()));
+                });
+    }
+
+    private void addErrorsOnTasks(Project project, BindingResult result) {
+        project.getTimetable().getTasks()
+                .stream()
+                .filter(t -> t.getTaskStart().after(t.getTaskEnd()))
+                .forEach(t -> result.addError(new ObjectError(
+                        t.getClass().toString(), "Start date must be before the end date")));
     }
 
     @GetMapping("/test")
