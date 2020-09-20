@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
-@ToString(of = "name")
+@ToString
 @EqualsAndHashCode
 @DateComparator
 public class Task {
@@ -27,6 +27,6 @@ public class Task {
 
     private Date taskEnd;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<BudgetEntry> budgetEntryList = new ArrayList<>();
 }

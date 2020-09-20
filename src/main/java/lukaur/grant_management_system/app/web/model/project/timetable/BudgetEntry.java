@@ -1,7 +1,6 @@
 package lukaur.grant_management_system.app.web.model.project.timetable;
 
 import java.math.BigDecimal;
-import java.time.Year;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,7 @@ public class BudgetEntry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Year year;
+    private Integer year;
 
     private BigDecimal totalAmount;
 

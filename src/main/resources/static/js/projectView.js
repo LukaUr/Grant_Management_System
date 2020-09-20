@@ -101,7 +101,7 @@ $(() => {
 
         $task.append($(`<p>Task name</p>`));
         let $labelName = $('<label>');
-        $labelName.append(`<input type="text" id="timetable.tasks${countTasks}.name" name="timetable.tasks[${countTasks}].name"/>`);
+        $labelName.append(`<input class="taskName" type="text" id="timetable.tasks${countTasks}.name" name="timetable.tasks[${countTasks}].name"/>`);
         $task.append($labelName);
 
         $task.append($(`<p>Task description</p>`));

@@ -10,13 +10,13 @@
     <h3>6 Timetable</h3>
     <input type="number" th:field="*{timetable.id}" hidden/>
 
-    <div th:each="task, stat : *{timetable.tasks}" class="taskDiv">
+    <div th:each="task, stat : *{timetable.tasks}" class="taskDiv" th:data-local_id="${task.id}" >
         <h3>Task no <span th:text="${stat.count}"></span></h3>
-        <input type="number" th:field="*{timetable.tasks[__${stat.index}__].id}" hidden>
+        <input class="taskId" type="number" th:field="*{timetable.tasks[__${stat.index}__].id}" hidden>
         <button class="button removeTaskButton">Remove</button>
         <p>Task name</p>
         <label>
-            <input type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
+            <input class="taskName" type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
         </label>
         <p>Task description</p>
         <label>

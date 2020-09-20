@@ -6,6 +6,7 @@ import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
 import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
+import lukaur.grant_management_system.app.web.model.project.timetable.BudgetEntry;
 import lukaur.grant_management_system.app.web.model.project.timetable.Task;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,7 +67,6 @@ public class ProjectController {
     }
 
 
-
     @PostMapping("/save")
     public String processProjectSave(@Valid Project project,
                                      BindingResult result,
@@ -76,14 +76,15 @@ public class ProjectController {
         if (result.hasErrors()) {
             log.error("Cant save the project");
             result.getAllErrors().forEach(System.out::println);
-            addInformationOnIndicatorType(project);      //the inforomation on Indicator.Type is lost, must be added manualy
+            addInformationOnIndicatorType(project);      //the information on Indicator.Type is lost, must be added manualy
             return "project/project";
         }
-        log.info("Attempting to save project");
+        log.warn("Attempting to save project");
         projectsService.save(project);
-        log.info("Project saved");
+        log.warn("Project saved");
         return "redirect:/menu";
     }
+
 
     private void addInformationOnIndicatorType(Project project) {
         project.getIndicators()
@@ -93,16 +94,24 @@ public class ProjectController {
     }
 
     private void addErrorsOnTasks(Project project, BindingResult result) {
+        System.out.println("----------addErrorsOntasks------------------");
         project.getTimetable().getTasks()
                 .stream()
+                .peek(System.out::println)
+                .filter(t -> !(t.getId() == null && t.getName() == null && t.getTaskStart() == null & t.getTaskEnd() == null))
+                .peek(System.out::println)
                 .filter(t ->
                         t.getTaskStart() == null || t.getTaskEnd() == null || t.getTaskStart().after(t.getTaskEnd())
                 )
+                .peek(System.out::println)
                 .forEach(t -> result.addError(new ObjectError(
                         t.getClass().toString(), "Start date must be before the end date")));
     }
 
     private List<Integer> determineYears(Project project) {
+        if (project.getTimetable() == null) {
+            return null;
+        }
         List<Task> tasks = project.getTimetable().getTasks();
         Optional<Integer> firstYear = tasks
                 .stream()
@@ -118,7 +127,7 @@ public class ProjectController {
                 .max((a, b) -> a - b);
         if (firstYear.isPresent() && lastYear.isPresent()) {
             return (List<Integer>) IntStream
-                    .range(firstYear.get(), lastYear.get()+1)
+                    .range(firstYear.get(), lastYear.get() + 1)
                     .boxed()
                     .collect(Collectors.toList());
         }

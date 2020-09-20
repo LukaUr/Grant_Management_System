@@ -1,96 +1,240 @@
 $(() => {
-    'use strict'
+        'use strict'
+        //utils
 
-    // determine years to be included in budget table
+        const getYearFromDate = (date) => {
+            if (date == undefined || date == null) return null;
+            return parseInt(date.substr(0, 4));
+        }
 
-    const $taskStarts = $('.taskStart');
-    const taskStartsDates = $taskStarts.map(function () {
-        return $(this).val()
-    });
-    const taskStartYears = $.map(taskStartsDates, t => parseInt(t.substr(0, 4)));
-    const firstYear = Math.min(...taskStartYears);
-    console.log(firstYear);
+        // determine years to be included in budget table
 
-    const $taskEnds = $('.taskEnd')
-    const taskEndDates = $taskEnds.map(function () {
-        return $(this).val()
-    });
-    const taskEndYears = $.map(taskEndDates, t => parseInt(t.substr(0, 4)));
-    const lastYear = Math.max(...taskEndYears);
-    console.log(lastYear);
-    const listOfYears = new Array();
-    for (let i = firstYear; i < (lastYear + 1); i++) {
-        listOfYears.push(i);
-    }
+        const $taskStarts = $('.taskStart');
+        const taskStartsDates = $taskStarts.map(function () {
+            return $(this).val()
+        });
+        const taskStartYears = new Array();
+        for (const date of taskStartsDates) {
+            taskStartYears.push(getYearFromDate(date));
+        }
+        ;
+        const firstYear = Math.min(...taskStartYears);
 
-    // fetch current budget data
+        const $taskEnds = $('.taskEnd')
+        const taskEndDates = $taskEnds.map(function () {
+            return $(this).val()
+        });
+        const taskEndYears = new Array();
+        for (const date of taskEndDates) {
+            taskEndYears.push(getYearFromDate(date));
+        }
+        ;
+        const lastYear = Math.max(...taskEndYears);
+        const listOfYears = new Array();
+        for (let i = firstYear; i < (lastYear + 1); i++) {
+            listOfYears.push(i);
+        }
 
-    class BudgetTask {
-        constructor(id, name, yearOfStart, yearOfEnd, entries) {
-            this.id = id;
-            this.name = name;
-            this.yearOfStart = yearOfStart;
-            this.yearOfEnd = yearOfEnd;
-            this.entries = entries;
+        // fetch current budget data
+
+        class BudgetTask {
+            constructor(id, localId, entries) {
+                this.id = id;
+                this.localId = localId;
+                this.entries = entries;
+            }
+        }
+
+        class BudgetEntry {
+            constructor(id, year, total, funding) {
+                this.id = id;
+                this.year = year;
+                this.total = total;
+                this.funding = funding;
+                this.selfFunding = total - funding;
+                this.coverage = funding / total * 100;
+            }
+        }
+
+        class TaskFromTimetable {
+            constructor(id, localId, name, yearOfStart, yearOfEnd) {
+                this.id = id;
+                this.localId = localId;
+                this.name = name;
+                this.yearOfStart = yearOfStart;
+                this.yearOfEnd = yearOfEnd;
+            }
+        }
+
+        const $budgetTasks = $('#budgetTable .budgetTask');
+        let budgetTaskList = new Array();
+        for (const task of $budgetTasks) {
+            const $budgetEntries = $(task).find('.budgetData');
+            let budgetEntryList = new Array();
+            for (const entry of $budgetEntries) {
+                const entryId = $(entry).find('.entryId').val();
+                const entryYear = $(entry).find('.entryYear').val();
+                const entryTotal = $(entry).find('.entryTotal').val();
+                const entryFunding = $(entry).find('.entryFunding').val();
+                const budgetEntry = new BudgetEntry(entryId, entryYear, entryTotal, entryFunding);
+                budgetEntryList.push(budgetEntry);
+            }
+            const taskId = $(task).find('.budgetTaskId').val();
+            const localId = $(task).data('local_id');
+            const budgetTask = new BudgetTask(taskId, localId, budgetEntryList);
+            budgetTaskList.push(budgetTask);
+        }
+        console.log(budgetTaskList);
+
+
+        // clear current budget table
+
+        const $budgetTable = $('#budgetTable');
+        $budgetTable.remove();
+
+        // build new budget table
+
+        const $newBudgetTable = $('<table id="budgetTable">');
+
+        //header
+
+        const $headerTr = $('<tr>');
+        $headerTr.append($('<th>No.</th>'));
+        $headerTr.append($('<th>Task name</th>'));
+        $headerTr.append($('<th>Value</th>'));
+        for (let i of listOfYears) {
+            const $header = ($('<th></th>'))
+            $header.text(i);
+            $headerTr.append($header);
+        }
+        $newBudgetTable.append($headerTr);
+
+        // populate new task list with tasks from timetable
+
+        const tasksFromTimetable = new Array();
+        const $taskDivsFromTimetable = $('#timetable .taskDiv')
+        for (const taskDiv of $taskDivsFromTimetable) {
+            const taskId = $(taskDiv).find('.taskId').val();
+            const localId = $(taskDiv).data('local_id');
+            const name = $(taskDiv).find('.taskName').val();
+            const dateOfStart = $(taskDiv).find('.taskStart').val();
+            const yearOfStart = getYearFromDate(dateOfStart);
+            const dateOfEnd = $(taskDiv).find('.taskEnd').val();
+            const yearOfEnd = getYearFromDate(dateOfEnd);
+            const task = new TaskFromTimetable(taskId, localId, name, yearOfStart, yearOfEnd);
+            tasksFromTimetable.push(task);
+        }
+
+        // fill budget table with tasks and entries using tasks from timetable and fetched budgetary data
+
+        for (let i = 0; i < tasksFromTimetable.length; i++) {
+            const taskFromTT = tasksFromTimetable[i];
+            const localId = taskFromTT.id;
+            console.log(taskFromTT);
+            const $row = $(`<tr class="budgetTask" data-local_id="${localId}">`);
+
+            const $firstColumn = $('<td>');
+            $firstColumn.text(i + 1);
+            $row.append($firstColumn);
+
+            const $secondColumn = $('<td>');
+            $secondColumn.text(taskFromTT.name);
+            $row.append($secondColumn);
+
+            const $thirdColumn = $('<td>');
+            const $budgetEntryNames = $('<div class="budgetEntry valueNames">');
+            $budgetEntryNames.append($('<div>Total amount</div>'));
+            $budgetEntryNames.append($('<div>Grant</div>'));
+            $budgetEntryNames.append($('<div>Coverage</div>'));
+            $budgetEntryNames.append($('<div>Self funding</div>'));
+            const $IdInput = $(`<input type="number" class="budgetTaskId" id="timetable.tasks${i}.id" name="timetable.tasks[${i}].id" hidden/>`)
+            $IdInput.val(taskFromTT.id);
+            $budgetEntryNames.append($IdInput);
+            $thirdColumn.append($budgetEntryNames);
+            $row.append($thirdColumn);
+
+            if (taskFromTT.yearOfStart === undefined || taskFromTT.yearOfStart === null ||
+                taskFromTT.yearOfEnd === undefined || taskFromTT.yearOfEnd === null ||
+                taskFromTT.yearOfEnd < taskFromTT.yearOfStart) {
+                const yearsCount = listOfYears.length;
+                const $column = $(`<td colspan="${yearsCount}">`);
+                $column.text("Define the start and end date of this task");
+                $row.append($column);
+            } else {
+                let currentBudgetTask = new BudgetTask(null, null, new Array());
+                console.log(budgetTaskList);
+                for (const budgetTask of budgetTaskList) {
+                    if (budgetTask.localId == localId) {
+                        currentBudgetTask.id = budgetTask.id;
+                        currentBudgetTask.localId = budgetTask.localId;
+                        currentBudgetTask.entries = budgetTask.entries;
+                    }
+                }
+                console.log(currentBudgetTask);
+                let entryCount = 0;
+                for (const year of listOfYears) {
+                    if (year < taskFromTT.yearOfStart || year > taskFromTT.yearOfEnd) {
+                        const $emptyDiv = $('<div class="emptyEntry">');
+                        const $emptyColumn = $('<td>');
+                        $emptyColumn.append($emptyDiv);
+                        $row.append($emptyColumn);
+                    } else {
+                        let currentEntry = new BudgetEntry();
+                        for (const budgetEntry of currentBudgetTask.entries) {
+                            if (budgetEntry.year == year) {
+                                currentEntry.id = budgetEntry.id;
+                                currentEntry.year = year;
+                                currentEntry.total = budgetEntry.total;
+                                currentEntry.funding = budgetEntry.funding;
+                                currentEntry.selfFunding = currentEntry.total - currentEntry.funding;
+                                currentEntry.coverage = currentEntry.funding / currentEntry.total * 100;
+                            }
+                        }
+                        const $column = $('<td>');
+                        const $entryDiv = $('<div class="budgetEntry budgetData">');
+                        const $entryId = $(`<input type="number" class="entryId" id="timetable.tasks${i}.budgetEntryList${entryCount}.id}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].id" value="${currentEntry.id}" hidden/>`)
+                        $entryDiv.append($entryId);
+                        const $entryYear = $(`<input type="number" class="entryYear" id="timetable.tasks${i}.budgetEntryList${entryCount}.year}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].year" value="${year}" hidden/>`);
+                        $entryDiv.append($entryYear);
+
+                        const $totalDiv = $('<div>');
+                        const $totalInput = $(`<input type="number" class="entryTotal" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalAmount}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalAmount" value="${currentEntry.total}">`)
+                        $totalDiv.append($totalInput);
+                        $entryDiv.append($totalDiv);
+
+                        const $fundingDiv = $('<div>');
+                        const $fundingInput = $(`<input type="number" class="entryFunding" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalFunding" value="${currentEntry.funding}">`)
+                        $fundingDiv.append($fundingInput);
+                        $entryDiv.append($fundingDiv);
+
+                        const $coverageDiv = $('<div>');
+                        const $coverageInput = $(`<input type="number" class="entryCoverage" value="${currentEntry.coverage}" disabled>`)
+                        $coverageDiv.append($coverageInput);
+                        $entryDiv.append($coverageDiv);
+
+                        const $selfDiv = $('<div>');
+                        const $selfInput = $(`<input type="number" class="entrySelf" id="timetable.tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" disabled>`)
+                        $selfDiv.append($selfInput);
+                        $entryDiv.append($selfDiv);
+
+                        $column.append($entryDiv);
+                        $row.append($column);
+                        entryCount++;
+                    }
+
+                }
+
+
+                $newBudgetTable.append($row);
+
+
+// append new budgetTable to DOM
+
+                const $budgetTableDiv = $('#budgetTableDiv');
+                $budgetTableDiv.append($newBudgetTable);
+
+            }
         }
     }
-
-    class BudgetEntry {
-        constructor(id, year, total, funding, selfFunding) {
-            this.id = id;
-            this.year = year;
-            this.total = total;
-            this.funding = funding;
-            this.selfFunding = selfFunding;
-            this.coverage = total / funding * 100;
-        }
-    }
-
-    const $budgetTasks = $('#budgetTable .budgetTask');
-    let budgetTaskList = new Array();
-    $budgetTasks.forEach(function () {
-        const $budgetEntries = $(this).find('.budgetEntry');
-        let budgetEntryList = new Array();
-        $budgetEntries.forEach(function () {
-            const entryId = $(this).find('.entryId').val();
-            const entryYear = $(this).find('.entryYear').val();
-            const entryTotal = $(this).find('.entryTotal').val();
-            const entryFunding = $(this).find('.entryFunding').val();
-            const entrySelf = $(this).find('.entrySelf').val();
-            const budgetEntry = new BudgetEntry(entryId, entryYear, entryTotal, entryFunding, entrySelf);
-            budgetEntryList.push(budgetEntry);
-        })
-        const taskId = $(this).find('.budgetTaskId').val();
-        const taskName = $(this).find('.budgetTaskName').val();
-        const taskStart = $(this).find('.budgetTaskStart').val();
-        const taskEnd = $(this).find('.budgetTaskEnd').val();
-        const yearOfStart = +(taskStart.substr(0, 4));
-        const yearOfEnd = +(taskEnd.substr(0, 4));
-        const budgetTask = new BudgetTask(taskId, taskName, yearOfStart, yearOfEnd, budgetEntryList);
-        budgetTaskList.push()
-    })
-
-
-    // clear current budget table
-
-    const $budgetTable = $('#budgetTable');
-    $budgetTable.remove();
-
-    // build new budget table
-
-    const $newBudgetTable = $('<table id="budgetTable">');
-    const $headerTr = $('<tr>');
-    $headerTr.append($('<th>No.</th>'));
-    $headerTr.append($('<th>Task name</th>'));
-    $headerTr.append($('<th>Value</th>'));
-    for (let i in listOfYears) {
-        const $header = ($('<th></th>'))
-        $header.text(i);
-        $headerTr.append($header);
-    }
-
-    const $budgetTableDiv = $('#budgetTableDiv');
-    $budgetTableDiv.append($newBudgetTable);
-
-
-});
+)
+;

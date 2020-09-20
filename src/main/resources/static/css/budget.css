@@ -26,3 +26,12 @@
 #budgetTable td:last-of-type {
     text-align: left;
 }
+
+.emptyEntry {
+    background-color: lightgray;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 2px;
+    height: 100px;
+    width: 100%;
+}
