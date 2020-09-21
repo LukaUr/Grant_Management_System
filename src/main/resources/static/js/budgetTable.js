@@ -1,13 +1,14 @@
 $(() => {
-        'use strict'
-        //utils
+    'use strict'
+    //utils
 
-        const getYearFromDate = (date) => {
-            if (date == undefined || date == null) return null;
-            return parseInt(date.substr(0, 4));
-        }
+    const getYearFromDate = (date) => {
+        if (date == undefined || date == null) return null;
+        return parseInt(date.substr(0, 4));
+    }
 
-        // determine years to be included in budget table
+    // determine years to be included in budget table
+    const updateTable = () => {
 
         const $taskStarts = $('.taskStart');
         const taskStartsDates = $taskStarts.map(function () {
@@ -15,9 +16,10 @@ $(() => {
         });
         const taskStartYears = new Array();
         for (const date of taskStartsDates) {
-            taskStartYears.push(getYearFromDate(date));
+            if (date != "") {
+                taskStartYears.push(getYearFromDate(date));
+            }
         }
-        ;
         const firstYear = Math.min(...taskStartYears);
 
         const $taskEnds = $('.taskEnd')
@@ -26,7 +28,9 @@ $(() => {
         });
         const taskEndYears = new Array();
         for (const date of taskEndDates) {
-            taskEndYears.push(getYearFromDate(date));
+            if (date != "") {
+                taskEndYears.push(getYearFromDate(date));
+            }
         }
         ;
         const lastYear = Math.max(...taskEndYears);
@@ -82,10 +86,9 @@ $(() => {
             const taskId = $(task).find('.budgetTaskId').val();
             const localId = $(task).data('local_id');
             const budgetTask = new BudgetTask(taskId, localId, budgetEntryList);
+            console.log(budgetTask);
             budgetTaskList.push(budgetTask);
         }
-        console.log(budgetTaskList);
-
 
         // clear current budget table
 
@@ -125,11 +128,15 @@ $(() => {
             tasksFromTimetable.push(task);
         }
 
+        // *****
         // fill budget table with tasks and entries using tasks from timetable and fetched budgetary data
+        // *****
+
+        // fill first three columns with general data
 
         for (let i = 0; i < tasksFromTimetable.length; i++) {
             const taskFromTT = tasksFromTimetable[i];
-            const localId = taskFromTT.id;
+            const localId = taskFromTT.localId;
             console.log(taskFromTT);
             const $row = $(`<tr class="budgetTask" data-local_id="${localId}">`);
 
@@ -153,16 +160,24 @@ $(() => {
             $thirdColumn.append($budgetEntryNames);
             $row.append($thirdColumn);
 
-            if (taskFromTT.yearOfStart === undefined || taskFromTT.yearOfStart === null ||
-                taskFromTT.yearOfEnd === undefined || taskFromTT.yearOfEnd === null ||
+            // if no data provided, fill with placeholder
+
+            if (isNaN(taskFromTT.yearOfStart) ||
+                // taskFromTT.yearOfStart == null ||
+                isNaN(taskFromTT.yearOfEnd) ||
+                // taskFromTT.yearOfEnd === null ||
                 taskFromTT.yearOfEnd < taskFromTT.yearOfStart) {
                 const yearsCount = listOfYears.length;
-                const $column = $(`<td colspan="${yearsCount}">`);
-                $column.text("Define the start and end date of this task");
+                const $column = $(`<td colspan="${yearsCount}" style="color: red">`);
+                $column.text("Define the start and the end date of this task in Timetable");
                 $row.append($column);
+                $newBudgetTable.append($row);
+
             } else {
+
+                // iterate through all budget tasks and find one matching localId
+
                 let currentBudgetTask = new BudgetTask(null, null, new Array());
-                console.log(budgetTaskList);
                 for (const budgetTask of budgetTaskList) {
                     if (budgetTask.localId == localId) {
                         currentBudgetTask.id = budgetTask.id;
@@ -170,15 +185,23 @@ $(() => {
                         currentBudgetTask.entries = budgetTask.entries;
                     }
                 }
-                console.log(currentBudgetTask);
+
+                // fill columns with data for each year
+
                 let entryCount = 0;
                 for (const year of listOfYears) {
+
+                    // fill with empty tag if year no in range of the task
+
                     if (year < taskFromTT.yearOfStart || year > taskFromTT.yearOfEnd) {
                         const $emptyDiv = $('<div class="emptyEntry">');
                         const $emptyColumn = $('<td>');
                         $emptyColumn.append($emptyDiv);
                         $row.append($emptyColumn);
                     } else {
+
+                        // prepare data to fill the budget entry
+
                         let currentEntry = new BudgetEntry();
                         for (const budgetEntry of currentBudgetTask.entries) {
                             if (budgetEntry.year == year) {
@@ -190,6 +213,9 @@ $(() => {
                                 currentEntry.coverage = currentEntry.funding / currentEntry.total * 100;
                             }
                         }
+
+                        // append entry to the table
+
                         const $column = $('<td>');
                         const $entryDiv = $('<div class="budgetEntry budgetData">');
                         const $entryId = $(`<input type="number" class="entryId" id="timetable.tasks${i}.budgetEntryList${entryCount}.id}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].id" value="${currentEntry.id}" hidden/>`)
@@ -221,20 +247,22 @@ $(() => {
                         $row.append($column);
                         entryCount++;
                     }
-
                 }
-
-
                 $newBudgetTable.append($row);
-
+            }
+        }
 
 // append new budgetTable to DOM
 
-                const $budgetTableDiv = $('#budgetTableDiv');
-                $budgetTableDiv.append($newBudgetTable);
+        const $budgetTableDiv = $('#budgetTableDiv');
+        $budgetTableDiv.append($newBudgetTable);
+        console.log('table updated');
 
-            }
-        }
+
     }
-)
-;
+    updateTable();
+
+    const $budgetTableButton = $('.leftMenuItem[data-section="budget"]');
+    $budgetTableButton.on('click', () => updateTable());
+
+})

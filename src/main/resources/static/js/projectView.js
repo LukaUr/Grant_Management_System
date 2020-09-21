@@ -95,7 +95,7 @@ $(() => {
     $addTaskBtn.on('click', function (event) {
         event.preventDefault();
 
-        let $task = $('<div class="taskDiv">');
+        let $task = $(`<div class="taskDiv" data-local_id="${countTasks+1}">`);
         $task.append($(`<h3>Task no ${countTasks + 1}</h3>`));
         $task.append('<button class="button removeTaskButton">Remove</button>');
 
@@ -116,6 +116,7 @@ $(() => {
         $labelStart.append(`<input class="dateInput taskEnd" type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
         $task.append($labelStart);
 
+
         $addTaskBtn.before($task)
         countTasks++;
     })
@@ -123,7 +124,11 @@ $(() => {
 //    removing tasks from timetable
     const addEventsOnRemoveTask = () => $mainInside.on('click', '.removeTaskButton', (event) => {
         event.preventDefault();
+        const localId=$(event.target).closest('.taskDiv').data('local_id');
+        console.log("localId to be removed: " + localId);
         $(event.target).closest('.taskDiv').remove();
+        $correspondingBudgetTask = $(`.budgetTask[data-local_id="${localId}"]`);
+        $correspondingBudgetTask.remove();
     });
     addEventsOnRemoveTask();
 

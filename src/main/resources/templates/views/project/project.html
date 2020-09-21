@@ -58,7 +58,7 @@
                                 <th>Value</th>
                                 <th th:each="year : ${yearsOfProject}" th:text="${year}">year</th>
                             </tr>
-                            <tr class="budgetTask" th:each="task, taskStat : *{timetable.getTasks()}" th:data-local_id="${task.id}">
+                            <tr class="budgetTask" th:each="task, taskStat : *{timetable.getTasks()}" th:data-local_id="${taskStat.count}">
 
                                 <!--<input type="number" class="budgetTaskStart" th:field="*{timetable.getTasks[__${taskStat.index}__].taskStart}" hidden/>
                                 <input type="number" class="budgetTaskEnd" th:field="*{timetable.getTasks[__${taskStat.index}__].taskEnd}" hidden/>-->
