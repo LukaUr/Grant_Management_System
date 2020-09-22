@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="budget" class="section hidden" id="budget">
+    <div id="budgetTableDiv">
+        <table id="budgetTable" th:if="*{timetable.getTasks().size()!=0}">
+            <tr>
+                <th>No.</th>
+                <th>Task name</th>
+                <th>Value</th>
+                <th th:each="year : ${yearsOfProject}" th:text="${year}">year</th>
+            </tr>
+            <tr class="budgetTask" th:each="task, taskStat : *{timetable.getTasks()}" th:data-local_id="${taskStat.count}">
+
+                <!--<input type="number" class="budgetTaskStart" th:field="*{timetable.getTasks[__${taskStat.index}__].taskStart}" hidden/>
+                <input type="number" class="budgetTaskEnd" th:field="*{timetable.getTasks[__${taskStat.index}__].taskEnd}" hidden/>-->
+                <td th:text="${taskStat.count}">number</td>
+                <td th:text="${task.name}">task name</td>
+                <!--                                <input type="text" class="budgetTaskName" th:field="*{timetable.getTasks[__${taskStat.index}__].name}" hidden/>-->
+                <td>
+                    <div class="budgetEntry valueNames">
+                        <input type="number" class="budgetTaskId" th:field="*{timetable.tasks[__${taskStat.index}__].id}" hidden/>
+                        <div>Total amount</div>
+                        <div>Grant</div>
+                        <div>Coverage</div>
+                        <div>Self funding</div>
+                    </div>
+                </td>
+                <td th:each="entry, entryStat : ${task.budgetEntryList}">
+                    <div class="budgetEntry budgetData">
+                        <input type="number" class="entryId"
+                               th:field="*{timetable.tasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].id}"
+                               hidden/>
+                        <input type="number" class="entryYear"
+                               th:field="*{timetable.tasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].year}"
+                               hidden/>
+                        <div><input type="number" class="entryTotal"
+                                    th:field="*{timetable.tasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].totalAmount}"/>
+                        </div>
+                        <div><input type="number" class="entryFunding"
+                                    th:field="*{timetable.tasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].totalFunding}"/>
+                        </div>
+                        <div></div>
+                        <div><input type="number" class="entrySelf"
+                                    th:field="*{timetable.tasks[__${taskStat.index}__].budgetEntryList[__${entryStat.index}__].selfFunding}"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

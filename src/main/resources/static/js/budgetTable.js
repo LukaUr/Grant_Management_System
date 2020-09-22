@@ -86,7 +86,6 @@ $(() => {
             const taskId = $(task).find('.budgetTaskId').val();
             const localId = $(task).data('local_id');
             const budgetTask = new BudgetTask(taskId, localId, budgetEntryList);
-            console.log(budgetTask);
             budgetTaskList.push(budgetTask);
         }
 
@@ -137,7 +136,6 @@ $(() => {
         for (let i = 0; i < tasksFromTimetable.length; i++) {
             const taskFromTT = tasksFromTimetable[i];
             const localId = taskFromTT.localId;
-            console.log(taskFromTT);
             const $row = $(`<tr class="budgetTask" data-local_id="${localId}">`);
 
             const $firstColumn = $('<td>');
@@ -236,6 +234,7 @@ $(() => {
                         const $coverageDiv = $('<div>');
                         const $coverageInput = $(`<input type="number" class="entryCoverage" value="${currentEntry.coverage}" disabled>`)
                         $coverageDiv.append($coverageInput);
+                        $coverageDiv.append($('<span>%</span>'))
                         $entryDiv.append($coverageDiv);
 
                         const $selfDiv = $('<div>');
@@ -258,11 +257,13 @@ $(() => {
         $budgetTableDiv.append($newBudgetTable);
         console.log('table updated');
 
-
     }
     updateTable();
 
     const $budgetTableButton = $('.leftMenuItem[data-section="budget"]');
     $budgetTableButton.on('click', () => updateTable());
+
+    const $inputsInTable = $('#budgetTableDiv');
+    $inputsInTable.on('change', 'input', () => updateTable());
 
 })
