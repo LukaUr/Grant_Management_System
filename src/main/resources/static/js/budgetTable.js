@@ -222,12 +222,12 @@ $(() => {
                         $entryDiv.append($entryYear);
 
                         const $totalDiv = $('<div>');
-                        const $totalInput = $(`<input type="number" class="entryTotal" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalAmount}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalAmount" value="${currentEntry.total}">`)
+                        const $totalInput = $(`<input type="number" class="entryTotal" data-budget_type="total" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalAmount}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalAmount" value="${currentEntry.total}">`)
                         $totalDiv.append($totalInput);
                         $entryDiv.append($totalDiv);
 
                         const $fundingDiv = $('<div>');
-                        const $fundingInput = $(`<input type="number" class="entryFunding" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalFunding" value="${currentEntry.funding}">`)
+                        const $fundingInput = $(`<input type="number" class="entryFunding" data-budget_type="funding" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalFunding" value="${currentEntry.funding}">`)
                         $fundingDiv.append($fundingInput);
                         $entryDiv.append($fundingDiv);
 
@@ -256,6 +256,30 @@ $(() => {
         const $budgetTableDiv = $('#budgetTableDiv');
         $budgetTableDiv.append($newBudgetTable);
         console.log('table updated');
+
+// calculate new general info
+
+        const $totalValues = $('.budgetData input[data-budget_type="total"]');
+        let totalProjectValue = 0;
+        for (const input of $totalValues) {
+            if ( typeof +($(input).val()) == 'number') {
+                totalProjectValue += +($(input).val());
+            }
+        }
+        const $totalPRojectValueInfo = $('#generalInfo #totalValue');
+        $totalPRojectValueInfo.text(totalProjectValue);
+
+// calculate new funding info
+
+        const $fundingValues = $('.budgetData input[data-budget_type="funding"]');
+        let fundingProjectValue = 0;
+        for (const input of $fundingValues) {
+            if (typeof +($(input).val()) == "number") {
+                fundingProjectValue += +($(input).val());
+            }
+        }
+        const $fundingPRojectValueInfo = $('#generalInfo #totalGrant');
+        $fundingPRojectValueInfo.text(fundingProjectValue);
 
     }
     updateTable();

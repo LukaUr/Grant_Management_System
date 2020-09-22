@@ -35,7 +35,7 @@ public class Project {
     private LocalDateTime updated;
 
     @Column(nullable = false)
-    @Length(min = 5, max = 255)
+    @Length(min = 5, max = 255, message = "Project name: length must be between 5 and 255")
     @NotNull
     private String name;
 
@@ -60,8 +60,6 @@ public class Project {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProjectIndicator> indicators;
-
-    private String controlSum;
 
     @PrePersist
     public void prePersist() {

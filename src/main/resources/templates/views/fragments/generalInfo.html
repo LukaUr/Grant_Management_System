@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="generalInfo" th:fragment="general">
+    <p>project name: <span id="projectName" th:text="${project.name}"> project name</span>
+        <br>
+        total value: <span id="totalValue"> total</span>
+        <br>
+        total grant: <span id="totalGrant">grant</span>
+    </p>
+    <div id="projectErrorsDiv" th:if="${#fields.hasErrors('${project.*}')}">
+        <p>Can't save the project due to these errorrs:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors('${project.*}')}" th:text="${err}" />
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

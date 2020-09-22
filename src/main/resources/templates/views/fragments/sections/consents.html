@@ -8,7 +8,8 @@
 
 <div th:fragment="consents">
     <div>
-        <h3>8.1. Consents</h3>
+        <h2>8. Consents</h2>
+        <br>
         <div th:each="consent, stat : *{consents}" class="consent">
             <p>
                 <span th:text="*{consents[__${stat.index}__].consentText.declarationText}"> text </span>

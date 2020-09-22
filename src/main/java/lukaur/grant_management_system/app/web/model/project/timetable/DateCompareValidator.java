@@ -11,7 +11,6 @@ public class DateCompareValidator implements ConstraintValidator<DateComparator,
 
     @Override
     public boolean isValid(Task task, ConstraintValidatorContext context) {
-        System.out.println("-------------------test------------------");
         if (task.equals(new Task())) {
 
             return true;

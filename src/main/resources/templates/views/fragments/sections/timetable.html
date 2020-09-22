@@ -7,11 +7,11 @@
 <body>
 
 <div th:fragment="timetable" id="timetable">
-    <h3>6 Timetable</h3>
+    <h2>6. Timetable</h2>
     <input type="number" th:field="*{timetable.id}" hidden/>
 
     <div th:each="task, stat : *{timetable.tasks}" class="taskDiv" th:data-local_id="${stat.count}" >
-        <h3>Task no <span th:text="${stat.count}"></span></h3>
+        <h3>Task no <span data-task_count="" th:text="${stat.count}"></span></h3>
         <input class="taskId" type="number" th:field="*{timetable.tasks[__${stat.index}__].id}" hidden>
         <button class="button removeTaskButton">Remove</button>
         <p>Task name</p>

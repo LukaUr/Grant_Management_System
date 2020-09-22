@@ -6,7 +6,6 @@ import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
 import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
-import lukaur.grant_management_system.app.web.model.project.timetable.BudgetEntry;
 import lukaur.grant_management_system.app.web.model.project.timetable.Task;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -105,7 +104,7 @@ public class ProjectController {
                 )
                 .peek(System.out::println)
                 .forEach(t -> result.addError(new ObjectError(
-                        t.getClass().toString(), "Start date must be before the end date")));
+                        t.getClass().toString(), "For each task in timetable: start date must be before the end date")));
     }
 
     private List<Integer> determineYears(Project project) {

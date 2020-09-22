@@ -124,4 +124,31 @@
     border-radius: 10px;
 }
 
+#generalInfo {
+    box-sizing: border-box;
+    padding: 2px 50px;
+    border-radius: 10px;
+    color: whitesmoke;
+    background-color: gray;
+    width: 99%;
+    margin: 20px 0.5% 0;
+}
+
+#generalInfo span {
+    color: white;
+    font-weight: bold;
+}
+
+#projectErrorsDiv {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    color: red;
+    padding: 5px;
+    margin-bottom: 5px;
+
+}
+
+#projectErrorsDiv p {
+    font-weight: bold;
+}
 

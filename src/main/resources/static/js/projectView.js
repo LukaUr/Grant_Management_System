@@ -90,35 +90,34 @@ $(() => {
     addEventsOnRemovePartner()
 
 //    adding tasks to timetable
-    let countTasks = $('.taskDiv').length;
-    let $addTaskBtn = $('#addTaskButton');
+
+    const $addTaskBtn = $('#addTaskButton');
     $addTaskBtn.on('click', function (event) {
         event.preventDefault();
-
-        let $task = $(`<div class="taskDiv" data-local_id="${countTasks+1}">`);
-        $task.append($(`<h3>Task no ${countTasks + 1}</h3>`));
+        let countTasks = $('.taskDiv').length;
+        const $task = $(`<div class="taskDiv" data-local_id="${countTasks+1}">`);
+        const $taskHeader = $('<h3>Task no </h3>');
+        $taskHeader.append($(`<span data-task_count="">${countTasks + 1}</span>`));
+        $task.append($taskHeader);
         $task.append('<button class="button removeTaskButton">Remove</button>');
 
         $task.append($(`<p>Task name</p>`));
-        let $labelName = $('<label>');
+        const $labelName = $('<label>');
         $labelName.append(`<input class="taskName" type="text" id="timetable.tasks${countTasks}.name" name="timetable.tasks[${countTasks}].name"/>`);
         $task.append($labelName);
 
         $task.append($(`<p>Task description</p>`));
-        let $labelDescription = $('<label>');
+        const $labelDescription = $('<label>');
         $labelDescription.append(`<textarea id="timetable.tasks${countTasks}.description" name="timetable.tasks[${countTasks}].description" cols="100" rows="5"></textarea>`);
         $task.append($labelDescription);
 
         $task.append($(`<p>Start date</p>`));
-        let $labelStart = $('<label>');
+        const $labelStart = $('<label>');
         $labelStart.append(`<input class="dateInput taskStart" type="date" id="timetable.tasks${countTasks}.taskStart" name="timetable.tasks[${countTasks}].taskStart"/>`);
         $labelStart.append($(`<p>End date</p>`));
         $labelStart.append(`<input class="dateInput taskEnd" type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
         $task.append($labelStart);
-
-
         $addTaskBtn.before($task)
-        countTasks++;
     })
 
 //    removing tasks from timetable
@@ -129,6 +128,13 @@ $(() => {
         $(event.target).closest('.taskDiv').remove();
         $correspondingBudgetTask = $(`.budgetTask[data-local_id="${localId}"]`);
         $correspondingBudgetTask.remove();
+        $taskNumbers = $('.taskDiv span[data-task_count=""]')
+        let counter = 1;
+        for (const task of $taskNumbers) {
+            $(task).text(counter);
+            counter++;
+        }
+
     });
     addEventsOnRemoveTask();
 
@@ -147,6 +153,10 @@ $(() => {
         }
 
     })
+
+    const $generalInfoProjectName = $('#generalInfo #projectName');
+    const $ProjectNameInForm = $('#projectNameInput');
+    $ProjectNameInForm.change(() => $generalInfoProjectName.text($ProjectNameInForm.val()));
 
 
 })
