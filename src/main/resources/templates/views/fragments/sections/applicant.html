@@ -46,6 +46,10 @@
         <input type="text" th:field="*{applicant.identity.country}"/>
     </label>
     <label>
+        <p>City:</p>
+        <input type="text" th:field="*{applicant.identity.city}"/>
+    </label>
+    <label>
         <p>Post code:</p>
         <input type="text" th:field="*{applicant.identity.postCode}"/>
     </label>
@@ -58,6 +62,7 @@
         <input type="text" th:field="*{applicant.identity.addressLine2}"/>
     </label>
     <h3>2.7. Contact Person</h3>
+        <input type="number" th:field="*{applicant.contactPerson.id}" hidden/>
     <label>
         <p>Name:</p>
         <input type="text" th:field="*{applicant.contactPerson.name}"/>
@@ -75,6 +80,7 @@
         <input type="email" th:field="*{applicant.contactPerson.email}"/>
     </label>
     <h3>2.8. Legal representative</h3>
+    <input type="number" th:field="*{applicant.legalRepresentative.id}" hidden/>
     <label>
         <p>Name:</p>
         <input type="text" th:field="*{applicant.legalRepresentative.name}"/>

@@ -7,39 +7,54 @@ $(() => {
         return parseInt(date.substr(0, 4));
     }
 
-    // determine years to be included in budget table
     const updateTable = () => {
 
+// set project start
+
         const $taskStarts = $('.taskStart');
-        const taskStartsDates = $taskStarts.map(function () {
+        const taskStartDates = $taskStarts.map(function () {
             return $(this).val()
-        });
-        const taskStartYears = new Array();
-        for (const date of taskStartsDates) {
+        });1
+        const taskStartDatesArray = [];
+        for (const date of taskStartDates) {
             if (date != "") {
-                taskStartYears.push(getYearFromDate(date));
+                taskStartDatesArray.push(date);
             }
         }
-        const firstYear = Math.min(...taskStartYears);
+        const projectStartDate = (taskStartDatesArray.length == 0) ? undefined : taskStartDatesArray.reduce(function (pre, cur) {
+            return Date.parse(pre) > Date.parse(cur) ? cur : pre;
+        });
+
+// set project end
 
         const $taskEnds = $('.taskEnd')
         const taskEndDates = $taskEnds.map(function () {
             return $(this).val()
         });
-        const taskEndYears = new Array();
+        const taskEndDatesArray = [];
         for (const date of taskEndDates) {
             if (date != "") {
-                taskEndYears.push(getYearFromDate(date));
+                taskEndDatesArray.push(date);
             }
         }
-        ;
-        const lastYear = Math.max(...taskEndYears);
-        const listOfYears = new Array();
+        const projectEndDate = (taskEndDatesArray.length == 0) ? undefined : taskEndDatesArray.reduce(function (pre, cur) {
+            return Date.parse(pre) > Date.parse(cur) ? pre : cur;
+        })
+
+// determine years to be included in budget table
+
+        const firstYear = getYearFromDate(projectStartDate);
+        const lastYear = getYearFromDate(projectEndDate);
+        console.log(projectStartDate);
+        console.log(firstYear);
+        console.log(projectEndDate);
+        console.log(lastYear);
+        const listOfYears = [];
         for (let i = firstYear; i < (lastYear + 1); i++) {
             listOfYears.push(i);
         }
 
-        // fetch current budget data
+// fetch current budget data
 
         class BudgetTask {
             constructor(id, localId, entries) {
@@ -71,10 +86,10 @@ $(() => {
         }
 
         const $budgetTasks = $('#budgetTable .budgetTask');
-        let budgetTaskList = new Array();
+        let budgetTaskList = [];
         for (const task of $budgetTasks) {
             const $budgetEntries = $(task).find('.budgetData');
-            let budgetEntryList = new Array();
+            let budgetEntryList = [];
             for (const entry of $budgetEntries) {
                 const entryId = $(entry).find('.entryId').val();
                 const entryYear = $(entry).find('.entryYear').val();
@@ -113,7 +128,7 @@ $(() => {
 
         // populate new task list with tasks from timetable
 
-        const tasksFromTimetable = new Array();
+        const tasksFromTimetable = [];
         const $taskDivsFromTimetable = $('#timetable .taskDiv')
         for (const taskDiv of $taskDivsFromTimetable) {
             const taskId = $(taskDiv).find('.taskId').val();
@@ -175,7 +190,7 @@ $(() => {
 
                 // iterate through all budget tasks and find one matching localId
 
-                let currentBudgetTask = new BudgetTask(null, null, new Array());
+                let currentBudgetTask = new BudgetTask(null, null, []);
                 for (const budgetTask of budgetTaskList) {
                     if (budgetTask.localId == localId) {
                         currentBudgetTask.id = budgetTask.id;
@@ -239,7 +254,9 @@ $(() => {
 
                         const $selfDiv = $('<div>');
                         const $selfInput = $(`<input type="number" class="entrySelf" id="timetable.tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" disabled>`)
+                        const $selfInputHidden = $(`<input type="number" class="entrySelf" id="timetable.tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" hidden>`)
                         $selfDiv.append($selfInput);
+                        $selfDiv.append($selfInputHidden);
                         $entryDiv.append($selfDiv);
 
                         $column.append($entryDiv);
@@ -262,12 +279,15 @@ $(() => {
         const $totalValues = $('.budgetData input[data-budget_type="total"]');
         let totalProjectValue = 0;
         for (const input of $totalValues) {
-            if ( typeof +($(input).val()) == 'number') {
+            if (typeof +($(input).val()) == 'number') {
                 totalProjectValue += +($(input).val());
             }
         }
-        const $totalPRojectValueInfo = $('#generalInfo #totalValue');
-        $totalPRojectValueInfo.text(totalProjectValue);
+        const $totalProjectValueInfo = $('#generalInfo #totalValue');
+        $totalProjectValueInfo.text(totalProjectValue);
+
+        const $totalProjectValueInput = $('#timetable input[data-total_value=""]')
+        $totalProjectValueInput.val(totalProjectValue);
 
 // calculate new funding info
 
@@ -280,6 +300,9 @@ $(() => {
         }
         const $fundingPRojectValueInfo = $('#generalInfo #totalGrant');
         $fundingPRojectValueInfo.text(fundingProjectValue);
+
+        const $totalProjectFundingInput = $('#timetable input[data-grant_value=""]')
+        $totalProjectFundingInput.val(fundingProjectValue);
 
     }
     updateTable();

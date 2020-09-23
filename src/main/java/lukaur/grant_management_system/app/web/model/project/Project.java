@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,10 @@ public class Project {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProjectIndicator> indicators;
+
+    private BigDecimal totalValue;
+
+    private BigDecimal grantValue;
 
     @PrePersist
     public void prePersist() {

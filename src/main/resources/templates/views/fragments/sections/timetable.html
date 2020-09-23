@@ -9,6 +9,8 @@
 <div th:fragment="timetable" id="timetable">
     <h2>6. Timetable</h2>
     <input type="number" th:field="*{timetable.id}" hidden/>
+    <input type="number" data-total_value="" th:field="*{totalValue}" hidden/>
+    <input type="number" data-grant_value="" th:field="*{grantValue}" hidden/>
 
     <div th:each="task, stat : *{timetable.tasks}" class="taskDiv" th:data-local_id="${stat.count}" >
         <h3>Task no <span data-task_count="" th:text="${stat.count}"></span></h3>

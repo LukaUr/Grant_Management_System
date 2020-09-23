@@ -67,6 +67,11 @@ $(() => {
         $labelCountry.append(`<input type="text" id="applicant.partners${countPartners}.country" name="applicant.partners[${countPartners}].country"/>`);
         $partner.append($labelCountry);
 
+        let $labelCity = $('<label>');
+        $labelCountry.append('<h3>City</h3>');
+        $labelCountry.append(`<input type="text" id="applicant.partners${countPartners}.city" name="applicant.partners[${countPartners}].city"/>`);
+        $partner.append($labelCity);
+
         let $labelPostCode = $('<label>');
         $labelPostCode.append('<h3>Post code</h3>');
         $labelPostCode.append(`<input type="text" id="applicant.partners${countPartners}.postCode" name="applicant.partners[${countPartners}].postCode"/>`);

@@ -22,8 +22,4 @@ public class Timetable {
     @OneToMany
     List<Task> tasks = new ArrayList<>();
 
-    private LocalDate projectStart;
-
-    private LocalDate projectEnd;
-
 }
