@@ -3,6 +3,8 @@ package lukaur.grant_management_system.app.web.dictionaries;
 import lombok.RequiredArgsConstructor;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.dictionaries.IndicatorType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,14 @@ public class IndicatorController {
         return IndicatorType.values();
     }
 
+    @ModelAttribute("userName")
+    private String userName() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return principal.toString();
+    }
 
     @GetMapping("/show")
     public String showAllIndicators(Model model) {

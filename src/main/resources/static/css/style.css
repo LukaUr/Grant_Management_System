@@ -10,13 +10,14 @@ body {
 
 .copyright {
     padding: 5px;
-    background-color: ivory;
+    background-color: #0099ee;
     position: fixed;
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
     border-top: lightgray solid 1px;
+    color: ivory;
 }
 
 .distancer-top {
@@ -28,20 +29,21 @@ body {
 }
 .pageheader {
     padding: 20px;
-    background-color: ivory;
+    background-color: #0088dd;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
     position: fixed;
     top: 0;
     height: 70px;
+    color: ivory;
 }
 
 .userInfo {
     position: fixed;
     top: 70px;
     right: 10px;
-    background-color: #505050;
+    background-color: #004499   ;
     color: white;
     padding: 5px 20px;
     border-radius: 10px;
@@ -87,6 +89,7 @@ body {
     width: 300px;
     box-sizing: border-box;
     border-radius: 20px;
+    transition: .2s;
 }
 
 .indexBox a {
@@ -96,6 +99,11 @@ body {
 
 .indexBox a:hover {
     color: deepskyblue;
+}
+
+.indexBox:hover {
+    border-color: #20e020;
+    box-shadow: 0px 15px 30px black;
 }
 
 h2 {

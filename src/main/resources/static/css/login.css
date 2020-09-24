@@ -85,13 +85,14 @@ body{
 
 .copyright {
     padding: 20px;
-    background-color: ivory;
+    background-color: #0099ee;
     position: fixed;
     bottom: 0;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
     border-top: lightgray solid 1px;
+    color: ivory;
 }
 
 .alert{
@@ -100,11 +101,12 @@ body{
 }
 .pageheader{
     padding: 20px;
-    background-color: ivory;
+    background-color: #0088dd;
     position: absolute;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
+    color: white;
 }
 
 .signup {
@@ -113,6 +115,24 @@ body{
     margin-left: 100px;
 }
 
-.signup:hover{
+.signup:hover, .blue{
     color: #0099ee;
+}
+
+.highlight {
+    font-weight: bold;
+    color: white;
+}
+
+.demoInfo {
+    width: 300px;
+    height: 200px;
+    background-color: #404040;
+    color: whitesmoke;
+    position: absolute;
+    top: 50%;
+    transform: translate( 20%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 90%;
 }

@@ -3,10 +3,12 @@ package lukaur.grant_management_system.app.web.projects;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lukaur.grant_management_system.app.web.dictionaries.IndicatorService;
+import lukaur.grant_management_system.app.web.model.User;
 import lukaur.grant_management_system.app.web.model.dictionaries.Indicator;
 import lukaur.grant_management_system.app.web.model.project.Project;
 import lukaur.grant_management_system.app.web.model.project.misc.ConsentOption;
 import lukaur.grant_management_system.app.web.model.project.timetable.Task;
+import lukaur.grant_management_system.app.web.users.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,12 +18,10 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -34,6 +34,7 @@ public class ProjectController {
 
     private final ProjectsService projectsService;
     private final IndicatorService indicatorService;
+    private final UserService userService;
 
     @ModelAttribute("indicatorList")
     private List<Indicator> indicatorList() {
@@ -84,17 +85,39 @@ public class ProjectController {
         return "redirect:/menu";
     }
 
+    @GetMapping("/delete")
+    public String confirmDelete(@RequestParam Long id,
+                                Principal principal,
+                                Model model) {
+        String userName = principal.getName();
+        User user = userService.findByName(userName);
+        List<Project> projects = projectsService.findAllByUser(user);
+        Project project = projects.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+        if (project != null) {
+            model.addAttribute(project);
+            return "project/confirmDelete";
+        }
+        return "error";
+    }
+
+    @PostMapping("/delete")
+    public String processDelete(Project project) {
+        Project projectToDelete = projectsService.findById(project.getId());
+        projectsService.delete(projectToDelete);
+        return "redirect:/menu";
+    }
 
     private void addInformationOnIndicatorType(Project project) {
         project.getIndicators()
-                .forEach(i -> {
-                    i.setIndicator(indicatorService.find(i.getIndicator().getId()));
-                });
+                .forEach(i -> i.setIndicator(indicatorService.find(i.getIndicator().getId())));
     }
 
     private void addErrorsOnTasks(Project project, BindingResult result) {
         System.out.println("----------addErrorsOntasks------------------");
-        project.getTimetable().getTasks()
+        project.getTasks()
                 .stream()
                 .peek(System.out::println)
                 .filter(t -> !(t.getId() == null && t.getName() == null && t.getTaskStart() == null & t.getTaskEnd() == null))
@@ -108,24 +131,24 @@ public class ProjectController {
     }
 
     private List<Integer> determineYears(Project project) {
-        if (project.getTimetable() == null) {
+        if (project == null) {
             return null;
         }
-        List<Task> tasks = project.getTimetable().getTasks();
+        List<Task> tasks = project.getTasks();
         Optional<Integer> firstYear = tasks
                 .stream()
                 .map(Task::getTaskStart)
                 .map(Date::toLocalDate)
                 .map(LocalDate::getYear)
-                .min((a, b) -> a - b);
+                .min(Comparator.comparingInt(a -> a));
         Optional<Integer> lastYear = tasks
                 .stream()
                 .map(Task::getTaskEnd)
                 .map(Date::toLocalDate)
                 .map(LocalDate::getYear)
-                .max((a, b) -> a - b);
+                .max(Comparator.comparingInt(a -> a));
         if (firstYear.isPresent() && lastYear.isPresent()) {
-            return (List<Integer>) IntStream
+            return IntStream
                     .range(firstYear.get(), lastYear.get() + 1)
                     .boxed()
                     .collect(Collectors.toList());

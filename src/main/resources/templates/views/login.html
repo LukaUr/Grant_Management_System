@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8"/>
     <link name="f" rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+    <link name="f" rel="stylesheet" th:href="@{/css/animations.css}" type="text/css">
 </head>
 <body>
 <div class="pageheader"><h2>Grant Management System</h2></div>
+<div class="shaderFirst"></div>
+<div class="shaderSecond"></div>
+<div class="shaderThird"></div>
+<div class="demoInfo">
+    <p class="blue">For demo purposes please login as:</p>
+    <p>
+        <span class="blue">Role admin</span><br>
+        login: <span class="highlight">admin</span><br>
+        password: <span class="highlight">aaa</span>
+    </p>
+    <p>
+        <span class="blue">Role user</span><br>
+        login: <span class="highlight">user</span><br>
+        password: <span class="highlight">aaa</span>
+    </p>
+</div>
 <div class="loginBox">
     <h2>Welcome</h2>
     <form th:action="@{/login}" method="post" >

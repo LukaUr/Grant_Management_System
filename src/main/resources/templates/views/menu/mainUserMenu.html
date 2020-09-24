@@ -37,12 +37,15 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Call</th>
-                <th>Actions</th>
+                <th colspan="2">Actions</th>
             </tr>
             <tr th:each="project : ${projects}">
                 <td th:text="${project.id}"> Id </td>
                 <td th:text="${project.name}" class="bold"> Name </td>
                 <td th:text="${project.callForProjects.name}"> Call </td>
+                <td>
+                    <a th:href="@{/project/delete(id=${project.id})}">Delete</a>
+                </td>
                 <td>
                     <a th:href="@{/project/project(id=${project.id})}">
                         <button class="button">Show</button>

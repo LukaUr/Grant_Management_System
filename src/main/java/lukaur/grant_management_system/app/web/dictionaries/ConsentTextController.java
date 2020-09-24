@@ -2,13 +2,12 @@ package lukaur.grant_management_system.app.web.dictionaries;
 
 import lombok.RequiredArgsConstructor;
 import lukaur.grant_management_system.app.web.model.dictionaries.ConsentText;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,6 +19,14 @@ public class ConsentTextController {
 
     private final ConsentTextService consentTextService;
 
+    @ModelAttribute("userName")
+    private String userName() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return principal.toString();
+    }
 
     @GetMapping("/show")
     public String showFullConsentList(Model model) {

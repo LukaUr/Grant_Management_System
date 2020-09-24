@@ -12,7 +12,6 @@ import lukaur.grant_management_system.app.web.model.project.timetable.Task;
 import lukaur.grant_management_system.app.web.projects.repositories.ApplicantRepository;
 import lukaur.grant_management_system.app.web.projects.repositories.LegalEntityRepository;
 import lukaur.grant_management_system.app.web.projects.repositories.TaskRepository;
-import lukaur.grant_management_system.app.web.projects.repositories.TimetableRepository;
 import lukaur.grant_management_system.app.web.users.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +31,6 @@ public class ProjectsService {
     private final UserRepository userRepository;
     private final CallForProjectsRepository callRepository;
     private final IndicatorRepository indicatorRepository;
-    private final TimetableRepository timetableRepository;
     private final TaskRepository taskRepository;
 
     public Project create(Project project) {
@@ -64,7 +62,7 @@ public class ProjectsService {
     }
 
     public List<Task> getTasks(Long id) {
-        return timetableRepository.findAllTasksByTimetableId(id);
+        return projectsRepository.findAllTasksById(id);
     }
 
     public Project initialize(Project project,
@@ -133,17 +131,19 @@ public class ProjectsService {
     private void manageTimetable(Project project) {
         List<Task> tasksFromBase = getTasks(project.getApplicant().getId());
         List<Task> newTasks = project
-                .getTimetable()
                 .getTasks()
                 .stream()
                 .filter((t) -> !t.equals(new Task()))
                 .collect(Collectors.toList());
-        project.getTimetable().setTasks(newTasks);
-        taskRepository.saveAll(project.getTimetable().getTasks());
-        timetableRepository.save(project.getTimetable());
+        project.setTasks(newTasks);
+        taskRepository.saveAll(project.getTasks());
         tasksFromBase
                 .stream()
                 .filter(t -> !newTasks.contains(t))
                 .forEach(taskRepository::delete);
+    }
+
+    protected void delete(Project project) {
+        projectsRepository.delete(project);
     }
 }

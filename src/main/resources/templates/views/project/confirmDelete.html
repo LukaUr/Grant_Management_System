@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/project.css}" type="text/css">
+    <title>Delete project</title>
+</head>
+<body>
+<div th:include="/fragments/userMenuFragments :: header"></div>
+
+<div class="mainDiv">
+    <div class="header">
+        <h2>Delete project</h2>
+        <p>Project title:<br>
+            <span th:text="${project.name}">project name</span>
+        </p>
+    </div>
+    <div class="initialProjectDiv">
+        <form th:action="@{/project/delete}" method="post" th:object="${project}">
+            <label>
+                <input type="number" th:field="*{id}" hidden>
+            </label>
+            <label>
+                <input type="text" th:field="*{name}" hidden/>
+            </label>
+            <label>
+                <p>Are you sure?<br>
+                    <button type="submit" class="button">Delete</button>
+                    <a th:href="@{/menu}">
+                        <button type="button" class="button">Cancel</button>
+                    </a>
+                </p>
+            </label>
+        </form>
+    </div>
+
+</div>
+
+<div th:include="/fragments/institutional :: footer"></div>
+</body>
+</html>

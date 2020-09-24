@@ -108,19 +108,19 @@ $(() => {
 
         $task.append($(`<p>Task name</p>`));
         const $labelName = $('<label>');
-        $labelName.append(`<input class="taskName" type="text" id="timetable.tasks${countTasks}.name" name="timetable.tasks[${countTasks}].name"/>`);
+        $labelName.append(`<input class="taskName" type="text" id="tasks${countTasks}.name" name="tasks[${countTasks}].name"/>`);
         $task.append($labelName);
 
         $task.append($(`<p>Task description</p>`));
         const $labelDescription = $('<label>');
-        $labelDescription.append(`<textarea id="timetable.tasks${countTasks}.description" name="timetable.tasks[${countTasks}].description" cols="100" rows="5"></textarea>`);
+        $labelDescription.append(`<textarea id="tasks${countTasks}.description" name="tasks[${countTasks}].description" cols="100" rows="5"></textarea>`);
         $task.append($labelDescription);
 
         $task.append($(`<p>Start date</p>`));
         const $labelStart = $('<label>');
-        $labelStart.append(`<input class="dateInput taskStart" type="date" id="timetable.tasks${countTasks}.taskStart" name="timetable.tasks[${countTasks}].taskStart"/>`);
+        $labelStart.append(`<input class="dateInput taskStart" type="date" id="tasks${countTasks}.taskStart" name="tasks[${countTasks}].taskStart"/>`);
         $labelStart.append($(`<p>End date</p>`));
-        $labelStart.append(`<input class="dateInput taskEnd" type="date" id="timetable.tasks${countTasks}.taskEnd" name="timetable.tasks[${countTasks}].taskEnd"/>`);
+        $labelStart.append(`<input class="dateInput taskEnd" type="date" id="tasks${countTasks}.taskEnd" name="tasks[${countTasks}].taskEnd"/>`);
         $task.append($labelStart);
         $addTaskBtn.before($task)
     })

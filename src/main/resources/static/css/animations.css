@@ -1,0 +1,124 @@
+@keyframes adminMenuAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+.indexBox {
+    animation-name: adminMenuAnimation;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.consentsBox {
+    animation-delay: .2s;
+}
+
+.indicatorsBox {
+    animation-delay: .4s;
+}
+
+.callsBox {
+    animation-delay: .6s;
+}
+
+.navigationBox {
+    animation-delay: .8s;
+}
+
+.shaderFirst, .shaderSecond, .shaderThird {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    opacity: 50%;
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+
+}
+
+.shaderFirst {
+    animation-name: loginShaderFirst;
+    background-color: #f5f5f5;
+    z-index: -1;
+}
+
+@keyframes loginShaderFirst {
+    0% {
+        height: 20vh;
+        border-radius: 0
+    }
+    50% {
+        height: 40vh;
+        border-radius: 0
+    }
+    100% {
+        height: 45vh;
+        border-radius: 0 0 40% 40%
+    }
+}
+
+.shaderSecond {
+    animation-name: loginShaderSecond;
+    background-color: #eeecec;
+    z-index: -2;
+}
+
+@keyframes loginShaderSecond {
+    0% {
+        height: 20vh;
+        border-radius: 0
+    }
+    50% {
+        height: 50vh;
+        border-radius: 0
+    }
+    100% {
+        height: 55vh;
+        border-radius: 0 0 40% 40%
+    }
+}
+
+.shaderThird {
+    animation-name: loginShaderThird;
+    background-color: #adaaaa;
+    z-index: -3;
+}
+
+@keyframes loginShaderThird {
+    0% {
+        height: 20vh;
+        border-radius: 0
+    }
+    50% {
+        height: 60vh;
+        border-radius: 0
+    }
+    100% {
+        height: 65vh;
+        border-radius: 0 0 40% 40%
+    }
+}
+
+.demoInfo {
+    animation-name: demoInfo;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+    animation-delay: 1.2s;
+}
+
+@keyframes demoInfo {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 90%
+    }
+}
+
+
+

@@ -3,7 +3,7 @@ $(() => {
     //utils
 
     const getYearFromDate = (date) => {
-        if (date == undefined || date == null) return null;
+        if (date == undefined) return null;
         return parseInt(date.substr(0, 4));
     }
 
@@ -167,7 +167,7 @@ $(() => {
             $budgetEntryNames.append($('<div>Grant</div>'));
             $budgetEntryNames.append($('<div>Coverage</div>'));
             $budgetEntryNames.append($('<div>Self funding</div>'));
-            const $IdInput = $(`<input type="number" class="budgetTaskId" id="timetable.tasks${i}.id" name="timetable.tasks[${i}].id" hidden/>`)
+            const $IdInput = $(`<input type="number" class="budgetTaskId" id="tasks${i}.id" name="tasks[${i}].id" hidden/>`)
             $IdInput.val(taskFromTT.id);
             $budgetEntryNames.append($IdInput);
             $thirdColumn.append($budgetEntryNames);
@@ -231,18 +231,18 @@ $(() => {
 
                         const $column = $('<td>');
                         const $entryDiv = $('<div class="budgetEntry budgetData">');
-                        const $entryId = $(`<input type="number" class="entryId" id="timetable.tasks${i}.budgetEntryList${entryCount}.id}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].id" value="${currentEntry.id}" hidden/>`)
+                        const $entryId = $(`<input type="number" class="entryId" id="tasks${i}.budgetEntryList${entryCount}.id}" name="tasks[${i}].budgetEntryList[${entryCount}].id" value="${currentEntry.id}" hidden/>`)
                         $entryDiv.append($entryId);
-                        const $entryYear = $(`<input type="number" class="entryYear" id="timetable.tasks${i}.budgetEntryList${entryCount}.year}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].year" value="${year}" hidden/>`);
+                        const $entryYear = $(`<input type="number" class="entryYear" id="tasks${i}.budgetEntryList${entryCount}.year}" name="tasks[${i}].budgetEntryList[${entryCount}].year" value="${year}" hidden/>`);
                         $entryDiv.append($entryYear);
 
                         const $totalDiv = $('<div>');
-                        const $totalInput = $(`<input type="number" class="entryTotal" data-budget_type="total" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalAmount}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalAmount" value="${currentEntry.total}">`)
+                        const $totalInput = $(`<input type="number" class="entryTotal" data-budget_type="total" id="tasks${i}.budgetEntryList${entryCount}.totalAmount}" name="tasks[${i}].budgetEntryList[${entryCount}].totalAmount" value="${currentEntry.total}">`)
                         $totalDiv.append($totalInput);
                         $entryDiv.append($totalDiv);
 
                         const $fundingDiv = $('<div>');
-                        const $fundingInput = $(`<input type="number" class="entryFunding" data-budget_type="funding" id="timetable.tasks${i}.budgetEntryList${entryCount}.totalFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].totalFunding" value="${currentEntry.funding}">`)
+                        const $fundingInput = $(`<input type="number" class="entryFunding" data-budget_type="funding" id="tasks${i}.budgetEntryList${entryCount}.totalFunding}" name="tasks[${i}].budgetEntryList[${entryCount}].totalFunding" value="${currentEntry.funding}">`)
                         $fundingDiv.append($fundingInput);
                         $entryDiv.append($fundingDiv);
 
@@ -253,8 +253,8 @@ $(() => {
                         $entryDiv.append($coverageDiv);
 
                         const $selfDiv = $('<div>');
-                        const $selfInput = $(`<input type="number" class="entrySelf" id="timetable.tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" disabled>`)
-                        const $selfInputHidden = $(`<input type="number" class="entrySelf" id="timetable.tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="timetable.tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" hidden>`)
+                        const $selfInput = $(`<input type="number" class="entrySelf" id="tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" disabled>`)
+                        const $selfInputHidden = $(`<input type="number" class="entrySelf" id="tasks${i}.budgetEntryList${entryCount}.selfFunding}" name="tasks[${i}].budgetEntryList[${entryCount}].selfFunding" value="${currentEntry.selfFunding}" hidden>`)
                         $selfDiv.append($selfInput);
                         $selfDiv.append($selfInputHidden);
                         $entryDiv.append($selfDiv);

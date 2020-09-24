@@ -8,33 +8,32 @@
 
 <div th:fragment="timetable" id="timetable">
     <h2>6. Timetable</h2>
-    <input type="number" th:field="*{timetable.id}" hidden/>
     <input type="number" data-total_value="" th:field="*{totalValue}" hidden/>
     <input type="number" data-grant_value="" th:field="*{grantValue}" hidden/>
 
-    <div th:each="task, stat : *{timetable.tasks}" class="taskDiv" th:data-local_id="${stat.count}" >
+    <div th:each="task, stat : *{tasks}" class="taskDiv" th:data-local_id="${stat.count}" >
         <h3>Task no <span data-task_count="" th:text="${stat.count}"></span></h3>
-        <input class="taskId" type="number" th:field="*{timetable.tasks[__${stat.index}__].id}" hidden>
+        <input class="taskId" type="number" th:field="*{tasks[__${stat.index}__].id}" hidden>
         <button class="button removeTaskButton">Remove</button>
         <p>Task name</p>
         <label>
-            <input class="taskName" type="text" th:field="*{timetable.tasks[__${stat.index}__].name}">
+            <input class="taskName" type="text" th:field="*{tasks[__${stat.index}__].name}">
         </label>
         <p>Task description</p>
         <label>
-                            <textarea th:field="*{timetable.tasks[__${stat.index}__].description}"
-                                      th:text="*{timetable.tasks[__${stat.index}__].description}" cols="100"
+                            <textarea th:field="*{tasks[__${stat.index}__].description}"
+                                      th:text="*{tasks[__${stat.index}__].description}" cols="100"
                                       rows="4"></textarea>
         </label>
         <p>Start date</p>
         <label>
             <input class="dateInput taskStart" type="date"
-                   th:field="*{timetable.tasks[__${stat.index}__].taskStart}">
+                   th:field="*{tasks[__${stat.index}__].taskStart}">
 
             <p>End date</p>
 
             <input class="dateInput taskEnd" type="date"
-                   th:field="*{timetable.tasks[__${stat.index}__].taskEnd}">
+                   th:field="*{tasks[__${stat.index}__].taskEnd}">
         </label>
     </div>
 

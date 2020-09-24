@@ -10,7 +10,7 @@ import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.project.misc.Consent;
 import lukaur.grant_management_system.app.web.model.project.misc.ProjectDetails;
 import lukaur.grant_management_system.app.web.model.project.misc.ProjectIndicator;
-import lukaur.grant_management_system.app.web.model.project.timetable.Timetable;
+import lukaur.grant_management_system.app.web.model.project.timetable.Task;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -53,8 +53,8 @@ public class Project {
     @OneToOne(cascade = CascadeType.ALL)
     private ProjectDetails projectDetails;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Timetable timetable;
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Task> tasks = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consent> consents = new ArrayList<>();

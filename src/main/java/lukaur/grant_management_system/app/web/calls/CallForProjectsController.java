@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lukaur.grant_management_system.app.web.dictionaries.ConsentTextService;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.dictionaries.ConsentText;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,14 @@ public class CallForProjectsController {
         return consentTextService.findAll();
     }
 
+    @ModelAttribute("userName")
+    private String userName() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return principal.toString();
+    }
 
     @GetMapping("/show")
     public String showAllCalls(Model model) {
