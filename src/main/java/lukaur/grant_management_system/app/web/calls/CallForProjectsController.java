@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lukaur.grant_management_system.app.web.dictionaries.ConsentTextService;
 import lukaur.grant_management_system.app.web.model.CallForProjects;
 import lukaur.grant_management_system.app.web.model.dictionaries.ConsentText;
+import lukaur.grant_management_system.app.web.model.project.Project;
+import lukaur.grant_management_system.app.web.projects.ProjectsService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -20,6 +23,7 @@ import java.util.List;
 public class CallForProjectsController {
     private final CallForProjectsService callService;
     private final ConsentTextService consentTextService;
+    private final ProjectsService projectsService;
 
     @ModelAttribute("consents")
     private List<ConsentText> consents() {
@@ -81,7 +85,7 @@ public class CallForProjectsController {
         return "errorPage";
     }
 
-    @GetMapping("delete")
+    @GetMapping("/delete")
     public String deleteCall(@RequestParam Long id, Model model) {
         boolean success = callService.delete(id);
         if (success) {
@@ -90,5 +94,19 @@ public class CallForProjectsController {
         model.addAttribute("message", "Can not delete Call for Projects");
         model.addAttribute("link", "redirect:/call/show");
         return "errorPage";
+    }
+
+    @GetMapping("/details")
+    public String details(@RequestParam Long id,
+                          Model model) {
+        List<Project> projects = projectsService.findAllByCallId(id);
+        model.addAttribute("projects", projects);
+        CallForProjects callForProjects = callService.find(id);
+        model.addAttribute("call", callForProjects);
+        BigDecimal requestedFunding = projects.stream()
+                .map(Project::getGrantValue)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        model.addAttribute("requestedFunding", requestedFunding);
+        return "call/details";
     }
 }

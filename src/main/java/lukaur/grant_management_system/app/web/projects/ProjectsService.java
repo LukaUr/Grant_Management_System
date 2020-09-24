@@ -146,4 +146,8 @@ public class ProjectsService {
     protected void delete(Project project) {
         projectsRepository.delete(project);
     }
+
+    public List<Project> findAllByCallId(Long id) {
+        return projectsRepository.findAllByCallForProjectsId(id);
+    }
 }

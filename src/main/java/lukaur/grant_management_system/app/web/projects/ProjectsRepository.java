@@ -14,4 +14,6 @@ public interface ProjectsRepository extends JpaRepository<Project, Long> {
     List<Project> findAllByUser(User user);
 
     List<Task> findAllTasksById(Long id);
+
+    List<Project> findAllByCallForProjectsId(Long id);
 }

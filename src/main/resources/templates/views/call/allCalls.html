@@ -18,7 +18,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Funding</th>
-            <th colspan="2">Actions</th>
+            <th colspan="3">Actions</th>
         </tr>
         <tr th:each="call : ${calls}">
             <td th:text="${call.id}"> id</td>
@@ -27,6 +27,7 @@
             <td th:text="${call.funding}"> type </td>
             <td><a th:href="@{/call/delete(id=${call.id})}">Delete</a></td>
             <td><a th:href="@{/call/edit(id=${call.id})}">Edit</a></td>
+            <td><a th:href="@{/call/details(id=${call.id})}">Details</a></td>
         </tr>
     </table>
     <div class="leftFloat">
