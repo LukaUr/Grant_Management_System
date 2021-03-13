@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/call")
 @RequiredArgsConstructor
-public class CallForProjectsController {
+public class  CallForProjectsController {
     private final CallForProjectsService callService;
     private final ConsentTextService consentTextService;
     private final ProjectsService projectsService;
