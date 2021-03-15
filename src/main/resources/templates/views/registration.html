@@ -5,7 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/user.css}" type="text/css">
 </head>
 <body>
-<div th:include="/fragments/institutional :: header"/>
+<div th:include="fragments/institutional :: header"/>
 
 <div class="boxDiv">
     <form th:action="@{/register}" th:object="${user}" method="post">
@@ -29,6 +29,6 @@
         </div>
     </form>
 </div>
-<div th:include="/fragments/institutional :: footer"></div>
+<div th:include="fragments/institutional :: footer"></div>
 </body>
 </html>
