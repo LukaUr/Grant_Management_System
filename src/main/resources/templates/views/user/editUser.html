@@ -7,7 +7,7 @@
     <title>Edit User</title>
 </head>
 <body>
-<div th:include="/fragments/institutional :: header" class="pageheader"/>
+<div th:include="fragments/institutional :: header" class="pageheader"/>
 
 <div class="boxDiv">
     <form th:object="${user}" method="post" th:action="@{/user/edit}">
@@ -39,6 +39,6 @@
 
 </div>
 
-<div th:include="/fragments/institutional :: footer" class="copyright"></div>
+<div th:include="fragments/institutional :: footer" class="copyright"></div>
 </body>
 </html>

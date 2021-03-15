@@ -9,9 +9,9 @@
     <title>New project</title>
 </head>
 <body>
-<div th:include="/fragments/userMenuFragments :: header"/>
+<div th:include="fragments/userMenuFragments :: header"/>
 
-<div id="generalInfo" th:include="/fragments/generalInfo :: general">
+<div id="generalInfo" th:include="fragments/generalInfo :: general">
 
 </div>
 
@@ -41,26 +41,26 @@
     <div class="mainView">
         <div class="mainInside">
             <form th:action="@{/project/save}" method="post" th:object="${project}" id="projectForm">
-                <div th:include="/fragments/sections/general :: general" class="section" id="general"></div>
-                <div th:include="/fragments/sections/applicant :: applicant" class="section hidden"
+                <div th:include="fragments/sections/general :: general" class="section" id="general"></div>
+                <div th:include="fragments/sections/applicant :: applicant" class="section hidden"
                      id="applicant"></div>
-                <div th:include="/fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
-                <div th:include="/fragments/sections/sustainability :: sustainability" class="section hidden"
+                <div th:include="fragments/sections/partners :: partners" class="section hidden" id="partners"></div>
+                <div th:include="fragments/sections/sustainability :: sustainability" class="section hidden"
                      id="sustainability"></div>
-                <div th:include="/fragments/sections/indicators :: indicators" class="section hidden"
+                <div th:include="fragments/sections/indicators :: indicators" class="section hidden"
                      id="inidcators"></div>
-                <div th:include="/fragments/sections/timetable :: timetable" class="section hidden"
+                <div th:include="fragments/sections/timetable :: timetable" class="section hidden"
                      id="timetable"></div>
-                <div th:include="/fragments/sections/budget :: budget" class="section hidden"
+                <div th:include="fragments/sections/budget :: budget" class="section hidden"
                      id="budget"></div>
-                <div th:include="/fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
+                <div th:include="fragments/sections/consents :: consents" class="section hidden" id="consents"></div>
             </form>
         </div>
     </div>
 
 </div>
 
-<div th:include="/fragments/userMenuFragments :: footer"></div>
+<div th:include="fragments/userMenuFragments :: footer"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script th:src="@{/js/projectView.js}"></script>
